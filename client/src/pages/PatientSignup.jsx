@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Signup() {
+function PatientSignup() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [birthDate, setBrithDate] = useState();
-  const [hospital, setHospital] = useState();
-  const [hourlyRate, setHourlyRate] = useState();
-  const [eduBackground, setEduBackground] = useState();
+  const [gender, setGender] = useState();
+  const [phone, setPhone] = useState();
+  const [emergencyName, setEmergencyName] = useState();
+  const [emergencyNo, setEmergencyNo] = useState();
+  const [emergencyRel, setEmergencyRel] = useState();
+  const [adresses, setAdresses] = useState();
 
   const navigate = useNavigate();
 
@@ -22,16 +25,19 @@ function Signup() {
     console.log(name);
     console.log(email);
     axios
-      .post(" http://localhost:9000/pharmacist", {
+      .post("http://localhost:9000/patient", {
         name,
         username,
         email,
-        type: "Pharmacist",
         password,
         birthDate,
-        hospital,
-        hourlyRate,
-        eduBackground,
+        gender,
+        type: "Patient",
+        phone,
+        emergencyName,
+        emergencyNo,
+        emergencyRel,
+        adresses,
       })
       .then((result) => {
         console.log(result);
@@ -43,7 +49,7 @@ function Signup() {
   return (
     <div className="d-flex justify-content-center align-itelms-center bg-secondary vh-100">
       <div className="bg-white p-3 rounded w-25">
-        <h2>Pharmacist Register</h2>
+        <h2>Patient Register</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
@@ -115,42 +121,84 @@ function Signup() {
 
           <div className="mb-3">
             <label htmlFor="email">
-              <strong>Hospital Name</strong>
+              <strong>Gender</strong>
             </label>
             <input
               type="text"
-              placeholder="Enter Hospital Name"
+              placeholder="Enter Gender"
               autoComplete="off"
-              name="hospital"
+              name="gender"
               className="form-control rounded-0"
-              onChange={(e) => setHospital(e.target.value)}
+              onChange={(e) => setGender(e.target.value)}
             />
           </div>
 
           <div className="mb-3">
             <label htmlFor="email">
-              <strong>Hourly Rate</strong>
+              <strong>Phone Number</strong>
             </label>
             <input
               type="text"
-              placeholder="Enter Hour Rate"
+              placeholder="Enter Phone Number"
               autoComplete="off"
-              name="hourlyRate"
+              name="phone"
               className="form-control rounded-0"
-              onChange={(e) => setHourlyRate(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="mb-3">
             <label htmlFor="email">
-              <strong>Education Background</strong>
+              <strong>Emergency Name</strong>
             </label>
             <input
               type="text"
-              placeholder="Enter Education Background"
+              placeholder="Enter Emergency Name"
               autoComplete="off"
-              name="eduBackground"
+              name="emergencyName"
               className="form-control rounded-0"
-              onChange={(e) => setEduBackground(e.target.value)}
+              onChange={(e) => setEmergencyName(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="email">
+              <strong>Emergency Phone Number</strong>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Emergency Phone Number"
+              autoComplete="off"
+              name="emergencyNo"
+              className="form-control rounded-0"
+              onChange={(e) => setEmergencyNo(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="email">
+              <strong>Emergency Relation</strong>
+            </label>
+            <input
+              type="text"
+              placeholder="EnterEmergency Relation"
+              autoComplete="off"
+              name="emergencyRel"
+              className="form-control rounded-0"
+              onChange={(e) => setEmergencyRel(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="email">
+              <strong> Address</strong>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Address"
+              autoComplete="off"
+              name="address"
+              className="form-control rounded-0"
+              onChange={(e) => setAdresses(e.target.value)}
             />
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
@@ -170,4 +218,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default PatientSignup;
