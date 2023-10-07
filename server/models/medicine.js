@@ -1,0 +1,44 @@
+import mongoose from "mongoose";
+
+const medicineSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    ingredients: {
+      type: [String],
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["Available", "Unavailable"],
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    sales: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    medicinalUse: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const MedicineModel = mongoose.model("Medicine", medicineSchema);
+export default MedicineModel;
