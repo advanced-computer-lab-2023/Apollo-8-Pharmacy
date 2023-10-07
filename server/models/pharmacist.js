@@ -33,12 +33,12 @@ const pharmacistSchema = new mongoose.Schema(
     },
     wallet: {
       type: Number,
-      required: true,
     },
     status: {
       type: String,
       enum: ["Pending", "Accepted", "Rejected"],
       required: true,
+      default: "Pending",
     },
   },
   { timestamps: true }
