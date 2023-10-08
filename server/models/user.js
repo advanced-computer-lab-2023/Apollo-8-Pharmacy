@@ -1,4 +1,3 @@
-import { Hash } from "crypto";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -12,6 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   type: {
     type: String,
+    enum: ['pharmacist','admin','patient'],
     required: true,
   },
 });

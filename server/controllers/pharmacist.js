@@ -1,7 +1,5 @@
-import PharmacistModel from "../models/pharmacist.js";
-import UserModel from "../models/user.js";
-import bcrypt from "bcrypt";
-const saltRounds = 10;
+import PharmacistModel from '../models/pharmacist.js';
+import UserModel from '../models/user.js';
 
 const createPharmacist = async (req, res) => {
   const {
@@ -49,6 +47,30 @@ const createPharmacist = async (req, res) => {
   }
 };
 
-export default {
-  createPharmacist,
+const getPharmacists = async (req, res) => {
+  try {
+    const pharmacists = await PharmacistModel.find();
+    console.log(pharmacists);
+    res.status(200).json(pharmacists);
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 };
+
+const getPharmacistById = async (req, res) => {
+  const { user } = req.body;
+  try {
+    const pharmacist = await PharmacistModel.findOne({ user });
+    if (!pharmacist) {
+      return res.status(404).json({ error: 'Doctor not found' });
+    }
+    res.status(200).json(pharmacist);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export default {
+  createPharmacist, getPharmacists, getPharmacistById
+}

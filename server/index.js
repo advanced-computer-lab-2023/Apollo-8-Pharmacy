@@ -1,10 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import "dotenv/config";
+import 'dotenv/config';
 import pharmacistRoutes from "./routes/pharmacist.js";
 import patientRoutes from "./routes/patient.js";
-
+import adminRoutes from "./routes/admin.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -12,7 +12,7 @@ app.use(cors());
 const port = process.env.PORT || 9000;
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 mongoose
   .connect(MONGO_URI)
   .then(() => {
@@ -24,6 +24,8 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+
 // routes
 app.use("/pharmacist", pharmacistRoutes);
 app.use("/patient", patientRoutes);
+app.use("/admin", adminRoutes);
