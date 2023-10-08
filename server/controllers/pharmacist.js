@@ -15,14 +15,14 @@ const createPharmacist = async (req, res) => {
     wallet,
     status,
   } = req.body;
-  const salt = await bcrypt.genSalt(saltRounds);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  // const salt = await bcrypt.genSalt(saltRounds);
+  // const hashedPassword = await bcrypt.hash(password, salt);
 
   const existingUser = await UserModel.findOne({ username });
   if (!existingUser) {
     try {
       const user = new UserModel({ username, password, type });
-      user.password = hashedPassword;
+      // user.password = hashedPassword;
       console.log(user.password);
       await user.save();
       console.log(user);
