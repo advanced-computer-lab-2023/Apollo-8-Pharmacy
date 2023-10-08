@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import PharmacistModel from '../models/pharmacist.js';
 import UserModel from '../models/user.js';
 import bcrypt from "bcrypt";
