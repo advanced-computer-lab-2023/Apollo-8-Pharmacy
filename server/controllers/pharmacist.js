@@ -60,19 +60,19 @@ const getPharmacists = async (req, res) => {
 };
 
 const getPharmacistById = async (req, res) => {
-  const { user } = req.body;
   try {
-    const pharmacist = await PharmacistModel.findOne({ user });
-    if (!pharmacist) {
-      return res.status(404).json({ error: 'Doctor not found' });
-    }
-    res.status(200).json(pharmacist);
+    const pharmacist = await PharmacistModel.findById(
+      new mongoose.Types.ObjectId(req.params.id)
+    );
+    if (!pharmacist) return res.status(404).send("Pharmacist not found");
+    res.status(200).send(pharmacist);
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(400).send(error.message);
   }
 };
 
 export default {
-  createPharmacist, getPharmacists, getPharmacistById
+  createPharmacist,
+  getPharmacists,
+  getPharmacistById
 }

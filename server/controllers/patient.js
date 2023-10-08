@@ -55,6 +55,7 @@ const createPatient = async (req, res) => {
     res.status(400).json("Username already exist");
   }
 };
+
 const getPatients = async (req, res) => {
   try {
     const patients = await PatientModel.find();
@@ -64,6 +65,21 @@ const getPatients = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 };
+
+const getPatientById = async (req, res) => {
+  try {
+    const patient = await PatientModel.findById(
+      new mongoose.Types.ObjectId(req.params.id)
+    );
+    if (!patient) return res.status(404).send("Patient not found");
+    return res.status(200).send(patient);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 export default {
-  createPatient, getPatients
+  createPatient,
+  getPatients,
+  getPatientById
 }
