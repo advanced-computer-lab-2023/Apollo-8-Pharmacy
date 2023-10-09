@@ -8,7 +8,8 @@ import PatientsList from "./pages/PatientsList";
 import PharmacistDetails from "./pages/PharmacistDetails";
 import PatientDetails from "./pages/PatientDetails";
 import EditMedicine from "./pages/EditMedicine";
-
+import AddAdmin from "./pages/AddAdmin";
+import RemoveUser from "./pages/RemoveUser";
 function App() {
   return (
     <div>
@@ -21,6 +22,8 @@ function App() {
         <Route path="/patients/:id" element={<PatientDetails />} />
         <Route path="/editMedicine" element={<EditMedicine />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/addAdministratin" element={<AddAdmin />} />
+        <Route path="/RemoveUser" element={<RemoveUser />} />
       </Routes>
     </div>
   );
