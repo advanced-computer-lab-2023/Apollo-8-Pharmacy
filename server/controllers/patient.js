@@ -1,5 +1,8 @@
+import mongoose from 'mongoose';
 import PatientModel from '../models/patient.js';
 import UserModel from '../models/user.js';
+import bcrypt from "bcrypt";
+const saltRounds = 10;
 
 const createPatient = async (req, res) => {
   const {
@@ -17,14 +20,14 @@ const createPatient = async (req, res) => {
     adresses,
     status,
   } = req.body;
-  // const salt = await bcrypt.genSalt(saltRounds);
-  // const hashedPassword = await bcrypt.hash(password, salt);
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
   const existingUser = await UserModel.findOne({ username });
   if (!existingUser) {
     try {
       const user = new UserModel({ username, password, type });
-      // user.password = hashedPassword;
+      user.password = hashedPassword;
       console.log(user.password);
       console.log(req.body);
 
@@ -53,6 +56,7 @@ const createPatient = async (req, res) => {
     res.status(400).json("Username already exist");
   }
 };
+
 const getPatients = async (req, res) => {
   try {
     const patients = await PatientModel.find();
@@ -62,6 +66,21 @@ const getPatients = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 };
+
+const getPatientById = async (req, res) => {
+  try {
+    const patient = await PatientModel.findById(
+      new mongoose.Types.ObjectId(req.params.id)
+    );
+    if (!patient) return res.status(404).send("Patient not found");
+    return res.status(200).send(patient);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 export default {
-  createPatient, getPatients
+  createPatient,
+  getPatients,
+  getPatientById
 }
