@@ -8,6 +8,9 @@ import PatientsList from "./pages/PatientsList";
 import PharmacistDetails from "./pages/PharmacistDetails";
 import PatientDetails from "./pages/PatientDetails";
 import EditMedicine from "./pages/EditMedicine";
+import AddMedicine from "./pages/AddMedicine";
+import MedicineSales from "./pages/MedicineSales";
+import MedicinesList from "./pages/MedicinesList";
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="/pharmacistDetails" element={<PharmacistDetails />} />
         <Route path="/patientDetails" element={<PatientDetails />} />
         <Route path="/editMedicine" element={<EditMedicine />} />
+        <Route path="/addMedicine" element={<AddMedicine />} />
+        <Route path="/medicineSales" element={<MedicineSales />} />
+        <Route path="/medicinesList" element={<MedicinesList />} />
         <Route path="/home" element={<Home />} />
       </Routes>
     </div>

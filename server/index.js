@@ -7,6 +7,9 @@ import patientRoutes from "./routes/patient.js";
 import adminRoutes from "./routes/admin.js";
 import medicineRoutes from "./routes/medicine.js";
 
+// const multer = require('multer');
+// const path = require('path');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
