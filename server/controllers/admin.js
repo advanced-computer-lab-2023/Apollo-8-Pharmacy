@@ -54,24 +54,23 @@ const addAdministrator = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 }
-
 const removeUser = async (req, res) => {
-  const {
-    username
-  } = req.body;
-  try {
-    const user = await UserModel.findOne({ username });
-    if (!user) {
-      res.status(404).json({ message: "The User is not found" });
+  const{
+      username
+  }= req.body;
+     try {
+      const user = await UserModel.findOne({ username });
+      if(!user){
+          res.status(404).json({message:"The User is not found"});
+      }
+      if(user.type==='Pharmacist'){
+          await PharmacistModel.deleteOne({user:user._id});
+      }
+      else if(user.type==='Patient'){
+        await PatientModel.deleteOne({user:user._id});
     }
-    if (user.type == 'patient') {
-      await PatientModel.deleteOne({ user: user._id });
-    }
-    else if (user.type == 'pharmacist') {
-      await PharmacistModel.deleteOne({ user: user._id });
-    }
-    await UserModel.deleteOne({ username });
-    res.status(200).json({ message: "The User removed successfully" });
+      await UserModel.deleteOne({username});
+      res.status(200).json({message:"The User removed successfully"});
   } catch (error) {
     res.status(404).json({ error: error.message })
   }
