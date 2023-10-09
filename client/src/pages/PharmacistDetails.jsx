@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function PharmacistDetails() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const apiUrl = "http://localhost:9000/pharmacist/" + id;
@@ -20,6 +22,10 @@ function PharmacistDetails() {
         setLoading(false);
       });
   }, []);
+  const handleBack = () => {
+    // Use the navigate function to go to the specified route
+    navigate("/pharmacistsListPending");
+  };
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
@@ -43,6 +49,12 @@ function PharmacistDetails() {
             </ul>
           )}
         </div>
+        <button
+          className="btn btn-success position-absolute bottom-0 end-0 m-3 btn-lg"
+          onClick={handleBack}
+        >
+          Back
+        </button>
       </div>
     </div>
   );
