@@ -1,6 +1,20 @@
 import mongoose from 'mongoose';
 import MedicineModel from '../models/medicine.js';
+// const multer = require('multer');
+// const path = require('path');
 
+// const storage = multer.diskStorage({
+//   destination: (req, file , cb) => {
+//     cb(null, 'public/images')
+//   }, 
+//   filename: (req, file, cb) => {
+//     cb(null, file.filename + "_" + Date.now() + path.extname(file.originalname))
+//   }
+// })
+
+// const upload = multer({
+//   storage:storage
+// })
 
 // add a new medicine with all the details 
 const addMedicine = async (req, res) => {
@@ -10,7 +24,7 @@ const addMedicine = async (req, res) => {
           medicineName,
           price,
           quantity,
-          ingredients,
+          ingredients,  
           medicineStatus,
           description,
           sales,
