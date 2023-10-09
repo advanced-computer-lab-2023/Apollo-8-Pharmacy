@@ -108,7 +108,7 @@ const listMedicines = async (req, res) => {
             ingredients: item.ingredients,
             description: item.description,
             medicineStatus: item.medicineStatus,
-            medicalUse: item.medicalUse,
+            medicinalUse: item.medicinalUse,
             quantity: item.quantity,
             path: item.path
           };
