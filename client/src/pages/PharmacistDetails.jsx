@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function PharmacistDetails() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
-  const pharmacistId = location.state.pharmacistId;
+  const { id } = useParams();
 
   useEffect(() => {
-    const apiUrl = "http://localhost:9000/pharmacist/" + pharmacistId;
+    const apiUrl = "http://localhost:9000/pharmacist/" + id;
     axios
       .get(apiUrl)
       .then((response) => {

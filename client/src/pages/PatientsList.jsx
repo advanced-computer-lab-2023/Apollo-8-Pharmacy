@@ -23,7 +23,7 @@ function PatientsList() {
 
   function handleView(id) {
     // Navigate to another route and pass the ID as a prop
-    navigate("/patientDetails", { state: { patientId: id } });
+    navigate(`/patients/${id}`);
   }
 
   return (

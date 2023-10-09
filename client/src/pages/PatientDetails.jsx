@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function PatientDetails() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
-  const patientId = location.state.patientId;
+  const { id } = useParams();
 
   useEffect(() => {
-    const apiUrl = "http://localhost:9000/patient/" + patientId;
+    const apiUrl = "http://localhost:9000/patient/" + id;
     axios
       .get(apiUrl)
       .then((response) => {
