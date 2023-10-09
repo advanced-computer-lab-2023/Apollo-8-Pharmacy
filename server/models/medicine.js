@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const medicineSchema = new mongoose.Schema(
   {
-    name: {
+    medicineName: {
       type: String,
       required: true,
     },
@@ -18,7 +18,7 @@ const medicineSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    status: {
+    medicineStatus: {
       type: String,
       enum: ["Available", "Unavailable"],
       required: true,
@@ -33,6 +33,10 @@ const medicineSchema = new mongoose.Schema(
       default: 0,
     },
     medicinalUse: {
+      type: String,
+      required: true,
+    },
+    path: {
       type: String,
       required: true,
     },
