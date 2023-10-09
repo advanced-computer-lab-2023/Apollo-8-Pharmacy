@@ -71,9 +71,41 @@ const getPharmacistById = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+const acceptPharmacist = async (req, res) => {
+  try {
+    const pharmacist = await PharmacistModel.findByIdAndUpdate(
+      req.params.id,
+      { status: 'Accepted' },
+      { new: true }
+    );
+    if (!pharmacist) {
+      return res.status(404).json({ error: 'Pharmacist not found' });
+    }
+    res.status(200).json(pharmacist);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};const rejectPharmacist = async (req, res) => {
+  try {
+    const pharmacist = await PharmacistModel.findByIdAndUpdate(
+      req.params.id,
+      { status: 'Rejected' },
+      { new: true }
+    );
+    if (!pharmacist) {
+      return res.status(404).json({ error: 'Pharmacist not found' });
+    }
+    res.status(200).json(pharmacist);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+   
 
 export default {
   createPharmacist,
   getPharmacists,
-  getPharmacistById
+  getPharmacistById,
+  acceptPharmacist,
+  rejectPharmacist
 }

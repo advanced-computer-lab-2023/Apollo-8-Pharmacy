@@ -7,5 +7,6 @@ const router = express.Router();
 router.post("/", controllers.createPharmacist);
 router.get("/", controllers.getPharmacists);
 router.get("/:id", controllers.getPharmacistById);
-
+router.put("/accept/:id",controllers.acceptPharmacist);
+router.put("/reject/:id",controllers.rejectPharmacist);
 export default router;
