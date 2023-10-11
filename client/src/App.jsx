@@ -13,6 +13,7 @@ import MedicineSales from "./pages/MedicineSales";
 import MedicinesList from "./pages/MedicinesList";
 import AddAdmin from "./pages/AddAdmin";
 import RemoveUser from "./pages/RemoveUser";
+import PharmacistsListPending from "./pages/PharmacistsListPending";
 function App() {
   return (
     <div>
@@ -29,7 +30,8 @@ function App() {
         <Route path="/medicinesList" element={<MedicinesList />} />
         <Route path="/home" element={<Home />} />
         <Route path="/addAdministratin" element={<AddAdmin />} />
-        <Route path="/RemoveUser" element={<RemoveUser />} />
+        <Route path="/removeUser" element={<RemoveUser />} />
+        <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
       </Routes>
     </div>
   );
