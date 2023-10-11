@@ -29,6 +29,15 @@ function PharmacistDetails() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
+                      <div style={{marginLeft:"-15%"}} className="sidebar">
+      <ul>
+        <h2 style={{fontWeight:"bolder"}}>Admin Page</h2>
+        <li style={{margin:"20px"}}><a href="/addAdministratin">Add Admin</a></li>
+        <li style={{margin:"20px"}}><a href="/removeUser">Remove User</a></li>
+        <li style={{margin:"20px"}}><a href="/pharmacists">List of Pharmacist</a></li>
+        <li style={{margin:"20px"}}><a href="/pharmacistsListPending">List of Pharmacist Pending</a></li>
+      </ul>
+    </div>
       <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Pharmacist Details</h2>

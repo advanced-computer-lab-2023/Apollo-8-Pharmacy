@@ -47,8 +47,12 @@ function MedicineSales() {
   }
 
   return (
-    <div>
+    
+    <div style={{}}>
+
       <Container>
+  
+        
         <h1 className="text-center mt-4">List of Medicines</h1>
         <Form>
           <InputGroup className="my-3">

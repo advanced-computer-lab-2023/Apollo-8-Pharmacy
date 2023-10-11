@@ -27,8 +27,17 @@ function AddAdmin() {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-      <div className="bg-white p-3 rounded w-25 min-height-50">
+    <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
+                      <div style={{marginLeft:"-15%"}} className="sidebar">
+      <ul>
+        <h2 style={{fontWeight:"bolder"}}>Admin Page</h2>
+        <li style={{margin:"20px"}}><a href="/addAdministratin">Add Admin</a></li>
+        <li style={{margin:"20px"}}><a href="/removeUser">Remove User</a></li>
+        <li style={{margin:"20px"}}><a href="/pharmacists">List of Pharmacist</a></li>
+        <li style={{margin:"20px"}}><a href="/pharmacistsListPending">List of Pharmacist Pending</a></li>
+      </ul>
+    </div>
+    <div className="card m-3 col-12" style={{ width: "80%" }}>
         <h2>add Administrator</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">

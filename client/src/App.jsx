@@ -32,6 +32,7 @@ function App() {
         <Route path="/addAdministratin" element={<AddAdmin />} />
         <Route path="/removeUser" element={<RemoveUser />} />
         <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
+
       </Routes>
     </div>
   );
