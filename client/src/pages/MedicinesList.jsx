@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./SidebarPharmacist";
 
 function MedicineSales() {
   const [data, setData] = useState([]);
@@ -47,12 +48,12 @@ function MedicineSales() {
   }
 
   return (
-    
-    <div style={{}}>
+    <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
+      <Sidebar />
 
-      <Container>
-  
-        
+      <div className="card m-3 col-12" style={{ width: "80%" }}>
+
+
         <h1 className="text-center mt-4">List of Medicines</h1>
         <Form>
           <InputGroup className="my-3">
@@ -114,8 +115,10 @@ function MedicineSales() {
                 </tr>
               ))}
           </tbody>
+
         </Table>
-      </Container>
+      </div>
+
     </div>
   );
 }
