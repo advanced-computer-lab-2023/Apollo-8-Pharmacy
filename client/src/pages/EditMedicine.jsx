@@ -1,19 +1,20 @@
-// THIS IS NOT WORKING CORRECTLY
-
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function EditMedicine() {
-  const [details, setDetails] = useState();
+  const [description, setDescription] = useState();
   const [price, setPrice] = useState();
+  const { id } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const apiUrl = `http://localhost:9000/medicine/${id}`;
     axios
-      .post("http://localhost:9000/medicine", {
-        details,
+      .put(apiUrl, {
+        description,
         price,
       })
       .then((result) => {
@@ -40,7 +41,7 @@ function EditMedicine() {
                 autoComplete="off"
                 name="details"
                 className="form-control rounded-0"
-                onChange={(e) => setDetails(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
