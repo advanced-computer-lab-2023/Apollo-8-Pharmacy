@@ -25,7 +25,16 @@ function EditMedicine() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <div className="card m-3 col-12" style={{ width: "50%" }}>
+      <div style={{ marginLeft: "-15%" }} className="sidebar">
+        <ul>
+          <h2 style={{ fontWeight: "bolder" }}>Pharmacist Page</h2>
+          <li style={{ margin: "20px" }}><a href="/medicinesList">Medicine List</a></li>
+          <li style={{ margin: "20px" }}><a href="/addMedicine">Add Medicine</a></li>
+          <li style={{ margin: "20px" }}><a href="/medicinesList">Edit Medicine</a></li>
+          <li style={{ margin: "20px" }}><a href="/medicineSales">Medicine Sales</a></li>
+        </ul>
+      </div>
+      <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Edit Medicine</h2>
         </div>
