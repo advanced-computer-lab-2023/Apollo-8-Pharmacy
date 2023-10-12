@@ -25,7 +25,6 @@ function MedicineSales() {
       });
   }, []);
 
-
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
       <Sidebar />
@@ -63,6 +62,7 @@ function MedicineSales() {
                   <td>{item.medicineName}</td>
                   <td>{item.quantity}</td>
                   <td>{item.sales}</td>
+
                 </tr>
               ))}
           </tbody>
