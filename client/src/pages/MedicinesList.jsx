@@ -54,7 +54,7 @@ function MedicineSales() {
           <InputGroup className="my-3">
             <Form.Control
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search contacts"
+              placeholder="Search Medicines"
             />
           </InputGroup>
           <InputGroup className="my-3">
@@ -98,7 +98,7 @@ function MedicineSales() {
                   <td>{item.medicineStatus}</td>
                   <td>{item.medicinalUse}</td>
                   <td>{item.quantity}</td>
-                  <td>{item.path}</td>
+                  <td><img src={item.path} alt="Medicine Image" /></td>
                   <td>
                     <button
                       className="btn btn-success"

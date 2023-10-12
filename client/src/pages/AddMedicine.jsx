@@ -8,19 +8,16 @@ function AddMedicine() {
     const [medicineName, setMedicineName] = useState();
     const [price, setPrice] = useState();
     const [quantity, setQuantity] = useState();
-    const [ingredientsString, setIngredientsString] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [description, setDescription] = useState();
     const [medicineStatus, setMedicineStatus] = useState();
     const [medicinalUse, setMedicinalUse] = useState();
     const [path, setPath] = useState();
     const [message, setMessage] = useState("");
-    //const [image, setImage] = useState();
 
     // to handle the addition of medicine in the DB
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIngredients(ingredientsString.split(','));
         axios
             .post("http://localhost:9000/medicine/addMedicine", {
                 medicineName,
@@ -40,9 +37,21 @@ function AddMedicine() {
             })
             .catch((err) => {
                 setMessage("Failed to add medicine. Please try again.");
+                console.log(err);
                 console.error(err);
             });
     };
+
+    function convertToBase64(e) {
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            setPath(reader.result);
+        };
+        reader.onerror = error => {
+            console.log("Error: " , error );
+        };
+    }
 
 
     const clearForm = () => {
@@ -50,7 +59,6 @@ function AddMedicine() {
         setMedicineName("");
         setPrice("");
         setQuantity("");
-        setIngredientsString("");
         setIngredients([]);
         setDescription("");
         setMedicineStatus("");
@@ -72,7 +80,7 @@ function AddMedicine() {
                             {message}
                         </div>
                     )}
-                    <form action="" onSubmit={handleSubmit}>
+                    <form action="" onSubmit={handleSubmit} >
                         <div className="mb-3">
                             <label htmlFor="medicineName">
                                 <strong>Name</strong>
@@ -137,11 +145,11 @@ function AddMedicine() {
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter the active ingredients separated by commas"
+                                placeholder="Enter the active ingredients"
                                 autoComplete="off"
                                 name="ingredients"
                                 className="form-control rounded-0"
-                                onChange={(e) => setIngredientsString(e.target.value)}
+                                onChange={(e) => setIngredients(e.target.value)}
                             />
                         </div>
 
@@ -179,9 +187,9 @@ function AddMedicine() {
 
 
                         {/* THIS PART IS TO CHOOSE AN IMAGE BUT WE WILL USE A STRING UNTIL WE FIGURE IT OUT  */}
-                        {/* <div className="mb-3">
-                        <label class="form-label" for="customFile">
-                            <strong>Medicine Image</strong></label>
+                        <div className="mb-3">
+                            <label class="form-label" for="customFile">
+                                <strong>Medicine Image</strong></label>
                             <input
                                 type="file"
                                 placeholder="Choose file"
@@ -189,22 +197,7 @@ function AddMedicine() {
                                 name="path"
                                 className="form-control rounded-0"
                                 id="customFile"
-                                onChange={(e) => setImage(e.target.value)}
-                            />
-                        </div> */}
-
-
-                        <div className="mb-3">
-                            <label htmlFor="path">
-                                <strong>Image</strong>
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="image path"
-                                autoComplete="off"
-                                name="image"
-                                className="form-control rounded-0"
-                                onChange={(e) => setPath(e.target.value)}
+                                onChange={convertToBase64}
                             />
                         </div>
 

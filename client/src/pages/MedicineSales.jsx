@@ -35,7 +35,7 @@ function MedicineSales() {
                 {/* onChange for search */}
                 <Form.Control
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder='Search contacts'
+                  placeholder='Search Medicines'
                 />
               </InputGroup>
             </Form>

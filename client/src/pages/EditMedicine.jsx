@@ -6,7 +6,9 @@ import { useParams } from "react-router-dom";
 
 function EditMedicine() {
   const [description, setDescription] = useState();
+  const [ingredients, setIngredients] = useState();
   const [price, setPrice] = useState();
+  
   const { id } = useParams();
 
   const handleSubmit = (e) => {
@@ -15,6 +17,7 @@ function EditMedicine() {
     axios
       .put(apiUrl, {
         description,
+        ingredients, 
         price,
       })
       .then((result) => {
@@ -33,13 +36,27 @@ function EditMedicine() {
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="details">
-                <strong>details</strong>
+                <strong>Details (Active ingredients)</strong>
               </label>
               <input
                 type="text"
                 placeholder="Enter details"
                 autoComplete="off"
                 name="details"
+                className="form-control rounded-0"
+                onChange={(e) => setIngredients(e.target.value)}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="description">
+                <strong>Description</strong>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter description"
+                autoComplete="off"
+                name="description"
                 className="form-control rounded-0"
                 onChange={(e) => setDescription(e.target.value)}
               />

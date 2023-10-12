@@ -1,20 +1,4 @@
-import mongoose from 'mongoose';
 import MedicineModel from '../models/medicine.js';
-// const multer = require('multer');
-// const path = require('path');
-
-// const storage = multer.diskStorage({
-//   destination: (req, file , cb) => {
-//     cb(null, 'public/images')
-//   }, 
-//   filename: (req, file, cb) => {
-//     cb(null, file.filename + "_" + Date.now() + path.extname(file.originalname))
-//   }
-// })
-
-// const upload = multer({
-//   storage:storage
-// })
 
 // add a new medicine with all the details 
 const addMedicine = async (req, res) => {
@@ -29,8 +13,9 @@ const addMedicine = async (req, res) => {
       description,
       sales,
       medicinalUse,
-      path,
+      path
     } = req.body;
+    
 
     const medicine = new MedicineModel({
       medicineName,
@@ -67,10 +52,11 @@ const searchByName = async (req, res) => {
 const updateMedicine = async (req, res) => {
   const {
     description,
+    ingredients,
     price,
   } = req.body;
   try {
-    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description, price } }, { new: true });
+    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description,ingredients, price } }, { new: true });
     res.status(200).json(medicine);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -81,7 +67,9 @@ const updateMedicine = async (req, res) => {
 const filterMedicine = async (req, res) => {
   try {
     const { medicinalUse } = req.query;
-    const medicines = await MedicineModel.find({ medicinalUse })
+
+    const medicines = await MedicineModel.find({medicinalUse: { $regex: medicinalUse, $options: 'i' }});
+    
     if (!medicines) return res.status(200).send({ message: "No medicine found" });
     return res.status(200).send(medicines);
   } catch (error) {
