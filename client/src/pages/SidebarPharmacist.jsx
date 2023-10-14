@@ -8,9 +8,8 @@ function SidebarPharmacist() {
             <ul>
                 <h2 style={{ fontWeight: "bolder" }}>Pharmacist Page</h2>
                 <li style={{ margin: "20px" }}><a href="/Home">Home</a></li>
-                <li style={{ margin: "20px" }}><a href="/medicinesList">Medicine List</a></li>
+                <li style={{ margin: "20px" }}><a href="/medicinesListPharmacist">Medicine List</a></li>
                 <li style={{ margin: "20px" }}><a href="/addMedicine">Add Medicine</a></li>
-                <li style={{ margin: "20px" }}><a href="medicinesList/:id">Edit Medicine</a></li>
                 <li style={{ margin: "20px" }}><a href="/medicineSales">Medicine Sales</a></li>
             </ul>
         </div>
