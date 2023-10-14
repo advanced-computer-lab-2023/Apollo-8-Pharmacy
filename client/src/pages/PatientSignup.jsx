@@ -41,7 +41,7 @@ function PatientSignup() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/login");
+        navigate("/medicinesListPatient");
       })
       .catch((err) => console.log(err));
   };
