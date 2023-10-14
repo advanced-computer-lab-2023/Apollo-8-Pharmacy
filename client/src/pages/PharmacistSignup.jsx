@@ -35,7 +35,7 @@ function PharmacistSignup() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/medicinesList");
+        navigate("/medicinesListPharmacist");
       })
       .catch((err) => console.log(err));
   };
