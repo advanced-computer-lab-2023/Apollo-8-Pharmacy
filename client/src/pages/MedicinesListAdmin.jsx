@@ -2,14 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./SidebarPharmacist";
+import SidebarAdministrator from "./SidebarAdministrator";
 
-function MedicineSales() {
+function MedicinesListAdmin() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [medicinalUse, setMedicinalUse] = useState("");
@@ -49,7 +48,7 @@ function MedicineSales() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <Sidebar />
+      <SidebarAdministrator />
 
       <div className="card m-3 col-12" style={{ width: "80%" }}>
 
@@ -84,7 +83,6 @@ function MedicineSales() {
               <th>Use</th>
               <th>Quantity</th>
               <th>Image</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -104,14 +102,6 @@ function MedicineSales() {
                   <td>{item.medicinalUse}</td>
                   <td>{item.quantity}</td>
                   <td><img src={item.path} alt="Medicine Image" /></td>
-                  <td>
-                    <button
-                      className="btn btn-success"
-                      onClick={() => handleEdit(item._id)}
-                    >
-                      Edit
-                    </button>
-                  </td>
                 </tr>
               ))}
           </tbody>
@@ -123,4 +113,4 @@ function MedicineSales() {
   );
 }
 
-export default MedicineSales;
+export default MedicinesListAdmin;

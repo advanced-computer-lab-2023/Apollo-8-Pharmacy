@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import "../App.css";
-import Sidebar from "./SidebarPharmacist"
+import SidebarPharmacist from "./SidebarPharmacist";
 
 
 function AddMedicine() {
@@ -72,7 +72,7 @@ function AddMedicine() {
 
     return (
         <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-            <Sidebar />
+            <SidebarPharmacist />
             <div className="card m-3 col-12" style={{ width: "80%" }}>
                 <div className="card-header">
                     <h2>Add Medicine</h2>

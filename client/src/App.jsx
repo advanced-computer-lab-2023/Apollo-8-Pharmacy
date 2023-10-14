@@ -10,10 +10,12 @@ import PatientDetails from "./pages/PatientDetails";
 import EditMedicine from "./pages/EditMedicine";
 import AddMedicine from "./pages/AddMedicine";
 import MedicineSales from "./pages/MedicineSales";
-import MedicinesList from "./pages/MedicinesList";
 import AddAdmin from "./pages/AddAdmin";
 import RemoveUser from "./pages/RemoveUser";
 import PharmacistsListPending from "./pages/PharmacistsListPending";
+import MedicinesListPharmacist from "./pages/MedicinesListPharmacist";
+import MedicinesListPatient from "./pages/MedicinesListPatient";
+import MedicinesListAdmin from "./pages/MedicinesListAdmin";
 function App() {
   return (
     <div>
@@ -27,9 +29,11 @@ function App() {
         <Route path="/medicinesList/:id" element={<EditMedicine />} />
         <Route path="/addMedicine" element={<AddMedicine />} />
         <Route path="/medicineSales" element={<MedicineSales />} />
-        <Route path="/medicinesList" element={<MedicinesList />} />
+        <Route path="/medicinesListPharmacist" element={<MedicinesListPharmacist />} />
+        <Route path="/medicinesListPatient" element={<MedicinesListPatient />} />
+        <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/addAdministratin" element={<AddAdmin />} />
+        <Route path="/addAdmin" element={<AddAdmin />} />
         <Route path="/removeUser" element={<RemoveUser />} />
         <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
 

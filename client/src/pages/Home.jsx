@@ -14,6 +14,15 @@ function Home() {
   const handlePatientSignup = () => {
     navigate("/registerPatient");
   };
+  const handlePatientLogin = () => {
+    navigate("/medicinesListPatient");
+  };
+  const handlePharmacistLogin = () => {
+    navigate("/medicinesListPharmacist");
+  };
+  const handleAdminLogin = () => {
+    navigate("/medicinesListAdmin");
+  };
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
@@ -25,11 +34,11 @@ function Home() {
          <div><button className="btn btn-success m-3 btn-lg"
           onClick={handlePatientSignup}>PatientSignup</button></div>
          <div><button className="btn btn-success m-3 btn-lg"
-         >AdminLogin</button></div>
+          onClick={handleAdminLogin}>AdminLogin</button></div>
          <div><button className="btn btn-success m-3 btn-lg"
-          >PatientLogin</button></div>
+          onClick={handlePatientLogin}>PatientLogin</button></div>
          <div><button className="btn btn-success m-3 btn-lg"
-          >PharmacistLogin</button></div>
+          onClick={handlePharmacistLogin}>PharmacistLogin</button></div>
          
 
 </body>

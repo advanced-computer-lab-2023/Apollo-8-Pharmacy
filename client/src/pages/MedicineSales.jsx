@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Sidebar from "./SidebarPharmacist";
+import SidebarPharmacist from "./SidebarPharmacist";
 
 function MedicineSales() {
   const [data, setData] = useState([]);
@@ -27,7 +28,7 @@ function MedicineSales() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <Sidebar />
+      <SidebarPharmacist />
 
       <div className="card m-3 col-12" style={{ width: "80%" }}>
 
