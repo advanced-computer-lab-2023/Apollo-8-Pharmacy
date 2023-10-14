@@ -1,12 +1,13 @@
 import React from "react";
 import "../App.css"
 
-function Sidebar() {
+function SidebarPharmacist() {
 
     return (
         <div className="sidebar" style={{ marginLeft: "-15%" }}>
             <ul>
                 <h2 style={{ fontWeight: "bolder" }}>Pharmacist Page</h2>
+                <li style={{ margin: "20px" }}><a href="/Home">Home</a></li>
                 <li style={{ margin: "20px" }}><a href="/medicinesList">Medicine List</a></li>
                 <li style={{ margin: "20px" }}><a href="/addMedicine">Add Medicine</a></li>
                 <li style={{ margin: "20px" }}><a href="medicinesList/:id">Edit Medicine</a></li>
@@ -16,4 +17,4 @@ function Sidebar() {
     )
 }
 
-export default Sidebar;
+export default SidebarPharmacist;

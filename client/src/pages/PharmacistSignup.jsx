@@ -35,7 +35,7 @@ function PharmacistSignup() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/login");
+        navigate("/medicinesList");
       })
       .catch((err) => console.log(err));
   };
@@ -160,7 +160,7 @@ function PharmacistSignup() {
 
         <p> Already Have an Account</p>
         <Link
-          to="/login"
+          to="/home"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration"
         >
           Login

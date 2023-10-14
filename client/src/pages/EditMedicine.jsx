@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import SidebarPharmacist from "./SidebarPharmacist";
+
 
 function EditMedicine() {
   const [description, setDescription] = useState();
@@ -28,15 +30,7 @@ function EditMedicine() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <div style={{ marginLeft: "-15%" }} className="sidebar">
-        <ul>
-          <h2 style={{ fontWeight: "bolder" }}>Pharmacist Page</h2>
-          <li style={{ margin: "20px" }}><a href="/medicinesList">Medicine List</a></li>
-          <li style={{ margin: "20px" }}><a href="/addMedicine">Add Medicine</a></li>
-          <li style={{ margin: "20px" }}><a href="/medicinesList">Edit Medicine</a></li>
-          <li style={{ margin: "20px" }}><a href="/medicineSales">Medicine Sales</a></li>
-        </ul>
-      </div>
+      <SidebarPharmacist/>
       <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Edit Medicine</h2>

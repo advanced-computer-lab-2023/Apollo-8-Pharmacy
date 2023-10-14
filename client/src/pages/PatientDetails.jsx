@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import SidebarAdministrator from "./SidebarAdministrator";
 
 function PatientDetails() {
   const [data, setData] = useState();
@@ -23,17 +24,7 @@ function PatientDetails() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <div style={{ marginLeft: "-15%" }} className="sidebar">
-        <ul>
-          <h2 style={{ fontWeight: "bolder" }}>Admin Page</h2>
-          <li style={{ margin: "20px" }}><a href="/addAdministratin">Add Admin</a></li>
-          <li style={{ margin: "20px" }}><a href="/removeUser">Remove User</a></li>
-          <li style={{ margin: "20px" }}><a href="/pharmacists">List of Pharmacist</a></li>
-          <li style={{ margin: "20px" }}><a href="/pharmacistsListPending">List of Pharmacist Pending</a></li>
-          <li style={{ margin: "20px" }}><a href="/patients">Patient List</a></li>
-
-        </ul>
-      </div>
+      <SidebarAdministrator/>
       <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Patient Details</h2>
