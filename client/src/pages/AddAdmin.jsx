@@ -16,14 +16,12 @@ function AddAdmin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/admin/addAdministrator", {
+      .post("http://localhost:9000/admin/addAdministrator", {
         username,
         password,
-        type: "Admin",
       })
       .then((result) => {
         console.log(result);
-        navigate("/login");
       })
       .catch((err) => console.log(err));
   };
