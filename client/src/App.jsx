@@ -32,7 +32,7 @@ function App() {
         <Route path="/medicinesListPharmacist" element={<MedicinesListPharmacist />} />
         <Route path="/medicinesListPatient" element={<MedicinesListPatient />} />
         <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/addAdmin" element={<AddAdmin />} />
         <Route path="/removeUser" element={<RemoveUser />} />
         <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
