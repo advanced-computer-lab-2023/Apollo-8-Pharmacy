@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import SidebarPatient from "./SidebarPatient";
+import SidebarAdministrator from "./SidebarAdministrator";
 
 function PharmacistDetails() {
   const [data, setData] = useState();
@@ -30,7 +30,7 @@ function PharmacistDetails() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <SidebarPatient/>
+      <SidebarAdministrator />
       <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Pharmacist Details</h2>

@@ -13,7 +13,10 @@ function PharmacistsListPending() {
     axios
       .get(apiUrl)
       .then((response) => {
-        setData(response.data);
+        const pendingPharmacists = response.data.filter(
+          (pharmacist) => pharmacist.status === "Pending"
+        );
+        setData(pendingPharmacists);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,7 +31,9 @@ function PharmacistsListPending() {
   }
   const handleAccept = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:9000/pharmacist/accept/${id}`);
+      const response = await axios.put(
+        `http://localhost:9000/pharmacist/accept/${id}`
+      );
       setData((prevData) =>
         prevData.map((item) =>
           item._id === id ? { ...item, status: response.data.status } : item
@@ -40,7 +45,9 @@ function PharmacistsListPending() {
   };
   const handleReject = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:9000/pharmacist/reject/${id}`);
+      const response = await axios.put(
+        `http://localhost:9000/pharmacist/reject/${id}`
+      );
       setData((prevData) =>
         prevData.map((item) =>
           item._id === id ? { ...item, status: response.data.status } : item
@@ -53,7 +60,7 @@ function PharmacistsListPending() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <SidebarAdministrator/>
+      <SidebarAdministrator />
       <div className="card m-3 col-12" style={{ width: "80%" }}>
         <div className="card-header">
           <h2>Pharmacists</h2>
