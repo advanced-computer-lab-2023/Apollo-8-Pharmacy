@@ -7,7 +7,7 @@ function SidebarAdministrator() {
         <div className="sidebar" style={{ marginLeft: "-15%" }}>
             <ul>
                 <h2 style={{ fontWeight: "bolder" }}>Admin Page</h2>
-                <li style={{ margin: "20px" }}><a href="/Home">Home</a></li>
+                <li style={{ margin: "20px" }}><a href="/">Home</a></li>
                 <li style={{ margin: "20px" }}><a href="/addAdmin">Add Admin</a></li>
                 <li style={{ margin: "20px" }}><a href="/medicinesListAdmin">Medicine List</a></li>
                 <li style={{ margin: "20px" }}><a href="/removeUser">Remove User</a></li>

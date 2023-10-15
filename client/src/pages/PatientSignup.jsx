@@ -208,7 +208,7 @@ function PatientSignup() {
 
         <p> Already Have an Account</p>
         <Link
-          to="/home"
+          to="/"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration"
         >
           Login
