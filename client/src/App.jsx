@@ -15,7 +15,9 @@ import RemoveUser from "./pages/RemoveUser";
 import PharmacistsListPending from "./pages/PharmacistsListPending";
 import MedicinesListPharmacist from "./pages/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/MedicinesListPatient";
+import HomePage from "./pages/HomePage";
 import MedicinesListAdmin from "./pages/MedicinesListAdmin";
+import Cart from "./pages/cart"
 function App() {
   return (
     <div>
@@ -35,7 +37,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/addAdmin" element={<AddAdmin />} />
         <Route path="/removeUser" element={<RemoveUser />} />
-        <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
+        <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/cart" element={<Cart />} />
+
 
       </Routes>
     </div>
