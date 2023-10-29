@@ -30,7 +30,7 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import HomeIcon from '@mui/icons-material/Home';
 import Stack from '@mui/material/Stack';
 
-const pages = ['Home', 'My Cart', 'My Orders'];
+const pages = ['Home', 'Medicine', 'My Cart', 'My Orders'];
 
 function ResponsiveAppBar() {
     const navigate = useNavigate();
@@ -46,7 +46,8 @@ function ResponsiveAppBar() {
     };
 
     const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
+        //   navigate("/cart");
+        setAnchorElNav();
     };
 
     const handleCloseUserMenu = () => {
@@ -136,6 +137,7 @@ function ResponsiveAppBar() {
                         {pages.map((page) => (
                             <Button
                                 key={page}
+
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >

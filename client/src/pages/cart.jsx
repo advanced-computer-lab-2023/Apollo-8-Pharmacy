@@ -52,12 +52,24 @@ function cart() {
 
 
     return (
-        <div style={{ marginRight: "-5%", marginLeft: "-5%" }} >
-            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", }}>
+        <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
+            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
 
                 <ResponsiveAppBar />
-                <Card1 />
+                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
+                    <Card1 />
+                    <Card1 />
+                    <Card1 />
+                    <Card1 />
 
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
+                    <Card1 />
+                    <Card1 />
+                    <Card1 />
+                    <Card1 />
+
+                </div>
 
 
 

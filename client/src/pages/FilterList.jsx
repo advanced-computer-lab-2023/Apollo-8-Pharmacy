@@ -39,7 +39,7 @@ import ResponsiveAppBar from './TopBar';
 function filterList() {
     return (
 
-        <Box style={{ backgroundColor: "rgb(0,140,990", color: "black", }} sx={{ width: '100%', maxWidth: 360, bgcolor: 'white' }}>
+        <Box style={{ backgroundColor: "rgb(0,140,990", color: "black", marginBottom: '3%' }} sx={{ width: '100%', maxWidth: 360, bgcolor: 'white' }}>
             <nav aria-label="main mailbox folders">
                 <List style={{}}>
                     <ListItem style={{ color: "white" }} disablePadding>
@@ -84,7 +84,65 @@ function filterList() {
                         </ListItemButton>
 
                     </ListItem>
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 2" />
+                        </ListItemButton>
 
+                    </ListItem>
+
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 3" />
+                        </ListItemButton>
+
+                    </ListItem>
+
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 4" />
+                        </ListItemButton>
+
+                    </ListItem>
+
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 5" />
+                        </ListItemButton>
+
+                    </ListItem>
+
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 6" />
+                        </ListItemButton>
+
+                    </ListItem>
+
+                    <ListItem disablePadding style={{ color: "white" }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <VaccinesIcon sx={{ color: 'white' }} />
+                            </ListItemIcon>
+                            <ListItemText primary="Filter 7" />
+                        </ListItemButton>
+
+                    </ListItem>
 
                 </List>
             </nav>

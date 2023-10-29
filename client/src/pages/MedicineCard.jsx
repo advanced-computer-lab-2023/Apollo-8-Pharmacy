@@ -34,7 +34,6 @@ import Stack from '@mui/material/Stack';
 import ResponsiveAppBar from './TopBar';
 import Ads from './Ads';
 import FilterList from './FilterList';
-import MedicineCard from './MedicineCard';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -46,43 +45,38 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
-function homePage() {
+
+function MedicineCard() {
 
 
     return (
-        <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
-            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto" }}>
 
-                <ResponsiveAppBar />
-
-                <Ads />
-
-                <FilterList />
-                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-42%', display: 'flex', flexWrap: 'nowrap' }}>
-                    <MedicineCard />
-                    <MedicineCard />
-                    <MedicineCard />
+        <Card sx={{ maxWidth: 345, margin: '30px' }}>
+            <img src={img2} alt="" />
 
 
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    Panadol
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Typography style={{ marginRight: '', marginBottom: '5px', fontSize: '18px' }} variant="body2" color="text.primary">
+                    Price: 35LE
+                </Typography>
+                <Button style={{ marginLeft: '50%' }} size="small">    Add                    <AddCircleIcon />
+                </Button>
+
+            </CardActions>
 
 
-                </div>
-                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-2%', display: 'flex', flexWrap: 'nowrap' }}>
-                    <MedicineCard />
-                    <MedicineCard />
-                    <MedicineCard />
+        </Card>
 
 
-
-
-                </div>
-
-
-            </AppBar>
-
-
-        </div >
 
     );
 }
-export default homePage;
+export default MedicineCard;
