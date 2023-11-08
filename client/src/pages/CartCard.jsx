@@ -46,21 +46,21 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
 
-function card() {
+function card(props) {
 
 
     return (
         <Card sx={{ maxWidth: 345, margin: '30px' }}>
-            <img src={img2} alt="" />
+            <img src={props.image} alt="" />
             <Button style={{ left: '20%', bottom: '55px', margin: '0px' }} size="small">  <HighlightOffIcon />
             </Button>
 
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Panadol
+                    {props.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.
+                    {props.info}
                 </Typography>
             </CardContent>
             <CardActions>
@@ -68,7 +68,7 @@ function card() {
                 </Button>
                 <Button size="small">Remove   <RemoveCircleIcon /></Button>
                 <Typography style={{ marginLeft: '10px' }} variant="body2" color="text.secondary">
-                    Price: 35LE x 2  =  70LE
+                    Price: {props.price} x 2  =  70LE
                 </Typography>
             </CardActions>
 

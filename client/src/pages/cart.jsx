@@ -40,16 +40,19 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import img2 from '../pictures/med1.jpeg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-
+import img1 from '../pictures/med1.jpeg'
+import img2 from '../pictures/mor.png'
+import img3 from '../pictures/asp.jpg'
 
 
 function cart() {
-
+    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
+    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
+    const price = ['35']
 
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
@@ -57,17 +60,17 @@ function cart() {
 
                 <ResponsiveAppBar />
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 />
-                    <Card1 />
-                    <Card1 />
-                    <Card1 />
+                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
+                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
+                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
+                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
 
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 />
-                    <Card1 />
-                    <Card1 />
-                    <Card1 />
+                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
+                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
+                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
+                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
 
                 </div>
 

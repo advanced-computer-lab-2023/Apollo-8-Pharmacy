@@ -46,21 +46,21 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
 
-function MedicineCard() {
+function MedicineCard(props) {
 
 
     return (
 
         <Card sx={{ maxWidth: 345, margin: '30px' }}>
-            <img src={img2} alt="" />
+            <img style={{ marginTop: '10px' }} src={props.image} alt="" />
 
 
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Panadol
+                    {props.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.
+                    {props.info}
                 </Typography>
             </CardContent>
             <CardActions>

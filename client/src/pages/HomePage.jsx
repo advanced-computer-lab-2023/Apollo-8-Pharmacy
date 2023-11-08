@@ -40,13 +40,19 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import img2 from '../pictures/med1.jpeg'
+import img1 from '../pictures/med1.jpeg'
+import img2 from '../pictures/mor.png'
+import img3 from '../pictures/asp.jpg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
+
 function homePage() {
+    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
+    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
+
 
 
     return (
@@ -59,18 +65,18 @@ function homePage() {
 
                 <FilterList />
                 <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-42%', display: 'flex', flexWrap: 'nowrap' }}>
-                    <MedicineCard />
-                    <MedicineCard />
-                    <MedicineCard />
+                    <MedicineCard name={name[0]} image={img1} info={info} />
+                    <MedicineCard name={name[1]} image={img2} info={info} />
+                    <MedicineCard name={name[2]} image={img3} info={info} />
 
 
 
 
                 </div>
                 <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-2%', display: 'flex', flexWrap: 'nowrap' }}>
-                    <MedicineCard />
-                    <MedicineCard />
-                    <MedicineCard />
+                    <MedicineCard name={name[3]} image={img3} info={info} />
+                    <MedicineCard name={name[4]} image={img3} info={info} />
+                    <MedicineCard name={name[5]} image={img3} info={info} />
 
 
 
