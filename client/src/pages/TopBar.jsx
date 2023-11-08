@@ -151,21 +151,24 @@ function ResponsiveAppBar() {
                             sx={{
                                 marginLeft: "-20%",
                                 width: 500,
-                                borderColor: "transparent",
                                 maxWidth: '100%',
-                                borderRadius: '100px'
+                                borderRadius: '100px',
+                                borderColor: 'rgba(0, 140, 990, 0.1)',
                             }}
 
                         >
 
                             <TextField placeholder='Searching for...' fullWidth id="fullWidth"
-
+                                style={{
+                                    border: 'none',
+                                    outline: 'none',
+                                }}
                             />
 
                         </Box>
 
                     </div>
-                    <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139" }} variant="contained">Search</Button>
+                    <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)" }} variant="contained">Search</Button>
 
 
 

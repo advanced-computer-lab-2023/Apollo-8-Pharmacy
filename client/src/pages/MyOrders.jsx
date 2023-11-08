@@ -48,7 +48,8 @@ import Order from './orderCard';
 import img1 from '../pictures/med1.jpeg'
 import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
-
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import BottomBar from './BottomBar';
 
 function myOrders() {
     const id = '#abcdef2023'
@@ -66,8 +67,10 @@ function myOrders() {
 
                 <ResponsiveAppBar />
 
-                <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
-                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>My Orders</h1>
+                <div style={{ backgroundColor: "rgb(0,140,990)", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
+                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>
+                        <ShoppingBasketSharpIcon fontSize='large' sx={{ color: "white", marginRight: '20px' }} />
+                        My Orders </h1>
                 </div>
 
                 <div style={{}}>
@@ -82,6 +85,7 @@ function myOrders() {
 
 
 
+                <BottomBar />
 
             </AppBar >
 

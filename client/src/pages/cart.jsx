@@ -43,10 +43,11 @@ import CardMedia from '@mui/material/CardMedia';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import img1 from '../pictures/med1.jpeg'
 import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
+import BottomBar from './BottomBar';
 
 
 function cart() {
@@ -60,7 +61,9 @@ function cart() {
 
                 <ResponsiveAppBar />
                 <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
-                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>My Cart</h1>
+                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>
+                        <ShoppingCartIcon fontSize='large' sx={{ color: "white", marginRight: '20px' }} />
+                        My Cart</h1>
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
                     <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
@@ -79,6 +82,7 @@ function cart() {
 
 
 
+                <BottomBar />
 
 
             </AppBar>

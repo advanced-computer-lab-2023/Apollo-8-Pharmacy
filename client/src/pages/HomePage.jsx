@@ -46,6 +46,7 @@ import img3 from '../pictures/asp.jpg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import BottomBar from './BottomBar';
 
 
 
@@ -82,10 +83,10 @@ function homePage() {
 
 
                 </div>
+                <BottomBar />
 
 
             </AppBar>
-
 
         </div >
 

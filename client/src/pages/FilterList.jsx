@@ -39,7 +39,7 @@ import ResponsiveAppBar from './TopBar';
 function filterList() {
     return (
 
-        <Box style={{ backgroundColor: "rgb(0,140,990", color: "black", marginBottom: '3%' }} sx={{ width: '100%', maxWidth: 360, bgcolor: 'white' }}>
+        <Box style={{ backgroundColor: "rgb(0,140,990)", color: "black", marginBottom: '3%' }} sx={{ width: '100%', maxWidth: '25%', bgcolor: 'white' }}>
             <nav aria-label="main mailbox folders">
                 <List style={{}}>
                     <ListItem style={{ color: "white" }} disablePadding>
