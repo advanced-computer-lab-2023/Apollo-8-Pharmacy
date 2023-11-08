@@ -43,37 +43,38 @@ import CardMedia from '@mui/material/CardMedia';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Order from './orderCard';
 
 import img1 from '../pictures/med1.jpeg'
 import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
 
 
-function cart() {
-    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
-    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
-    const price = ['35']
+function myOrders() {
+    const id = '#abcdef2023'
+    const status = 'pending'
+    const date = '10/10/2010'
+    const price = '1,300'
 
+    const id2 = '#20938745455'
+    const status2 = 'Cancelled'
+    const date2 = '05/12/2030'
+    const price2 = '750'
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
             <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
 
                 <ResponsiveAppBar />
+
                 <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
-                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>My Cart</h1>
+                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>My Orders</h1>
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
 
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
+                <div style={{}}>
+                    <Order id={id} status={status} date={date} price={price} />
+                    <Order id={id2} status={status2} date={date2} price={price2} />
+                    <Order id={id} status={status} date={date} price={price} />
+
 
                 </div>
 
@@ -81,11 +82,12 @@ function cart() {
 
 
 
-            </AppBar>
+
+            </AppBar >
 
 
         </div >
 
     );
 }
-export default cart;
+export default myOrders;

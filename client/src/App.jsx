@@ -18,6 +18,8 @@ import MedicinesListPatient from "./pages/MedicinesListPatient";
 import HomePage from "./pages/HomePage";
 import MedicinesListAdmin from "./pages/MedicinesListAdmin";
 import Cart from "./pages/cart"
+import MyOrders from "./pages/MyOrders";
+
 function App() {
   return (
     <div>
@@ -40,6 +42,7 @@ function App() {
         <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/myorders" element={<MyOrders />} />
 
 
       </Routes>

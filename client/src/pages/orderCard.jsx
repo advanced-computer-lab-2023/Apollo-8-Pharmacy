@@ -34,58 +34,44 @@ import Stack from '@mui/material/Stack';
 import ResponsiveAppBar from './TopBar';
 import Ads from './Ads';
 import FilterList from './FilterList';
-import Card1 from './CartCard'
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import img2 from '../pictures/med1.jpeg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-
-import img1 from '../pictures/med1.jpeg'
-import img2 from '../pictures/mor.png'
-import img3 from '../pictures/asp.jpg'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
-function cart() {
-    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
-    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
-    const price = ['35']
+
+function order(props) {
 
     return (
-        <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
-            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
+        <div style={{ backgroundColor: "white", borderRadius: '20px', margin: '30px', width: '70%', height: '50px' }}>
+            <h3 style={{ font: "Arial", fontWeight: 'bold', color: "black", margin: "10px", display: 'flex', justifyContent: 'space-between', marginLeft: '40px' }}>  {props.id}   <h4 style={{ justifyContent: 'space-between' }}>  {props.status} </h4> <h4 style={{ justifyContent: 'space-between' }}>{props.date} </h4>  <h4 style={{ justifyContent: 'space-between', marginRight: '40px' }}>{props.price}LE </h4>
+                <IconButton >
 
-                <ResponsiveAppBar />
-                <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
-                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>My Cart</h1>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
+                    <ArrowForwardIcon size="large"
+                        style={{ marginTop: '5px' }}
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
 
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
+                        color="inherit" />                              </IconButton>
+            </h3>
+            {/* if ({props.status == "pending"}) {
+                <h3 style={{ color: 'grey' }}> pending</h3>
+            }
+            if ({props.status == "Delivered"}) {
+                <h3 style={{ color: 'Green' }}> Delivered</h3>
+            }
+            if ({props.status == "Cancelled"}) {
+                <h3 style={{ color: 'Red' }}> Cancelled</h3>
+            } */}
 
-                </div>
-
-
-
-
-
-            </AppBar>
-
-
-        </div >
-
-    );
+        </div>);
 }
-export default cart;
+export default order;
