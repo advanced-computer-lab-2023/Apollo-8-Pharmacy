@@ -48,6 +48,7 @@ import img1 from '../pictures/med1.jpeg'
 import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
 import BottomBar from './BottomBar';
+import Stepper from './Stepper';
 
 
 function cart() {
@@ -64,7 +65,10 @@ function cart() {
                     <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>
                         <ShoppingCartIcon fontSize='large' sx={{ color: "white", marginRight: '20px' }} />
                         My Cart</h1>
+
                 </div>
+                <div style={{}}>    <Stepper /></div>
+
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
                     <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
                     <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
