@@ -7,5 +7,9 @@ const router = express.Router();
 router.post("/", controllers.createPatient);
 router.get("/", controllers.getPatients);
 router.get("/:id", controllers.getPatientById);
+router.post('/:id/addToCart', controllers.addToCart);
+router.get('/:id/viewCart', controllers.viewCart);
+router.delete('/:id/removeFromCart', controllers.removeFromCart);
+
 
 export default router;

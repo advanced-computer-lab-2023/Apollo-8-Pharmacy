@@ -43,6 +43,19 @@ const patientSchema = new mongoose.Schema(
     adresses: {
       type: [String],
     },
+    cart: [
+      {
+        medicine: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Medicine",
+        },
+        quantity: {
+          type: Number,
+          default: 0,
+        },
+        default: [],
+      },
+    ],
     wallet: {
       type: Number,
       default: 0,
@@ -53,6 +66,7 @@ const patientSchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
+
   },
   { timestamps: true }
 );
