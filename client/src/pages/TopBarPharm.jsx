@@ -40,8 +40,8 @@ function ResponsiveAppBar() {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleCart = () => {
-        navigate("/cart");
+    const handelSales = () => {
+        navigate("/MedicineSales");
     };
     const handleHome = () => {
         navigate("/HomePagePharm");
@@ -139,6 +139,8 @@ function ResponsiveAppBar() {
                         <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block' }}> Home     </Button>
                         <Button onClick={handleMedicine} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine     </Button>
                         <Button onClick={handleAddMed} sx={{ my: 2, color: 'white', display: 'block' }}> Add Medicine     </Button>
+                        <Button onClick={handelSales} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine Sales     </Button>
+
 
 
                     </Box>
@@ -147,7 +149,7 @@ function ResponsiveAppBar() {
                         <Box
                             style={{ color: "white", backgroundColor: "white" }}
                             sx={{
-                                marginLeft: "-20%",
+                                marginLeft: "-10%",
                                 width: 500,
                                 maxWidth: '100%',
                                 borderRadius: '100px',
@@ -166,7 +168,7 @@ function ResponsiveAppBar() {
                         </Box>
 
                     </div>
-                    <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)" }} variant="contained">Search</Button>
+                    <Button style={{ right: "8%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)" }} variant="contained">Search</Button>
 
 
 
