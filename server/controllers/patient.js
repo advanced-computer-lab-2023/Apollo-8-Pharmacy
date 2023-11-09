@@ -156,7 +156,7 @@ const removeFromCart = async (req, res) => {
   }
 };
 const incMedicine = async (req, res) => {
-  const patientId = req.params.patientId; // Assuming you're passing the patientId in the route parameters
+  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
@@ -182,7 +182,7 @@ const incMedicine = async (req, res) => {
   }
 };
 const decMedicine = async (req, res) => {
-  const patientId = req.params.patientId; // Assuming you're passing the patientId in the route parameters
+  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
