@@ -54,6 +54,11 @@ import img3 from '../pictures/asp.jpg'
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import BottomBar from './BottomBar';
 
+import { useEffect, useState } from "react";
+
+
+
+
 const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
 const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
 const ingred = ['abc', 'efg', 'dbudhuh']
@@ -61,6 +66,8 @@ const use = ['Dont Know', 'Ay haga', 'Wla Haga']
 
 
 function listMedicine() {
+
+
 
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
@@ -70,7 +77,7 @@ function listMedicine() {
 
 
                 <FilterList />
-                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-42%', display: 'flex', flexWrap: 'nowrap' }}>
+                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-62%', display: 'flex', flexWrap: 'nowrap' }}>
                     <MedicineCard name={name[0]} image={img1} info={info} ingred={ingred[0]} use={use[0]} />
                     <MedicineCard name={name[1]} image={img2} info={info} ingred={ingred[1]} use={use[1]} />
                     <MedicineCard name={name[2]} image={img3} info={info} ingred={ingred[2]} use={use[2]} />

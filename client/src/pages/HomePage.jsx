@@ -66,7 +66,7 @@ function homePage() {
                 <Ads />
 
                 <FilterList />
-                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-42%', display: 'flex', flexWrap: 'nowrap' }}>
+                <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-62%', display: 'flex', flexWrap: 'nowrap' }}>
                     <MedicineCard name={name[0]} image={img1} info={info} />
                     <MedicineCard name={name[1]} image={img2} info={info} />
                     <MedicineCard name={name[2]} image={img3} info={info} />
