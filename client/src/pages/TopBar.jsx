@@ -48,7 +48,7 @@ function ResponsiveAppBar() {
         navigate("/HomePage");
     };
     const handleMedicine = () => {
-        //    navigate("/cart");
+        navigate("/ListMedicine");
     };
     const handleOrders = () => {
         navigate("/MyOrders");

@@ -62,6 +62,14 @@ function MedicineCard(props) {
                 <Typography variant="body2" color="text.secondary">
                     {props.info}
                 </Typography>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                    Ingredients: {props.ingred}
+                </Typography>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                    Use: {props.use}
+                </Typography>
             </CardContent>
             <CardActions>
                 <Typography style={{ marginRight: '', marginBottom: '5px', fontSize: '18px' }} variant="body2" color="text.primary">

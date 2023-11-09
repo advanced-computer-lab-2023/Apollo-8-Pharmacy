@@ -30,46 +30,50 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import HomeIcon from '@mui/icons-material/Home';
 import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
 
 import ResponsiveAppBar from './TopBar';
 import Ads from './Ads';
 import FilterList from './FilterList';
+import Card1 from './CartCard'
 import MedicineCard from './MedicineCard';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import img1 from '../pictures/med1.jpeg'
-import img2 from '../pictures/mor.png'
-import img3 from '../pictures/asp.jpg'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Order from './orderCard';
+import Pagination from '@mui/material/Pagination';
+
+
+import img1 from '../pictures/med1.jpeg'
+import img2 from '../pictures/mor.png'
+import img3 from '../pictures/asp.jpg'
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import BottomBar from './BottomBar';
 
+const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
+const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
+const ingred = ['abc', 'efg', 'dbudhuh']
+const use = ['Dont Know', 'Ay haga', 'Wla Haga']
 
 
-function homePage() {
-    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
-    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
-
-
+function listMedicine() {
 
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
-            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto" }}>
+            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
 
                 <ResponsiveAppBar />
 
-                <Ads />
 
                 <FilterList />
                 <div style={{ backgroundColor: '', marginLeft: '25%', marginTop: '-42%', display: 'flex', flexWrap: 'nowrap' }}>
-                    <MedicineCard name={name[0]} image={img1} info={info} />
-                    <MedicineCard name={name[1]} image={img2} info={info} />
-                    <MedicineCard name={name[2]} image={img3} info={info} />
+                    <MedicineCard name={name[0]} image={img1} info={info} ingred={ingred[0]} use={use[0]} />
+                    <MedicineCard name={name[1]} image={img2} info={info} ingred={ingred[1]} use={use[1]} />
+                    <MedicineCard name={name[2]} image={img3} info={info} ingred={ingred[2]} use={use[2]} />
 
 
 
@@ -91,10 +95,10 @@ function homePage() {
                 <BottomBar />
 
 
-            </AppBar>
+            </AppBar >
 
         </div >
 
     );
 }
-export default homePage;
+export default listMedicine;

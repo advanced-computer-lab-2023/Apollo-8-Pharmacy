@@ -19,6 +19,7 @@ import HomePage from "./pages/HomePage";
 import MedicinesListAdmin from "./pages/MedicinesListAdmin";
 import Cart from "./pages/cart"
 import MyOrders from "./pages/MyOrders";
+import ListMedicine from "./pages/Medicine";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/myorders" element={<MyOrders />} />
+        <Route path="/listMedicine" element={<ListMedicine />} />
 
 
       </Routes>
