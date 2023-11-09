@@ -78,9 +78,144 @@ const getPatientById = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+//s
+const addToCart = async (req, res) => {
+  const patientId = req.params.id; 
+  const { medicineId, quantity } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const existingCartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (existingCartItem) {
+      existingCartItem.quantity += quantity;
+    } else {
+      patient.cart.push({ medicine: medicineId, quantity: quantity || 1 });
+    }
+
+    await patient.save();
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const viewCart = async (req, res) => {
+  const patientId = req.params.patientId; 
+
+  try {
+    const patient = await PatientModel.findById(patientId).populate('cart.medicine');
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartDetails = patient.cart.map(item => ({
+      medicine: item.medicine,
+      quantity: item.quantity,
+    }));
+
+    res.status(200).json(cartDetails);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const removeFromCart = async (req, res) => {
+  const patientId = req.params.id; 
+  const { medicineId } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItemIndex = patient.cart.findIndex(item => item.medicine.equals(medicineId));
+
+    if (cartItemIndex !== -1) {
+      // If the item is found, remove it from the cart
+      patient.cart.splice(cartItemIndex, 1);
+    } else {
+      return res.status(404).json({ error: 'Item not found in the cart' });
+    }
+
+    await patient.save();
+
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const incMedicine = async (req, res) => {
+  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const { medicineId } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (cartItem) {
+      cartItem.quantity += 1;
+    } else {
+      return res.status(404).json({ error: 'Item not found in the cart' });
+    }
+
+    await patient.save();
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const decMedicine = async (req, res) => {
+  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const { medicineId } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (cartItem.quantity > 0) {
+      cartItem.quantity -= 1;
+    } else {
+      return res.status(404).json({ error: 'Item not found in the cart' });
+    }
+
+    await patient.save();
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+//s
 
 export default {
   createPatient,
   getPatients,
-  getPatientById
+  getPatientById,
+  addToCart,
+  viewCart,
+  removeFromCart,
+  incMedicine,
+  decMedicine
 }
