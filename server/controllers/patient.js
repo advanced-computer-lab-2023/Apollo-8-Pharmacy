@@ -155,7 +155,58 @@ const removeFromCart = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const incMedicine = async (req, res) => {
+  const patientId = req.params.patientId; // Assuming you're passing the patientId in the route parameters
+  const { medicineId } = req.body;
 
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (cartItem) {
+      cartItem.quantity += 1;
+    } else {
+      return res.status(404).json({ error: 'Item not found in the cart' });
+    }
+
+    await patient.save();
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const decMedicine = async (req, res) => {
+  const patientId = req.params.patientId; // Assuming you're passing the patientId in the route parameters
+  const { medicineId } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (cartItem.quantity > 0) {
+      cartItem.quantity -= 1;
+    } else {
+      return res.status(404).json({ error: 'Item not found in the cart' });
+    }
+
+    await patient.save();
+    const populatedPatient = await PatientModel.findById(patientId).populate('cart.medicine');
+    res.status(200).json(populatedPatient.cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 //s
 
 export default {
@@ -164,5 +215,7 @@ export default {
   getPatientById,
   addToCart,
   viewCart,
-  removeFromCart
+  removeFromCart,
+  incMedicine,
+  decMedicine
 }

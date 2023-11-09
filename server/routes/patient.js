@@ -10,6 +10,9 @@ router.get("/:id", controllers.getPatientById);
 router.post('/:id/addToCart', controllers.addToCart);
 router.get('/:id/viewCart', controllers.viewCart);
 router.delete('/:id/removeFromCart', controllers.removeFromCart);
+router.post('/:id/incMed', controllers.incMedicine);
+router.post('/:id/decMed', controllers.decMedicine);
+
 
 
 export default router;
