@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -49,13 +49,30 @@ import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
 import BottomBar from './BottomBar';
 import Stepper from './Stepper';
+import axios from "axios"
 
+import { useEffect,useState } from "react";
 
 function cart() {
-    const name = ['Panadol', 'Morphine', 'Aspirin', 'Insulin', 'Concerta', 'Tramadol'];
-    const info = 'Paracetamol is a non-opioid analgesic and antipyretic agent used to treat fever and mild to moderate pain.'
-    const price = ['35']
+    const [cartItems, setCartItems] = useState([]);
+  const patientId = "654e55dc1c5ff871bec6b1aa";
 
+    useEffect(() => {
+    const apiUrl = `http://localhost:9000/patient/${patientId}/viewCart`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data); // Log the response to the console
+          setCartItems(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [patientId]);
+    
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
             <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
@@ -70,22 +87,18 @@ function cart() {
                 <div style={{}}>    <Stepper /></div>
 
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
-
+                {cartItems && cartItems.map((item, index) => (
+            <Card1
+              key={index}
+              name={item.medicine.medicineName}
+              image={img1} // Assuming your medicine object has a 'path' property for the image
+              info={item.medicine.description}
+              quantity={item.medicine.quantity}
+              price={item.medicine.price}
+              
+            />
+          ))}
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                    <Card1 name={name[0]} image={img1} info={info} price={price[0]} />
-                    <Card1 name={name[1]} image={img2} info={info} price={price[0]} />
-                    <Card1 name={name[2]} image={img3} info={info} price={price[0]} />
-                    <Card1 name={name[3]} image={img1} info={info} price={price[0]} />
-
-                </div>
-
-
-
                 <BottomBar />
 
 

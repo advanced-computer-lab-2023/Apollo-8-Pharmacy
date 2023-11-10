@@ -48,7 +48,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 function card(props) {
 
-
+const totalPrice = props.price * props.quantity;
     return (
         <Card sx={{ maxWidth: 345, margin: '30px' }}>
             <img src={props.image} alt="" />
@@ -68,7 +68,7 @@ function card(props) {
                 </Button>
                 <Button size="small">Remove   <RemoveCircleIcon /></Button>
                 <Typography style={{ marginLeft: '10px' }} variant="body2" color="text.secondary">
-                    Price: {props.price} x 2  =  70LE
+                    Price: {props.price} x {props.quantity}  ={totalPrice}
                 </Typography>
             </CardActions>
 
