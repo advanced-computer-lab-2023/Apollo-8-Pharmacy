@@ -42,10 +42,7 @@
 }
 
 .sidebar {
-  width: 250px;
-  background-color: rgb(0, 45, 0);
   color: white;
-  padding: 20px;
 }
 
 .sidebar ul {
@@ -71,4 +68,16 @@
 
 .abc{
   color: aqua;
+}
+
+
+.filter a {
+  text-decoration: none;
+  color: white;
+}
+
+.filter a:hover{
+  color:rgb(225, 198, 152);
+  font-size: larger;
+  font-weight:bolder;
 }
