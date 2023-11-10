@@ -50,7 +50,6 @@ import axios from "axios"
 function card(props) {
   const [quantity, setQuantity] = useState(props.quantity);
   const [totalPrice, setTotalPrice] = useState(props.price * props.quantity);
-
   const handleIncrementCard = async () => {
     try {
       if (!props.medicineId) {
@@ -92,7 +91,28 @@ function card(props) {
       console.error('Error decrementing medicine:', error);
     }
   };
-
+  const handleRemoveCard = async () => {
+    try {
+      if (!props.medicineId) {
+        console.error('Medicine or its ID is undefined.');
+        return;
+      }
+  
+      const response = await axios.delete(
+        `http://localhost:9000/patient/654e55dc1c5ff871bec6b1aa/removeFromCart`,
+        { data: { medicineId: props.medicineId } }
+      );
+  
+      if (response.data) {
+        // Update state to remove the item from the cartItems array
+        props.setCartItems((prevItems) =>
+          prevItems.filter((item) => item.medicine._id !== props.medicineId)
+        );
+      }
+    } catch (error) {
+      console.error('Error decrementing medicine:', error);
+    }
+  };
   const updateTotalPrice = (newQuantity) => {
     const newTotalPrice = props.price * newQuantity;
     setTotalPrice(newTotalPrice);
@@ -101,7 +121,7 @@ function card(props) {
   return (
     <Card sx={{ maxWidth: 345, margin: '30px' }}>
       <img src={props.image} alt="" />
-      <Button style={{ left: '20%', bottom: '55px', margin: '0px' }} size="small">
+      <Button style={{ left: '20%', bottom: '55px', margin: '0px' }} size="small" onClick={handleRemoveCard}>
         <HighlightOffIcon />
       </Button>
 

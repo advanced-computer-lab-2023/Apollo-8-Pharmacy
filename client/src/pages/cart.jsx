@@ -97,6 +97,7 @@ function cart() {
               quantity={item.quantity}
               price={item.medicine.price}
               medicineId={item.medicine._id}
+              setCartItems={setCartItems}
             />
           ))}
                 </div>
