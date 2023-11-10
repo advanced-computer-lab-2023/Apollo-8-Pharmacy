@@ -22,6 +22,7 @@ import MyOrders from "./pages/MyOrders";
 import ListMedicine from "./pages/Medicine";
 import ListMedicinepharm from "./pages/MedicinePharm";
 import HomePagePharm from "./pages/HomePagePharm";
+import HomePageAdmin from "./pages/HomePageAdmin";
 
 function App() {
   return (
@@ -49,6 +50,8 @@ function App() {
         <Route path="/listMedicine" element={<ListMedicine />} />
         <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
         <Route path="/HomePagePharm" element={<HomePagePharm />} />
+        <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
+
 
 
 
