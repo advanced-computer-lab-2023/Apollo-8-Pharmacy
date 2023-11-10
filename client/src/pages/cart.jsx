@@ -73,6 +73,7 @@ function cart() {
       });
   }, [patientId]);
     
+  
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
             <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
@@ -93,9 +94,9 @@ function cart() {
               name={item.medicine.medicineName}
               image={img1} // Assuming your medicine object has a 'path' property for the image
               info={item.medicine.description}
-              quantity={item.medicine.quantity}
+              quantity={item.quantity}
               price={item.medicine.price}
-              
+              medicineId={item.medicine._id}
             />
           ))}
                 </div>

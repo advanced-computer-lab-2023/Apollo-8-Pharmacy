@@ -10,8 +10,8 @@ router.get("/:id", controllers.getPatientById);
 router.post('/:id/addToCart', controllers.addToCart);
 router.get('/:id/viewCart', controllers.viewCart);
 router.delete('/:id/removeFromCart', controllers.removeFromCart);
-router.post('/:id/incMed', controllers.incMedicine);
-router.post('/:id/decMed', controllers.decMedicine);
+router.put('/:id/incMed', controllers.incMedicine);
+router.put('/:id/decMed', controllers.decMedicine);
 
 
 
