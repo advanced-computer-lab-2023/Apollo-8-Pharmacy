@@ -19,7 +19,7 @@ import ShoppingBasketSharpIcon from '@mui/icons-material/ShoppingBasketSharp';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 import { height } from '@mui/system';
-import imgSrc from "../pictures/banner.jpg"
+import imgSrc from "../pictures/test.png"
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -61,6 +61,7 @@ function homePageAdmin() {
 
                 <ResponsiveAppBar />
 
+                <img src={imgSrc} alt="" />
 
 
 
