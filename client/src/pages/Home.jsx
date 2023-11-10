@@ -15,13 +15,13 @@ function Home() {
     navigate("/registerPatient");
   };
   const handlePatientLogin = () => {
-    navigate("/medicinesListPatient");
+    navigate("/PatientLogin");
   };
   const handlePharmacistLogin = () => {
-    navigate("/medicinesListPharmacist");
+    navigate("/PharmacistLogin");
   };
   const handleAdminLogin = () => {
-    navigate("/medicinesListAdmin");
+    navigate("/Adminlogin");
   };
 
   return (

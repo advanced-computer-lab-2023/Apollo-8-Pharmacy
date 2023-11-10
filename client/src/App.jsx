@@ -22,8 +22,15 @@ import MyOrders from "./pages/MyOrders";
 import ListMedicine from "./pages/Medicine";
 import ListMedicinepharm from "./pages/MedicinePharm";
 import HomePagePharm from "./pages/HomePagePharm";
+import Pharmacistlogin from "./pages/PharmacistLogin";
+import Adminlogin from "./pages/AdminLogin";
+import Patientlogin from "./pages/PatientLogin";
+import Forget from "./pages/ForgetPassword";
+import ChangePass from "./pages/chnagePass";
+import ChangePassPharm from "./pages/changePassPharm";
 
 function App() {
+  console.log("asa");
   return (
     <div>
       <Routes>
@@ -49,6 +56,12 @@ function App() {
         <Route path="/listMedicine" element={<ListMedicine />} />
         <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
         <Route path="/HomePagePharm" element={<HomePagePharm />} />
+        <Route path="/PatientLogin" element={<Patientlogin />} />
+        <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+        <Route path="/AdminLogin" element={<Adminlogin />} />
+        <Route path="/ForgetPassword" element={<Forget />} />
+        <Route path="/ChangePassword" element={<ChangePass />} />
+        <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
 
 
 

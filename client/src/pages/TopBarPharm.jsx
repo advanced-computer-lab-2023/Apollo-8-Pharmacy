@@ -37,11 +37,20 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    
+    const logOut = (event) => {
+        sessionStorage.removeItem('token');
+        window.location.pathname = '/';
+    };
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
     const handelSales = () => {
         navigate("/MedicineSales");
+    };
+    const Change = () => {
+        window.location.pathname = '/ChangePasswordPharm';
     };
     const handleHome = () => {
         navigate("/HomePagePharm");
@@ -139,12 +148,13 @@ function ResponsiveAppBar() {
                         <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block' }}> Home     </Button>
                         <Button onClick={handleMedicine} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine     </Button>
                         <Button onClick={handleAddMed} sx={{ my: 2, color: 'white', display: 'block' }}> Add Medicine     </Button>
+                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block' }}> Change Pass</Button>
                         <Button onClick={handelSales} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine Sales     </Button>
-
+                        <Button onClick={logOut} sx={{ my: 2, color: 'white', display: 'block' }}> Logout     </Button>
 
 
                     </Box>
-                    <div >
+                    <div style={{marginLeft:'8%'}}>
 
                         <Box
                             style={{ color: "white", backgroundColor: "white" }}
