@@ -107,7 +107,7 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const patientId = req.params.patientId; 
+  const patientId = req.params.id; 
 
   try {
     const patient = await PatientModel.findById(patientId).populate('cart.medicine');
