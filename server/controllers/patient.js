@@ -69,9 +69,7 @@ const getPatients = async (req, res) => {
 
 const getPatientById = async (req, res) => {
   try {
-    const patient = await PatientModel.findById(
-      new mongoose.Types.ObjectId(req.params.id)
-    );
+    const patient = await PatientModel.find({user:new mongoose.Types.ObjectId(req.params.id)});
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -169,7 +167,12 @@ const incMedicine = async (req, res) => {
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (cartItem) {
-      cartItem.quantity += 1;
+      if(medicineId.quantity > cartItem.quantity){
+        cartItem.quantity += 1;
+      }else{
+        return res.status(404).json({ error: 'sorry we do not have enough amount of th medicine' });
+      }
+      
     } else {
       return res.status(404).json({ error: 'Item not found in the cart' });
     }
@@ -207,6 +210,46 @@ const decMedicine = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+/*const viewOrderDetails = async (req, res) => {
+  const patientId = req.params.id;
+  const orderId = req.params.orderId;
+
+  try {
+    const order = await OrderModel.findById(orderId).populate('patient items.medicine');
+
+    if (!order || !order.patient.equals(patientId)) {
+      return res.status(404).json({ error: 'Order not found for the patient' });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const cancelOrder = async (req, res) => {
+  const patientId = req.params.id;
+  const orderId = req.params.orderId;
+
+  try {
+    const order = await OrderModel.findById(orderId);
+
+    if (!order || !order.patient.equals(patientId)) {
+      return res.status(404).json({ error: 'Order not found for the patient' });
+    }
+
+    if (order.status !== 'Pending') {
+      return res.status(400).json({ error: 'Cannot cancel order. Status is not Pending.' });
+    }
+
+    order.status = 'Cancelled';
+    await order.save();
+
+    res.status(200).json({ message: 'Order cancelled successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};*/
+
 //s
 
 export default {
@@ -217,5 +260,7 @@ export default {
   viewCart,
   removeFromCart,
   incMedicine,
-  decMedicine
+  decMedicine,
+  //viewOrderDetails,
+  //cancelOrder
 }

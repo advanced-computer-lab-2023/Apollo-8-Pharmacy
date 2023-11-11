@@ -12,6 +12,8 @@ router.get('/:id/viewCart', controllers.viewCart);
 router.delete('/:id/removeFromCart', controllers.removeFromCart);
 router.put('/:id/incMed', controllers.incMedicine);
 router.put('/:id/decMed', controllers.decMedicine);
+router.get('/:id/orders/:orderId', controllers.viewOrderDetails);
+router.post('/:id/orders/:orderId/cancel', controllers.cancelOrder);
 
 
 
