@@ -15,7 +15,15 @@ import RemoveUser from "./pages/RemoveUser";
 import PharmacistsListPending from "./pages/PharmacistsListPending";
 import MedicinesListPharmacist from "./pages/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/MedicinesListPatient";
+import HomePage from "./pages/HomePage";
 import MedicinesListAdmin from "./pages/MedicinesListAdmin";
+import Cart from "./pages/cart"
+import MyOrders from "./pages/MyOrders";
+import ListMedicine from "./pages/Medicine";
+import ListMedicinepharm from "./pages/MedicinePharm";
+import HomePagePharm from "./pages/HomePagePharm";
+import HomePageAdmin from "./pages/HomePageAdmin";
+
 function App() {
   return (
     <div>
@@ -35,7 +43,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/addAdmin" element={<AddAdmin />} />
         <Route path="/removeUser" element={<RemoveUser />} />
-        <Route path="/pharmacistsListPending" element={<PharmacistsListPending/>}/>
+        <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/cart/:patientId" element={<Cart />} />
+        <Route path="/myorders" element={<MyOrders />} />
+        <Route path="/listMedicine" element={<ListMedicine />} />
+        <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
+        <Route path="/HomePagePharm" element={<HomePagePharm />} />
+        <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
+
+
+
+
 
       </Routes>
     </div>
