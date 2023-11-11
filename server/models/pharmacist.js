@@ -40,6 +40,18 @@ const pharmacistSchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
+    idFile: {
+      type: String,
+      required: true,
+    },
+    degreeFile: {
+      type: String,
+      required: true,
+    },
+    licenseFile: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

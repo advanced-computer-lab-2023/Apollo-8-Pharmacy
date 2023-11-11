@@ -18,6 +18,16 @@ const createPharmacist = async (req, res) => {
     wallet,
     status,
   } = req.body;
+  let files = {}
+  req.files.forEach(file => {
+    if (file.fieldname == "idFile") {
+      files = { ...files, idFile: file.filename }
+    } else if (file.fieldname == "degreeFile") {
+      files = { ...files, degreeFile: file.filename }
+    } else if (file.fieldname == "licenseFile") {
+      files = { ...files, licenseFile: file.filename }
+    }
+  });
   const salt = await bcrypt.genSalt(saltRounds);
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -39,6 +49,7 @@ const createPharmacist = async (req, res) => {
         eduBackground,
         wallet,
         status,
+        ...files
       });
       await pharmacist.save();
       res.status(200).json(pharmacist);
@@ -85,7 +96,7 @@ const acceptPharmacist = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-};const rejectPharmacist = async (req, res) => {
+}; const rejectPharmacist = async (req, res) => {
   try {
     const pharmacist = await PharmacistModel.findByIdAndUpdate(
       req.params.id,
@@ -100,7 +111,7 @@ const acceptPharmacist = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-   
+
 
 export default {
   createPharmacist,

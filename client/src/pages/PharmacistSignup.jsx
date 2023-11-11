@@ -14,6 +14,9 @@ function PharmacistSignup() {
   const [hospital, setHospital] = useState();
   const [hourlyRate, setHourlyRate] = useState();
   const [eduBackground, setEduBackground] = useState();
+  const [idFile, setIdFile] = useState();
+  const [degreeFile, setDegreeFile] = useState();
+  const [licenseFile, setLicenseFile] = useState();
 
   const navigate = useNavigate();
 
@@ -22,17 +25,28 @@ function PharmacistSignup() {
     console.log(name);
     console.log(email);
     axios
-      .post(" http://localhost:9000/pharmacist", {
-        name,
-        username,
-        email,
-        type: "Pharmacist",
-        password,
-        birthDate,
-        hospital,
-        hourlyRate,
-        eduBackground,
-      })
+      .post(
+        " http://localhost:9000/pharmacist",
+        {
+          name,
+          username,
+          email,
+          type: "Pharmacist",
+          password,
+          birthDate,
+          hospital,
+          hourlyRate,
+          eduBackground,
+          idFile,
+          degreeFile,
+          licenseFile,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((result) => {
         console.log(result);
         navigate("/medicinesListPharmacist");
@@ -151,6 +165,39 @@ function PharmacistSignup() {
               name="eduBackground"
               className="form-control rounded-0"
               onChange={(e) => setEduBackground(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="nationalId">
+              <strong>National Id</strong>
+            </label>
+            <input
+              type="file"
+              name="nationalId"
+              className="form-control rounded-0"
+              onChange={(e) => setIdFile(e.target.files[0])}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="degree">
+              <strong>Degree</strong>
+            </label>
+            <input
+              type="file"
+              name="degree"
+              className="form-control rounded-0"
+              onChange={(e) => setDegreeFile(e.target.files[0])}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="license">
+              <strong>License</strong>
+            </label>
+            <input
+              type="file"
+              name="license"
+              className="form-control rounded-0"
+              onChange={(e) => setLicenseFile(e.target.files[0])}
             />
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
