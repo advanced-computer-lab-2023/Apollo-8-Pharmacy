@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AppBar from '@mui/material/AppBar';
@@ -53,30 +55,33 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import BottomBar from './BottomBar';
 
-import img1 from '../pictures/admin.png'
-import img2 from '../pictures/pharm.png'
-import img3 from '../pictures/pat.png'
-import img4 from '../pictures/docsign.jpeg'
-import img5 from '../pictures/pharmsign.png'
+
+
+
 
 function Home() {
   const navigate = useNavigate();
-  const handlePharmacistSignup = () => {
-    navigate("/registerPharmacist");
+  const handleDoctorSignup = () => {
+    navigate("/registerDoctor");
   };
   const handlePatientSignup = () => {
     navigate("/registerPatient");
   };
-  const handlePatientLogin = () => {
-    navigate("/medicinesListPatient");
-  };
-  const handlePharmacistLogin = () => {
-    navigate("/medicinesListPharmacist");
-  };
   const handleAdminLogin = () => {
-    navigate("/medicinesListAdmin");
+    navigate("/HomePageAdmin");
   };
-
+  const handlePatientLogin = () => {
+    navigate("/HomePage");
+  };
+  const handleDoctorLogin = () => {
+    navigate("/HomePageDoc");
+  };
+  // const backgroundStyle = {
+  //   backgroundImage: 'url("client/src/images/photo.png")',
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   backgroundRepeat: "no-repeat",
+  // };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
       <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto" }}>
@@ -95,9 +100,9 @@ function Home() {
             <Card1 style={{ width: '18rem', marginRight: '10%' }}>
               <Card1.Img variant="top" src={img2} alt="family.png" />
               <Card1.Body>
-                <Card1.Title style={{}}>Pharmacist Login</Card1.Title>
+                <Card1.Title style={{ marginTop: '45px' }}>Doctor Login</Card1.Title>
 
-                <Button1 variant="primary" style={{}} onClick={handlePharmacistLogin}>Login</Button1>
+                <Button1 variant="primary" style={{}} onClick={handleDoctorLogin}>Login</Button1>
               </Card1.Body>
             </Card1>
             <Card1 style={{ width: '18rem' }}>
@@ -124,9 +129,9 @@ function Home() {
             <Card1 style={{ width: '18rem' }}>
               <Card1.Img variant="top" src={img5} alt="family.png" />
               <Card1.Body>
-                <Card1.Title>Pharmacist SignUp</Card1.Title>
+                <Card1.Title>Doctor SignUp</Card1.Title>
 
-                <Button1 variant="primary" onClick={handlePharmacistSignup}>Sign Up</Button1>
+                <Button1 variant="primary" onClick={handleDoctorSignup}>Sign Up</Button1>
               </Card1.Body>
             </Card1>
 
@@ -135,9 +140,7 @@ function Home() {
         </div>
         <BottomBar />
       </AppBar >
-    </div >
-  );
+    </div >);
 }
-
 
 export default Home;
