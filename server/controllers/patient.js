@@ -69,7 +69,7 @@ const getPatients = async (req, res) => {
 
 const getPatientById = async (req, res) => {
   try {
-    const patient = await PatientModel.find({user:new mongoose.Types.ObjectId(req.params.id)});
+    const patient = await PatientModel.find({ user: new mongoose.Types.ObjectId(req.params.id) });
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -78,7 +78,7 @@ const getPatientById = async (req, res) => {
 };
 //s
 const addToCart = async (req, res) => {
-  const patientId = req.params.id; 
+  const patientId = req.params.id;
   const { medicineId, quantity } = req.body;
 
   try {
@@ -105,7 +105,7 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const patientId = req.params.id; 
+  const patientId = req.params.id;
 
   try {
     const patient = await PatientModel.findById(patientId).populate('cart.medicine');
@@ -125,7 +125,7 @@ const viewCart = async (req, res) => {
   }
 };
 const removeFromCart = async (req, res) => {
-  const patientId = req.params.id; 
+  const patientId = req.params.id;
   const { medicineId } = req.body;
 
   try {
@@ -167,12 +167,12 @@ const incMedicine = async (req, res) => {
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (cartItem) {
-      if(medicineId.quantity > cartItem.quantity){
+      if (medicineId.quantity > cartItem.quantity) {
         cartItem.quantity += 1;
-      }else{
+      } else {
         return res.status(404).json({ error: 'sorry we do not have enough amount of th medicine' });
       }
-      
+
     } else {
       return res.status(404).json({ error: 'Item not found in the cart' });
     }
@@ -210,7 +210,7 @@ const decMedicine = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-/*const viewOrderDetails = async (req, res) => {
+const viewOrderDetails = async (req, res) => {
   const patientId = req.params.id;
   const orderId = req.params.orderId;
 
@@ -248,7 +248,7 @@ const cancelOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};*/
+};
 
 //s
 
@@ -261,6 +261,6 @@ export default {
   removeFromCart,
   incMedicine,
   decMedicine,
-  //viewOrderDetails,
-  //cancelOrder
+  viewOrderDetails,
+  cancelOrder
 }
