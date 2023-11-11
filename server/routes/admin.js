@@ -3,14 +3,16 @@ import controllers from "../controllers/admin.js";
 import Auth from "../Authentication/login.js"
 import forget from "../Authentication/forget.js"
 import changePass from "../Authentication/changePass.js";
+import Middle from "../Authentication/Middleware.js";
 
 const router = express.Router();
 
-
+//no middle ware except changePass
 router.post("/forget",forget.forget)
 router.post("/compare",forget.compare)
 router.post("/chanePass",changePass.changePass)
 router.post("/adminLogin",Auth.loginAdmin)
+router.get("/getType",Middle.getType)
 
 // to test this send a post request to this route: http://localhost:8000/doctor
 router.post("/createUser", controllers.createUser);
