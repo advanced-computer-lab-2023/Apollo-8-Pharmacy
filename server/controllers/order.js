@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import OrderModel from '../models/order.js';
 import PatientModel from '../models/patient.js';
 
@@ -41,7 +40,39 @@ import PatientModel from '../models/patient.js';
     res.status(500).json({ error: error.message });
   }
 };*/
+import OrderModel from '../models/order.js';
+import PatientModel from '../models/patient.js';
 
+const addOrder = async (req, res) => {
+  const patientId = req.params.id;
+  const { deliveryAddresses, paymentMethod } = req.body;
+
+  try {
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const order = new OrderModel({
+      patient: patientId,
+      cart: patient.cart,
+      deliveryAddresses,
+      paymentMethod,
+      status: 'Pending',
+    });
+
+    await order.save();
+
+    // Clear the patient's cart after placing the order
+    patient.cart = [];
+    await patient.save();
+
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
   
 const viewOrderDetails = async (req, res) => {
     const orderId = req.params.orderId;
@@ -82,7 +113,7 @@ const cancelOrder = async (req, res) => {
   };
       
   export default {
-   // addOrder,
+    addOrder,
     viewOrderDetails,
     cancelOrder
   }
