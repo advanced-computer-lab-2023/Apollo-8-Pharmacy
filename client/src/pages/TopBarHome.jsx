@@ -76,7 +76,7 @@ function ResponsiveAppBar() {
 
     return (
         <AppBar style={{
-            height: "100px", backgroundColor: " rgb(65, 105, 225)"
+            height: "100px", backgroundColor: "rgb(0,140,990)"
         }} position="static" >
             <Container style={{ marginTop: "10px" }
             } maxWidth="xl" >
