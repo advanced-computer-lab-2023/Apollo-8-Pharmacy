@@ -69,9 +69,7 @@ const getPatients = async (req, res) => {
 
 const getPatientById = async (req, res) => {
   try {
-    const patient = await PatientModel.findById(
-      new mongoose.Types.ObjectId(req.params.id)
-    );
+    const patient = await PatientModel.find({user:new mongoose.Types.ObjectId(req.params.id)});
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -212,7 +210,7 @@ const decMedicine = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-const viewOrderDetails = async (req, res) => {
+/*const viewOrderDetails = async (req, res) => {
   const patientId = req.params.id;
   const orderId = req.params.orderId;
 
@@ -250,7 +248,7 @@ const cancelOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+};*/
 
 //s
 
@@ -263,6 +261,6 @@ export default {
   removeFromCart,
   incMedicine,
   decMedicine,
-  viewOrderDetails,
-  cancelOrder
+  //viewOrderDetails,
+  //cancelOrder
 }

@@ -1,43 +1,47 @@
 import mongoose from 'mongoose';
-import OrderModel from '../models/patient.js';
+import OrderModel from '../models/order.js';
 import PatientModel from '../models/patient.js';
 
 
 const addOrder = async (req, res) => {
-    const patientId = req.params.patientId; // Assuming you're passing the patientId in the route parameters
-    const { items, deliveryAddresses, paymentMethod } = req.body;
-  
-    try {
-      // Assuming you have a utility function to calculate the total price of items
-      const totalPrice = calculateTotalPrice(items);
-  
-      const patient = await PatientModel.findById(patientId);
-  
-      if (!patient) {
-        return res.status(404).json({ error: 'Patient not found' });
-      }
-  
-      const order = new OrderModel({
-        patient: patientId,
-        cart: patient.cart, // Assuming the patient has a cart associated with it
-        items,
-        deliveryAddresses,
-        paymentMethod,
-        totalPrice,
-        status: 'Pending',
-      });
-  
-      await order.save();
-  
-      // Clear the patient's cart after placing the order (modify based on your actual logic)
-      patient.cart = [];
-      await patient.save();
-  
-      res.status(201).json(order);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  console.log("req");
+
+  const patientId = req.params.id; 
+  console.log(patientId);
+  const { deliveryAddresses, paymentMethod } = req.body;
+
+  try {
+    // Assuming you have a utility function to calculate the total price of items
+    //const totalPrice = calculateTotalPrice(items);
+
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
     }
-  };
+
+    const order = new OrderModel({
+      patient: patientId,
+      cart: patient.cart, // Assuming the patient has a cart associated with it
+      //items,
+      deliveryAddresses,
+      paymentMethod,
+      //totalPrice,
+      status: 'Pending',
+    });
+
+    await order.save();
+
+    // Clear the patient's cart after placing the order (modify based on your actual logic)
+    //patient.cart = [];
+    await patient.save();
+
+    res.status(201).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
   
 const viewOrderDetails = async (req, res) => {
     const orderId = req.params.orderId;
