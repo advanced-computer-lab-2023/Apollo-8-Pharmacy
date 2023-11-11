@@ -68,13 +68,13 @@ function Home() {
     navigate("/registerPatient");
   };
   const handlePatientLogin = () => {
-    navigate("/medicinesListPatient");
+    navigate("/HomePage");
   };
   const handlePharmacistLogin = () => {
-    navigate("/medicinesListPharmacist");
+    navigate("/HomePagePharm");
   };
   const handleAdminLogin = () => {
-    navigate("/medicinesListAdmin");
+    navigate("/HomePageAdmin");
   };
 
   return (
