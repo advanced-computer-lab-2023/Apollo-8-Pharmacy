@@ -3,7 +3,7 @@ import OrderModel from '../models/order.js';
 import PatientModel from '../models/patient.js';
 
 
-const addOrder = async (req, res) => {
+/*const addOrder = async (req, res) => {
   console.log("req");
 
   const patientId = req.params.id; 
@@ -40,7 +40,7 @@ const addOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+};*/
 
   
 const viewOrderDetails = async (req, res) => {
@@ -82,7 +82,7 @@ const cancelOrder = async (req, res) => {
   };
       
   export default {
-    addOrder,
+   // addOrder,
     viewOrderDetails,
     cancelOrder
   }
