@@ -101,11 +101,16 @@ function MedicinesListAdmin() {
         }}
       >
         <ResponsiveAppBar />
+        <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '40%', marginLeft: '30%' }}>
+          <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px", }}>
+            Medicine List</h1>
+
+        </div>
         <div
           className="card m-3 col-12"
           style={{ width: "80%", left: "8%", borderRadius: "20px" }}
         >
-          <h1 className="text-center mt-4">List of Medicines</h1>
+
           <Form>
             <InputGroup className="my-3">
               <Form.Control
