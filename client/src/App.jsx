@@ -31,7 +31,7 @@ import ChangePassPharm from "./pages/changePassPharm";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
+axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`;
 
 function App() {
   const token=JSON.parse(sessionStorage.getItem('token'));
@@ -41,17 +41,13 @@ function App() {
           useEffect(() => {
             const fetchData = async () => {
               try {
-                const result = await axios.get("http://localhost:9000/admin/getType", {
-                  headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-                });
+                const result = await axios.get("http://localhost:9000/admin/getType");
         
                 setData(result.data.type);
                 setDataFetched(true);
                 console.log(result.data.type);
               } catch (err) {
-                console.log("Error: " + err);
+                console.log( err);
                 setDataFetched(true);
               }
             };
