@@ -75,11 +75,15 @@ function PatientsList() {
     <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
       <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
         <ResponsiveAppBar />
+
+        <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '40%', marginLeft: '30%' }}>
+          <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px", }}>
+            Patients List</h1>
+
+        </div>
         <div className="card m-3 col-12" style={{ width: "80%", left: '8%', borderRadius: '20px' }}>
 
-          <div className="card-header">
-            <h2>Patients</h2>
-          </div>
+
           <div className="card-body">
             {loading ? (
               <p>Loading...</p>
