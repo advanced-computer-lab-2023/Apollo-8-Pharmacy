@@ -8,6 +8,7 @@ import pharmacistRoutes from "./routes/pharmacist.js";
 import patientRoutes from "./routes/patient.js";
 import adminRoutes from "./routes/admin.js";
 import medicineRoutes from "./routes/medicine.js";
+import orderRoutes from "./routes/order.js";
 
 
 const app = express();
@@ -44,3 +45,4 @@ app.use("/pharmacist", pharmacistRoutes);
 app.use("/patient", patientRoutes);
 app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
+app.use("/order", orderRoutes);
