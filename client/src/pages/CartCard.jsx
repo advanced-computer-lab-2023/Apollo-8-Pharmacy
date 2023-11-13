@@ -58,7 +58,7 @@ function card(props) {
       }
 
       const response = await axios.put(
-        `http://localhost:9000/patient/654e55dc1c5ff871bec6b1aa/incMed`,
+        `http://localhost:9000/patient/65212c32f90a57e39e26a1c2/incMed`,
         { medicineId: props.medicineId, quantity: quantity + 1 }
       );
 
@@ -79,7 +79,7 @@ function card(props) {
       }
 
       const response = await axios.put(
-        `http://localhost:9000/patient/654e55dc1c5ff871bec6b1aa/decMed`,
+        `http://localhost:9000/patient/65212c32f90a57e39e26a1c2/decMed`,
         { medicineId: props.medicineId, quantity: quantity - 1 }
       );
 
@@ -99,7 +99,7 @@ function card(props) {
       }
   
       const response = await axios.delete(
-        `http://localhost:9000/patient/654e55dc1c5ff871bec6b1aa/removeFromCart`,
+        `http://localhost:9000/patient/65212c32f90a57e39e26a1c2/removeFromCart`,
         { data: { medicineId: props.medicineId } }
       );
   
