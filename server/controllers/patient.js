@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import PatientModel from '../models/patient.js';
 import UserModel from '../models/user.js';
 import bcrypt from "bcrypt";
+import MedicineModel from '../models/medicine.js';
 const saltRounds = 10;
 
 const createPatient = async (req, res) => {
@@ -78,7 +79,7 @@ const getPatientById = async (req, res) => {
 };
 //s
 const addToCart = async (req, res) => {
-  const patientId = '652aebde203548e19b62d4b1';
+  const patientId = '65212c32f90a57e39e26a1c2';
   const { medicineId, quantity } = req.body;
 
   try {
@@ -159,6 +160,8 @@ const incMedicine = async (req, res) => {
 
   try {
     const patient = await PatientModel.findById(patientId);
+    const medicine = await MedicineModel.findById(medicineId);
+
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -167,10 +170,14 @@ const incMedicine = async (req, res) => {
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (cartItem) {
-      if (medicineId.quantity > cartItem.quantity) {
+      console.log(medicine.quantity)
+      console.log(cartItem.quantity)
+
+      if (medicine.quantity > cartItem.quantity) {
+        
         cartItem.quantity += 1;
       } else {
-        return res.status(404).json({ error: 'sorry we do not have enough amount of th medicine' });
+        return res.status(404).json({ error: 'sorry we do not have enough amount of the medicine' });
       }
 
     } else {
