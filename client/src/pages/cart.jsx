@@ -55,7 +55,7 @@ import { useEffect,useState } from "react";
 
 function cart() {
     const [cartItems, setCartItems] = useState([]);
-  const patientId = "654e55dc1c5ff871bec6b1aa";
+  const patientId = "65212c32f90a57e39e26a1c2";
 
     useEffect(() => {
     const apiUrl = `http://localhost:9000/patient/${patientId}/viewCart`;
@@ -85,7 +85,9 @@ function cart() {
                         My Cart</h1>
 
                 </div>
-                <div style={{}}>    <Stepper /></div>
+                
+                <div style={{}}>                     <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)", marginLeft: '90%' }} variant="contained">Proceed To Checkout</Button>
+   </div>
 
                 <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
                 {cartItems && cartItems.map((item, index) => (
