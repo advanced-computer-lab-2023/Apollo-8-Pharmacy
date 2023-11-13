@@ -78,7 +78,7 @@ const getPatientById = async (req, res) => {
 };
 //s
 const addToCart = async (req, res) => {
-  const patientId = req.params.id;
+  const patientId = '652aebde203548e19b62d4b1';
   const { medicineId, quantity } = req.body;
 
   try {

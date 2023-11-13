@@ -7,23 +7,10 @@ const orderSchema = new mongoose.Schema(
       ref: "Patient",
       required: true,
     },
-    cart: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Cart",
+    deliveryAddress: {
+      type: String,
       required: true,
     },
-    deliveryAddresses: [
-      {
-        address: {
-          type: String,
-          required: true,
-        },
-        isDefault: {
-          type: Boolean,
-          default: false,
-        },
-      },
-    ],
     paymentMethod: {
       type: String,
       enum: ["Wallet", "CreditCard", "CashOnDelivery"],
@@ -31,10 +18,27 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Accepted", "Rejected", "Delivered", "Cancelled"],
+      enum: ["Pending", "Delivered", "Cancelled"],
       required: true,
       default: "Pending",
     },
+    items: [
+      {
+        medicine: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Medicine",
+        },
+        quantity: {
+          type: Number,
+          default: 0,
+        },
+        default: [],
+      },
+    ],
+    total: {
+      type: Number, 
+      required: true
+    }
   },
   { timestamps: true }
 );
