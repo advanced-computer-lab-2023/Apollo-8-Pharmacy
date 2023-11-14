@@ -33,6 +33,7 @@ import Patientlogin from "./pages/PatientLogin";
 import Forget from "./pages/ForgetPassword";
 import ChangePass from "./pages/chnagePass";
 import ChangePassPharm from "./pages/changePassPharm";
+import OrderDetails from "./pages/orderDetails";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -129,6 +130,8 @@ function App() {
           <Route path="/patients/:id" element={<PatientDetails />} />
           <Route path="/medicinesList/:id" element={<EditMedicine />} />
           <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/orderDetails" element={<OrderDetails />} />
+
           <Route path="/medicineSales" element={<MedicineSales />} />
           <Route
             path="/medicinesListPharmacist"
@@ -165,7 +168,7 @@ function App() {
     return (
       <div>
         <Routes>
-           <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/addMedicine" element={<AddMedicine />} />
           <Route path="/registerPharmacist" element={<PharmacistSignup />} />
           <Route path="/registerPatient" element={<PatientSignup />} />
           <Route path="/pharmacists" element={<PharmacistsList />} />
