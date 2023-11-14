@@ -81,34 +81,34 @@ export default function AddressForm() {
         }
     };
     
-    const handlePlaceOrder = async () => {
-        try {
-            const response = await axios.put(`http://localhost:8000/order/add`, {
-                deliveryAddress: selectedAddress
-                , paymentMethod: paymentMethod
-            });
-            if (response) {
-                navigate("/myorders");
-            }
-        } catch (error) {
-            console.error('Error updating wallet:', error);
-        }
-    };
+    // const handlePlaceOrder = async () => {
+    //     try {
+    //         const response = await axios.put(`http://localhost:9000/order/add`, {
+    //             deliveryAddress: selectedAddress
+    //             , paymentMethod: paymentMethod
+    //         });
+    //         if (response) {
+    //             navigate("/myorders");
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating wallet:', error);
+    //     }
+    // };
 
-    const handleCardPayment = () => {
-        axios.post("http://localhost:9000/Checkout").then((response) => {
-            //setpaymentMethod("CreditCard");
-        }).catch((error) => {
-            console.error("Error fetching data:", error);
-        });
+    // const handleCardPayment = () => {
+    //     axios.post("http://localhost:9000/Checkout").then((response) => {
+    //         //setpaymentMethod("CreditCard");
+    //     }).catch((error) => {
+    //         console.error("Error fetching data:", error);
+    //     });
 
-    };
+    // };
 
     const handleCashOnDelivery = async () => {
-        
+        try {
             console.log('Sending request...');
             const response = await axios.post('http://localhost:9000/order/add', {
-                deliveryAddress: '123 Main Street',
+                deliveryAddress: selectedAddress,
                 paymentMethod: 'CashOnDelivery',
             }, {
                 headers: {
@@ -116,10 +116,12 @@ export default function AddressForm() {
                 },
             });
             console.log('Response:', response.data);
-        // } catch (error) {
-        //     console.error('Error updating wallet:', error);
-        // }
+        } catch (error) {
+            console.error('Error during the request:', error);
+            // Handle the error as needed, e.g., show a user-friendly message or log more details
+        }
     };
+    
 
     const MyOrders = () => {
         navigate("/myorders");

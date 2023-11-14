@@ -29,12 +29,12 @@ async function calculateCartTotalPrice(cart) {
 }
 
 const addOrder = async (req, res) => {
-  // const pat=await PatientModel.findOne({user:res.locals.userId})
-  // const patientId = pat._id;
+  const pat=await PatientModel.findOne({user:res.locals.userId})
+  const patientId = pat._id;
   const { deliveryAddress, paymentMethod } = req.body;
 
   try {
-    const patient = await PatientModel.findById({user:res.locals.userId});
+    const patient = await PatientModel.findOne(patientId);
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -53,7 +53,7 @@ const addOrder = async (req, res) => {
   
     }
     const order = new OrderModel({
-      patient: patient._id,
+      patient: patientId,
       deliveryAddress,
       paymentMethod,
       items: cartItems,
