@@ -49,16 +49,17 @@ import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
 import BottomBar from './BottomBar';
 import Stepper from './Stepper';
-import axios from "axios"
+import axios from "axios";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 function cart() {
-    const [cartItems, setCartItems] = useState([]);
-  const patientId = "65212c32f90a57e39e26a1c2";
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  // const patientId = "65212c32f90a57e39e26a1c2";
 
-    useEffect(() => {
-    const apiUrl = `http://localhost:9000/patient/${patientId}/viewCart`;
+  useEffect(() => {
+    const apiUrl = `http://localhost:9000/patient/viewCart`;
 
     axios
       .get(apiUrl)
@@ -71,26 +72,28 @@ function cart() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [patientId]);
-    
-  
-    return (
-        <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
-            <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
+  }, []);
 
-                <ResponsiveAppBar />
-                <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
-                    <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>
-                        <ShoppingCartIcon fontSize='large' sx={{ color: "white", marginRight: '20px' }} />
-                        My Cart</h1>
+  const Checkout = () => {
+    navigate("/Checkout");
+  };
+  return (
+    <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
+      <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
 
-                </div>
-                
-                <div style={{}}>                     <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)", marginLeft: '90%' }} variant="contained">Proceed To Checkout</Button>
-   </div>
+        <ResponsiveAppBar />
+        <div style={{ backgroundColor: "rgb(0,140,990", borderRadius: '50px', margin: '10px', width: '30%', marginLeft: '35%' }}>
+          <h1 style={{ font: "Arial", fontWeight: 'bold', color: "white", margin: "10px" }}>
+            <ShoppingCartIcon fontSize='large' sx={{ color: "white", marginRight: '20px' }} />
+            My Cart</h1>
 
-                <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-                {cartItems && cartItems.map((item, index) => (
+        </div>
+
+        <div style={{}}>                     <Button onClick={Checkout} style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)", marginLeft: '90%' }} variant="contained">Proceed To Checkout</Button>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
+          {cartItems && cartItems.map((item, index) => (
             <Card1
               key={index}
               name={item.medicine.medicineName}
@@ -102,15 +105,15 @@ function cart() {
               setCartItems={setCartItems}
             />
           ))}
-                </div>
-                <BottomBar />
+        </div>
+        <BottomBar />
 
 
-            </AppBar>
+      </AppBar>
 
 
-        </div >
+    </div >
 
-    );
+  );
 }
 export default cart;

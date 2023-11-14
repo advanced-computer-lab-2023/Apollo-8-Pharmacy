@@ -7,27 +7,29 @@ import Checkbox from '@mui/material/Checkbox';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function AddressForm() {
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState('');
     const [paymentMethod, setpaymentMethod] = useState('');
     const [newAddress, setNewAddress] = useState('');
     const [total, setTotal] = useState();
 
-    const patientId = '652aebde203548e19b62d4b1';
+    //const patientId = '652aebde203548e19b62d4b1';
 
     const handleAddAddress = () => {
         axios
-            .put(`http://localhost:9000/patient/${patientId}/addAddress`, { "newAddress": newAddress })
+            .put(`http://localhost:9000/patient/addAddress`, { "newAddress": newAddress })
             .then((response) => {
                 axios
-                    .get(`http://localhost:9000/patient/${patientId}`)
+                    .get(`http://localhost:9000/patient/byId`)
                     .then((response) => {
                         setData(response.data.adresses);
-                        //console.log(response.data);
+                    
                         console.log(data);
 
                     })
@@ -43,7 +45,7 @@ export default function AddressForm() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:9000/patient/${patientId}`)
+            .get(`http://localhost:9000/patient/byId`)
             .then((response) => {
                 setData(response.data.adresses);
                 //console.log(response.data);
@@ -59,27 +61,35 @@ export default function AddressForm() {
     };
 
     const handleWalletPayment = async () => {
-        axios.get(`http://localhost:9000/patient/${patientId}/getCartTotal`).then((response) => {
-            try {
-                setpaymentMethod("Wallet");
-                setTotal(response);
-                axios.put(`http://localhost:8000/patient/updateWallet`, {
-                    patientId: patientId,
-                    paymentAmount: -total,
-                });
-            } catch (error) {
-                console.error('Error updating wallet:', error);
-            }
-        }).catch((error) => {
-            console.error("Error fetching data:", error);
-        });
+        try {
+            const response = await axios.get(`http://localhost:9000/patient/getCartTotal`);
+            const totalCart = response.data; // Assuming the total is in response.data
+    
+            setpaymentMethod("Wallet");
+            setTotal(totalCart); // Assuming setTotal is a function that updates the component state
+    
+            await axios.put(`http://localhost:9000/patient/updateWallet`, {
+                paymentAmount: -total,
+            });
+    
+            await axios.put(`http://localhost:9000/order/add`, {
+                deliveryAddress: selectedAddress,
+                paymentMethod: "Wallet", // Assuming paymentMethod is a state variable or constant
+            });
+        } catch (error) {
+            console.error('Error handling wallet payment:', error);
+        }
     };
+    
     const handlePlaceOrder = async () => {
         try {
             const response = await axios.put(`http://localhost:8000/order/add`, {
                 deliveryAddress: selectedAddress
                 , paymentMethod: paymentMethod
             });
+            if (response) {
+                navigate("/myorders");
+            }
         } catch (error) {
             console.error('Error updating wallet:', error);
         }
@@ -87,15 +97,32 @@ export default function AddressForm() {
 
     const handleCardPayment = () => {
         axios.post("http://localhost:9000/Checkout").then((response) => {
-            setpaymentMethod("CreditCard");
+            //setpaymentMethod("CreditCard");
         }).catch((error) => {
             console.error("Error fetching data:", error);
         });
 
     };
 
-    const handleCashOnDelivery = () => {
-        setpaymentMethod("CashOnDelivery");
+    const handleCashOnDelivery = async () => {
+        
+            console.log('Sending request...');
+            const response = await axios.post('http://localhost:9000/order/add', {
+                deliveryAddress: '123 Main Street',
+                paymentMethod: 'CashOnDelivery',
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Response:', response.data);
+        // } catch (error) {
+        //     console.error('Error updating wallet:', error);
+        // }
+    };
+
+    const MyOrders = () => {
+        navigate("/myorders");
     };
     return (
         <React.Fragment>
@@ -125,6 +152,7 @@ export default function AddressForm() {
                         Add Address
                     </Button>
                 </Grid>
+
                 <Grid item xs={12}>
                     <FormControl fullWidth>
                         <InputLabel id="address-dropdown-label">Choose an existing address</InputLabel>
@@ -143,35 +171,37 @@ export default function AddressForm() {
                             ))}
                         </Select>
                     </FormControl>
-                    {/* Buttons for payment options */}
-                    <div><br></br></div>
-                    <div>
-                        <Button variant="contained" color="primary" onClick={handleWalletPayment} style={{ marginRight: '5px' }}>
-                            Pay by Wallet
-                        </Button>
-                        <Button variant="contained" color="primary" onClick={handleCardPayment} style={{ marginRight: '5px' }}>
-                            Pay by CreditCard
-                        </Button>
-                        <Button variant="contained" color="primary" onClick={handleWalletPayment}>
-                            Pay on Delivery
-                        </Button>
-                    </div>
-                </Grid>
-                <Grid item xs={12}>
+
                     <FormControlLabel
                         control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
                         label="Use this address for payment details"
                     />
+                    {/* Buttons for payment options */}
+                    <div><br></br></div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Button variant="contained" color="primary" onClick={handleWalletPayment} style={{ marginRight: '5px' }}>
+                            Pay by wallet & Place Order
+                        </Button>
+                        <form action="http://localhost:9000/Checkout" method="POST" >
+                            <Button variant="contained" type="submit" color="primary" style={{ marginRight: '5px' }}>
+                                Pay by CreditCard & Place Order
+                            </Button>
+                        </form>
+                        <Button variant="contained" color="primary" onClick={handleCashOnDelivery}>
+                            Pay on Delivery & Place Order
+                        </Button>
+                    </div>
                 </Grid>
+
                 <Grid item xs={12}>
                     <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'flex-end' }}>
                         <Button
                             variant="contained"
                             color="primary"
 
-                            onClick={handlePlaceOrder}
+                            onClick={MyOrders}
                         >
-                            Place Order
+                            My orders
                         </Button>
                     </div>
                 </Grid>
