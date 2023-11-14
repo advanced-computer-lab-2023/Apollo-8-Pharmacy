@@ -66,6 +66,13 @@ function ResponsiveAppBar() {
         //   navigate("/cart");
         setAnchorElNav();
     };
+    const logOut = (event) => {
+        sessionStorage.removeItem('token');
+        window.location.pathname = '/';
+    };
+    const Change = () => {
+        window.location.pathname = '/ChangePassAdm';
+    };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -146,13 +153,14 @@ function ResponsiveAppBar() {
                     >
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Home     </Button>
-                        <Button onClick={handlePatList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Patients List     </Button>
-                        <Button onClick={handlePharmList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Pharmacist List     </Button>
-                        <Button onClick={handleMedList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Medicine List     </Button>
-                        <Button onClick={handlePharmPend} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Pharmacist Pending     </Button>
-                        <Button onClick={handleRemoveUser} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Remove User     </Button>
-                        <Button onClick={handleAddAdmin} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Add Admin     </Button>
+                        <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Home     </Button>
+                        <Button onClick={handlePatList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Patients List     </Button>
+                        <Button onClick={handlePharmList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Pharmacist List     </Button>
+                        <Button onClick={handleMedList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Medicine List     </Button>
+                        <Button onClick={handlePharmPend} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Pharmacist Pending     </Button>
+                        <Button onClick={handleRemoveUser} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Remove User     </Button>
+                        <Button onClick={handleAddAdmin} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Add Admin     </Button>
+                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Change Password     </Button>
 
 
                     </Box>
@@ -161,8 +169,8 @@ function ResponsiveAppBar() {
 
                     <Box sx={{ flexGrow: 0 }}>
 
-                        <Tooltip title="Open Your Profile">
-                            <IconButton style={{ paddingLeft: "20px" }} onClick={"/cart"} sx={{ p: 0 }}>
+                        <Tooltip title="Logout">
+                            <IconButton style={{ paddingLeft: "20px" }} onClick={logOut} sx={{ p: 0 }}>
 
                                 <AccountCircleIcon fontSize='large' sx={{ color: "white" }} />
                             </IconButton>
