@@ -77,6 +77,9 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleChangePassword = () => {
+        navigate("/ChangePassAdm");
+    };
 
     return (
         <AppBar style={{ height: "100px", backgroundColor: "rgb(0,140,990" }} position="static" >
@@ -153,6 +156,7 @@ function ResponsiveAppBar() {
                     >
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
                         <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Home     </Button>
                         <Button onClick={handlePatList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Patients List     </Button>
                         <Button onClick={handlePharmList} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '12px' }}> Pharmacist List     </Button>
