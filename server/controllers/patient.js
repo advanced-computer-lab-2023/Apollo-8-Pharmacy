@@ -114,14 +114,13 @@ const addToCart = async (req, res) => {
     }
 
     const existingCartItem = patient.cart.find(item => {
-      console.log(item)
       item.medicine.equals(medicineId)
     });
 
     if (existingCartItem) {
       existingCartItem.quantity += quantity;
     } else {
-      patient.cart.push({ medicine: medicineId, quantity: quantity || 1 });
+      patient.cart.push({ medicine: medicineId, quantity: 1 });
     }
 
     await patient.save();

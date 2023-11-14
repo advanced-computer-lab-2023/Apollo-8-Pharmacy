@@ -53,6 +53,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import BottomBar from "./BottomBar";
 
 import { useEffect, useState } from "react";
+import { config } from "../config/config";
 import axios from "axios";
 
 function MedicineCard(props) {
@@ -65,13 +66,13 @@ function MedicineCard(props) {
 
       const response = await axios.post(
         `http://localhost:9000/patient/addToCart`,
-        { data: { medicineId: props.medicineId } }
+        { medicineId: props.medicineId }
       );
 
       if (response.data) {
-        props.setMedicine((prevItems) =>
-          prevItems.filter((item) => item.medicine._id !== props.medicineId)
-        );
+        // props.setMedicine((prevItems) =>
+        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
+        // );
       }
     } catch (error) {
       console.error("Error adding medicine to cart:", error);
@@ -79,13 +80,18 @@ function MedicineCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, margin: "30px", minWidth: '600px' }}>
+    <Card sx={{ maxWidth: 345, margin: "30px", minWidth: "600px" }}>
       <img style={{ marginTop: "10px" }} src={props.image} alt="" />
 
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {props.name}
         </Typography>
+        <img
+          style={{ height: 200, width: 200 }}
+          src={config.STORAGE_URL + props.image}
+          className="card-img-top"
+        />
         <Typography variant="body2" color="text.secondary">
           {props.info}
         </Typography>
