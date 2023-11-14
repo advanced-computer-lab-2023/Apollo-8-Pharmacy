@@ -38,7 +38,7 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-        
+
     const logOut = (event) => {
         sessionStorage.removeItem('token');
         window.location.pathname = '/';
@@ -145,19 +145,18 @@ function ResponsiveAppBar() {
                         }}
                     >
                     </Typography>
-                    <Box  sx={{ flexGrow: 1,display: { xs: 'none', md: 'flex' } }}>
-                        <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block' }}> Home     </Button>
-                        <Button onClick={handleMedicine} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine     </Button>
-                        <Button onClick={handleCart} sx={{ my: 2, color: 'white', display: 'block' }}> My Cart     </Button>
-                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block' }}> Change Pass</Button>
-                        <Button onClick={handleOrders} sx={{ my: 2, color: 'white', display: 'block' }}> My Orders     </Button>
-                        <Button onClick={logOut} sx={{ my: 2, color: 'white', display: 'block' }}> Logout     </Button>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block', marginRight: '2%', marginLeft: '2%', fontSize: '12px' }}> Home     </Button>
+                        <Button onClick={handleMedicine} sx={{ my: 2, color: 'white', display: 'block', marginRight: '2%', marginLeft: '2%', fontSize: '12px' }}> Medicine     </Button>
+                        <Button onClick={handleCart} sx={{ my: 2, color: 'white', display: 'block', marginRight: '2%', marginLeft: '2%', fontSize: '12px' }}> My Cart     </Button>
+                        <Button onClick={handleOrders} sx={{ my: 2, color: 'white', display: 'block', marginRight: '2%', marginLeft: '2%', fontSize: '12px' }}> My Orders     </Button>
+                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block', marginRight: '2%', marginLeft: '2%', fontSize: '12px' }}> Change Pass</Button>
 
 
 
 
                     </Box>
-                    <div style={{marginLeft:'8%'}} >
+                    <div style={{ marginLeft: '20%' }} >
 
                         <Box
                             style={{ color: "white", backgroundColor: "white" }}
@@ -181,7 +180,7 @@ function ResponsiveAppBar() {
                         </Box>
 
                     </div>
-                    <Button style={{ right: "18%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)" }} variant="contained">Search</Button>
+                    <Button style={{ right: "12%", borderRadius: '100px', height: '56px', width: '160px', backgroundColor: "rgb(0,0,139)" }} variant="contained">Search</Button>
 
 
 
@@ -194,8 +193,8 @@ function ResponsiveAppBar() {
                                 <ShoppingBasketSharpIcon fontSize='large' sx={{ color: "white" }} />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Open Your Profile">
-                            <IconButton style={{ paddingLeft: "20px" }} onClick={"/cart"} sx={{ p: 0 }}>
+                        <Tooltip title="Logout">
+                            <IconButton style={{ paddingLeft: "10px" }} onClick={logOut} sx={{ p: 0 }}>
 
                                 <AccountCircleIcon fontSize='large' sx={{ color: "white" }} />
                             </IconButton>
