@@ -9,11 +9,16 @@ router.post("/patientLogin",Auth.loginPatient)
 router.post("/", controllers.createPatient);
 router.get("/", controllers.getPatients);
 router.get("/:id", controllers.getPatientById);
-router.post('/:id/addToCart', controllers.addToCart);
+router.post('/addToCart', controllers.addToCart);
 router.get('/:id/viewCart', controllers.viewCart);
 router.delete('/:id/removeFromCart', controllers.removeFromCart);
-router.post('/:id/incMed', controllers.incMedicine);
-router.post('/:id/decMed', controllers.decMedicine);
+router.put('/:id/incMed', controllers.incMedicine);
+router.put('/:id/addAddress' , controllers.addAddressToPatient);
+router.put('/updateWallet', controllers.updateWallet);
+router.put('/:id/decMed', controllers.decMedicine);
+router.get('/:id/orders/:orderId', controllers.viewOrderDetails);
+router.get('/:id/getCartTotal', controllers.getCartTotal);
+router.post('/:id/orders/:orderId/cancel', controllers.cancelOrder);
 
 
 

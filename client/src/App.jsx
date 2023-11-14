@@ -17,11 +17,16 @@ import MedicinesListPharmacist from "./pages/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/MedicinesListPatient";
 import HomePage from "./pages/HomePage";
 import MedicinesListAdmin from "./pages/MedicinesListAdmin";
-import Cart from "./pages/cart"
+import Cart from "./pages/cart";
 import MyOrders from "./pages/MyOrders";
 import ListMedicine from "./pages/Medicine";
 import ListMedicinepharm from "./pages/MedicinePharm";
 import HomePagePharm from "./pages/HomePagePharm";
+import HomePageAdmin from "./pages/HomePageAdmin";
+import AddressForm from "./pages/AddressForm";
+import PaymentForm from "./pages/PaymentForm";
+import Review from "./pages/Review";
+import Checkout from "./pages/Checkout";
 import Pharmacistlogin from "./pages/PharmacistLogin";
 import Adminlogin from "./pages/AdminLogin";
 import Patientlogin from "./pages/PatientLogin";
@@ -31,168 +36,195 @@ import ChangePassPharm from "./pages/changePassPharm";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`;
+axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
+  sessionStorage.getItem("token")
+)}`;
 
 function App() {
-  const token=JSON.parse(sessionStorage.getItem('token'));
+  const token = JSON.parse(sessionStorage.getItem("token"));
   const [type, setData] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
 
-          useEffect(() => {
-            const fetchData = async () => {
-              try {
-                const result = await axios.get("http://localhost:9000/admin/getType");
-        
-                setData(result.data.type);
-                setDataFetched(true);
-                console.log(result.data.type);
-              } catch (err) {
-                console.log( err);
-                setDataFetched(true);
-              }
-            };
-        
-            fetchData();
-          }, [token]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:9000/admin/getType");
 
-          if (!dataFetched) {
-             return <p>Loading...</p>; // Render nothing until data is fetched
-          }
-          
-          //enum: ['Pharmacist', 'Admin', 'Patient']
-        if(type==="Patient"){
+        setData(result.data.type);
+        setDataFetched(true);
+        console.log(result.data.type);
+      } catch (err) {
+        console.log(err);
+        setDataFetched(true);
+      }
+    };
 
-        return (
-          <div>
-            <Routes>
-              <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-              <Route path="/registerPatient" element={<PatientSignup />} />
-              <Route path="/pharmacists" element={<PharmacistsList />} />
-              <Route path="/patients" element={<PatientsList />} />
-              <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
-              <Route path="/patients/:id" element={<PatientDetails />} />
-              <Route path="/medicinesList/:id" element={<EditMedicine />} />
-              <Route path="/addMedicine" element={<AddMedicine />} />
-              <Route path="/medicineSales" element={<MedicineSales />} />
-              <Route path="/medicinesListPharmacist" element={<MedicinesListPharmacist />} />
-              <Route path="/medicinesListPatient" element={<MedicinesListPatient />} />
-              <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/addAdmin" element={<AddAdmin />} />
-              <Route path="/removeUser" element={<RemoveUser />} />
-              <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
-              <Route path="/HomePage" element={<HomePage />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/myorders" element={<MyOrders />} />
-              <Route path="/listMedicine" element={<ListMedicine />} />
-              <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
-              <Route path="/HomePagePharm" element={<HomePagePharm />} />
-              <Route path="/PatientLogin" element={<Patientlogin />} />
-              <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-              <Route path="/AdminLogin" element={<Adminlogin />} />
-              <Route path="/ForgetPassword" element={<Forget />} />
-              <Route path="/ChangePassword" element={<ChangePass />} />
-              <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
-      </Routes>
-    </div>
+    fetchData();
+  }, [token]);
 
-  );
-        }
-        else if(type==="Pharmacist"){
-          return (
-            <div>
-              <Routes>
-                <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-                <Route path="/registerPatient" element={<PatientSignup />} />
-                <Route path="/pharmacists" element={<PharmacistsList />} />
-                <Route path="/patients" element={<PatientsList />} />
-                <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
-                <Route path="/patients/:id" element={<PatientDetails />} />
-                <Route path="/medicinesList/:id" element={<EditMedicine />} />
-                <Route path="/addMedicine" element={<AddMedicine />} />
-                <Route path="/medicineSales" element={<MedicineSales />} />
-                <Route path="/medicinesListPharmacist" element={<MedicinesListPharmacist />} />
-                <Route path="/medicinesListPatient" element={<MedicinesListPatient />} />
-                <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/addAdmin" element={<AddAdmin />} />
-                <Route path="/removeUser" element={<RemoveUser />} />
-                <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
-                <Route path="/HomePage" element={<HomePage />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/myorders" element={<MyOrders />} />
-                <Route path="/listMedicine" element={<ListMedicine />} />
-                <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
-                <Route path="/HomePagePharm" element={<HomePagePharm />} />
-                <Route path="/PatientLogin" element={<Patientlogin />} />
-                <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-                <Route path="/AdminLogin" element={<Adminlogin />} />
-                <Route path="/ForgetPassword" element={<Forget />} />
-                <Route path="/ChangePassword" element={<ChangePass />} />
-                <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+  if (!dataFetched) {
+    return <p>Loading...</p>; // Render nothing until data is fetched
+  }
+
+  //enum: ['Pharmacist', 'Admin', 'Patient']
+  if (type === "Patient") {
+    return (
+      <div>
+        <Routes>
+          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
+          <Route path="/registerPatient" element={<PatientSignup />} />
+          <Route path="/pharmacists" element={<PharmacistsList />} />
+          <Route path="/patients" element={<PatientsList />} />
+          <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
+          <Route path="/patients/:id" element={<PatientDetails />} />
+          <Route path="/medicinesList/:id" element={<EditMedicine />} />
+          <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/medicineSales" element={<MedicineSales />} />
+          <Route
+            path="/medicinesListPharmacist"
+            element={<MedicinesListPharmacist />}
+          />
+          <Route
+            path="/medicinesListPatient"
+            element={<MedicinesListPatient />}
+          />
+          <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/addAdmin" element={<AddAdmin />} />
+          <Route path="/removeUser" element={<RemoveUser />} />
+          <Route
+            path="/pharmacistsListPending"
+            element={<PharmacistsListPending />}
+          />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/cart/:patientId" element={<Cart />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/listMedicine" element={<ListMedicine />} />
+          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
+          <Route path="/HomePagePharm" element={<HomePagePharm />} />
+          <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
+          <Route path="/AddressForm" element={<AddressForm />} />
+          <Route path="/PaymentForm" element={<PaymentForm />} />
+          <Route path="/Review" element={<Review />} />
+          <Route path="/Checkout" element={<Checkout />} />
+
+          <Route path="/PatientLogin" element={<Patientlogin />} />
+          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+          <Route path="/AdminLogin" element={<Adminlogin />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
+          <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
         </Routes>
       </div>
-  
     );
-        }
-        else if(type==="Admin"){
-          return (
-            <div>
-              <Routes>
-                <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-                <Route path="/registerPatient" element={<PatientSignup />} />
-                <Route path="/pharmacists" element={<PharmacistsList />} />
-                <Route path="/patients" element={<PatientsList />} />
-                <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
-                <Route path="/patients/:id" element={<PatientDetails />} />
-                <Route path="/medicinesList/:id" element={<EditMedicine />} />
-                <Route path="/addMedicine" element={<AddMedicine />} />
-                <Route path="/medicineSales" element={<MedicineSales />} />
-                <Route path="/medicinesListPharmacist" element={<MedicinesListPharmacist />} />
-                <Route path="/medicinesListPatient" element={<MedicinesListPatient />} />
-                <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/addAdmin" element={<AddAdmin />} />
-                <Route path="/removeUser" element={<RemoveUser />} />
-                <Route path="/pharmacistsListPending" element={<PharmacistsListPending />} />
-                <Route path="/HomePage" element={<HomePage />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/myorders" element={<MyOrders />} />
-                <Route path="/listMedicine" element={<ListMedicine />} />
-                <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
-                <Route path="/HomePagePharm" element={<HomePagePharm />} />
-                <Route path="/PatientLogin" element={<Patientlogin />} />
-                <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-                <Route path="/AdminLogin" element={<Adminlogin />} />
-                <Route path="/ForgetPassword" element={<Forget />} />
-                <Route path="/ChangePassword" element={<ChangePass />} />
-                <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+  } else if (type === "Pharmacist") {
+    return (
+      <div>
+        <Routes>
+          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
+          <Route path="/registerPatient" element={<PatientSignup />} />
+          <Route path="/pharmacists" element={<PharmacistsList />} />
+          <Route path="/patients" element={<PatientsList />} />
+          <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
+          <Route path="/patients/:id" element={<PatientDetails />} />
+          <Route path="/medicinesList/:id" element={<EditMedicine />} />
+          <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/medicineSales" element={<MedicineSales />} />
+          <Route
+            path="/medicinesListPharmacist"
+            element={<MedicinesListPharmacist />}
+          />
+          <Route
+            path="/medicinesListPatient"
+            element={<MedicinesListPatient />}
+          />
+          <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/addAdmin" element={<AddAdmin />} />
+          <Route path="/removeUser" element={<RemoveUser />} />
+          <Route
+            path="/pharmacistsListPending"
+            element={<PharmacistsListPending />}
+          />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/listMedicine" element={<ListMedicine />} />
+          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
+          <Route path="/HomePagePharm" element={<HomePagePharm />} />
+          <Route path="/PatientLogin" element={<Patientlogin />} />
+          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+          <Route path="/AdminLogin" element={<Adminlogin />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
+          <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
         </Routes>
       </div>
-  
     );
-        }
-        else{
-
-          return (
-            <div>
-              <Routes>
-                <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-                <Route path="/registerPatient" element={<PatientSignup />} />                <Route path="/patients" element={<PatientsList />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/HomePage" element={<HomePage />} />
-                <Route path="/PatientLogin" element={<Patientlogin />} />
-                <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-                <Route path="/AdminLogin" element={<Adminlogin />} />
-                <Route path="/ForgetPassword" element={<Forget />} />
-                <Route path="/ChangePassword" element={<ChangePass />} />
-                <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
-                <Route path="/:any" element={<Home />} />       
+  } else if (type === "Admin") {
+    return (
+      <div>
+        <Routes>
+          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
+          <Route path="/registerPatient" element={<PatientSignup />} />
+          <Route path="/pharmacists" element={<PharmacistsList />} />
+          <Route path="/patients" element={<PatientsList />} />
+          <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
+          <Route path="/patients/:id" element={<PatientDetails />} />
+          <Route path="/medicinesList/:id" element={<EditMedicine />} />
+          <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/medicineSales" element={<MedicineSales />} />
+          <Route
+            path="/medicinesListPharmacist"
+            element={<MedicinesListPharmacist />}
+          />
+          <Route
+            path="/medicinesListPatient"
+            element={<MedicinesListPatient />}
+          />
+          <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/addAdmin" element={<AddAdmin />} />
+          <Route path="/removeUser" element={<RemoveUser />} />
+          <Route
+            path="/pharmacistsListPending"
+            element={<PharmacistsListPending />}
+          />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/listMedicine" element={<ListMedicine />} />
+          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
+          <Route path="/HomePagePharm" element={<HomePagePharm />} />
+          <Route path="/PatientLogin" element={<Patientlogin />} />
+          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+          <Route path="/AdminLogin" element={<Adminlogin />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
+          <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
         </Routes>
       </div>
-  
     );
-        }
+  } else {
+    return (
+      <div>
+        <Routes>
+          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
+          <Route path="/registerPatient" element={<PatientSignup />} />{" "}
+          <Route path="/patients" element={<PatientsList />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/PatientLogin" element={<Patientlogin />} />
+          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+          <Route path="/AdminLogin" element={<Adminlogin />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
+          <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+          <Route path="/:any" element={<Home />} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
 export default App;

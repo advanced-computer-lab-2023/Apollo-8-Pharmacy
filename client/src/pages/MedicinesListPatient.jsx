@@ -7,7 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import SidebarPatient from "./SidebarPatient";
-
+import { config } from "../config/config";
 
 function MedicinesListPatient() {
   const [data, setData] = useState([]);
@@ -42,15 +42,11 @@ function MedicinesListPatient() {
       });
   }, []);
 
-
-
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
       <SidebarPatient />
 
       <div className="card m-3 col-12" style={{ width: "80%" }}>
-
-
         <h1 className="text-center mt-4">List of Medicines</h1>
         <Form>
           <InputGroup className="my-3">
@@ -81,7 +77,6 @@ function MedicinesListPatient() {
               <th>Use</th>
               <th>Quantity</th>
               <th>Image</th>
-
             </tr>
           </thead>
           <tbody>
@@ -100,14 +95,17 @@ function MedicinesListPatient() {
                   <td>{item.medicineStatus}</td>
                   <td>{item.medicinalUse}</td>
                   <td>{item.quantity}</td>
-                  <td><img src={item.path} alt="Medicine Image" /></td>
+                  <td>
+                    <img
+                      src={config.STORAGE_URL + item.image}
+                      alt="Medicine Image"
+                    />
+                  </td>
                 </tr>
               ))}
           </tbody>
-
         </Table>
       </div>
-
     </div>
   );
 }

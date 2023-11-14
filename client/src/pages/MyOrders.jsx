@@ -50,17 +50,29 @@ import img2 from '../pictures/mor.png'
 import img3 from '../pictures/asp.jpg'
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import BottomBar from './BottomBar';
+import { useEffect,useState } from "react";
+import axios from "axios"
+
 
 function myOrders() {
-    const id = '#abcdef2023'
-    const status = 'pending'
-    const date = '10/10/2010'
-    const price = '1,300'
+    const [orderItems, setOrderItems] = useState([]);
+    
+  
+      useEffect(() => {
+      const apiUrl = `http://localhost:9000/order/getOrders`;
+      axios
+        .get(apiUrl)
+        .then((response) => {
+          if (response.data) {
+            console.log(response.data); // Log the response to the console
+            setOrderItems(response.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }, []);
 
-    const id2 = '#20938745455'
-    const status2 = 'Cancelled'
-    const date2 = '05/12/2030'
-    const price2 = '750'
     return (
         <div style={{ marginRight: "-5%", marginLeft: "-5%", }} >
             <AppBar style={{ height: "100%", backgroundColor: "#F0F0F0", overflowY: "auto", }}>
@@ -74,17 +86,18 @@ function myOrders() {
                 </div>
 
                 <div style={{}}>
-                    <Order id={id} status={status} date={date} price={price} />
-                    <Order id={id2} status={status2} date={date2} price={price2} />
-                    <Order id={id} status={status} date={date} price={price} />
-
-
+                {orderItems && orderItems.map((item, index) => (
+                    <Order key={index}
+                    deliveryAddress={item.deliveryAddress}
+                    paymentMethod={item.paymentMethod}
+                    status={item.status}
+                    total={item.total}
+                    orderId={item._id}
+                    setOrderItems={setOrderItems}
+                    
+                  />
+                ))}
                 </div>
-
-
-
-
-
                 <BottomBar />
 
             </AppBar >

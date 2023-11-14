@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import PatientModel from '../models/patient.js';
 import UserModel from '../models/user.js';
 import bcrypt from "bcrypt";
+import MedicineModel from '../models/medicine.js';
 const saltRounds = 10;
 
 const createPatient = async (req, res) => {
@@ -68,10 +69,10 @@ const getPatients = async (req, res) => {
 };
 
 const getPatientById = async (req, res) => {
+  const patientId = req.params.id;
   try {
-    const patient = await PatientModel.findById(
-      new mongoose.Types.ObjectId(req.params.id)
-    );
+    //const patient = await PatientModel.find({ user: new mongoose.Types.ObjectId(req.params.id) });
+    const patient = await PatientModel.findById(patientId);
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -79,8 +80,29 @@ const getPatientById = async (req, res) => {
   }
 };
 //s
+
+const addAddressToPatient = async (req, res) => {
+  try {
+    const patientId = req.params.id;
+    const {newAddress} = req.body;
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    patient.adresses.push(newAddress);
+    const updatedPatient = await patient.save();
+
+    res.status(200).json({ message: 'Address added successfully', patient: updatedPatient });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 const addToCart = async (req, res) => {
-  const patientId = req.params.id; 
+  const patientId = '65212c32f90a57e39e26a1c2';
   const { medicineId, quantity } = req.body;
 
   try {
@@ -107,7 +129,7 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const patientId = req.params.patientId; 
+  const patientId = req.params.id;
 
   try {
     const patient = await PatientModel.findById(patientId).populate('cart.medicine');
@@ -127,7 +149,7 @@ const viewCart = async (req, res) => {
   }
 };
 const removeFromCart = async (req, res) => {
-  const patientId = req.params.id; 
+  const patientId = req.params.id;
   const { medicineId } = req.body;
 
   try {
@@ -161,6 +183,8 @@ const incMedicine = async (req, res) => {
 
   try {
     const patient = await PatientModel.findById(patientId);
+    const medicine = await MedicineModel.findById(medicineId);
+
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -169,7 +193,16 @@ const incMedicine = async (req, res) => {
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (cartItem) {
-      cartItem.quantity += 1;
+      console.log(medicine.quantity)
+      console.log(cartItem.quantity)
+
+      if (medicine.quantity > cartItem.quantity) {
+        
+        cartItem.quantity += 1;
+      } else {
+        return res.status(404).json({ error: 'sorry we do not have enough amount of the medicine' });
+      }
+
     } else {
       return res.status(404).json({ error: 'Item not found in the cart' });
     }
@@ -207,6 +240,81 @@ const decMedicine = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const viewOrderDetails = async (req, res) => {
+  const patientId = req.params.id;
+  const orderId = req.params.orderId;
+
+  try {
+    const order = await OrderModel.findById(orderId).populate('patient items.medicine');
+
+    if (!order || !order.patient.equals(patientId)) {
+      return res.status(404).json({ error: 'Order not found for the patient' });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const getCartTotal = async (req, res) => {
+  const patientId = req.params.id;
+  const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    const cartItems = patient.cart;
+    let total = 0;
+
+    for (const cartItem of cartItems) {
+      const medicine = await MedicineModel.findById(cartItem.medicine);
+      console.log(medicine);
+      total += medicine.price * cartItem.quantity;
+      console.log(medicine.price);
+      console.log(cartItem.quantity);
+  
+    }
+
+    res.status(200).json(total);
+};
+const cancelOrder = async (req, res) => {
+  const patientId = req.params.id;
+  const orderId = req.params.orderId;
+
+  try {
+    const order = await OrderModel.findById(orderId);
+
+    if (!order || !order.patient.equals(patientId)) {
+      return res.status(404).json({ error: 'Order not found for the patient' });
+    }
+
+    if (order.status !== 'Pending') {
+      return res.status(400).json({ error: 'Cannot cancel order. Status is not Pending.' });
+    }
+
+    order.status = 'Cancelled';
+    await order.save();
+
+    res.status(200).json({ message: 'Order cancelled successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateWallet = async (req, res) => {
+  try {
+    const { patientId , paymentAmount } = req.body;
+    const patient = await PatientModel.findById(patientId);
+    console.log(patient);
+    patient.wallet += paymentAmount;
+    const updatedPatient = await patient.save();
+    res.status(200).json({ updatedWallet: updatedPatient.wallet });
+  } catch (error) {
+    console.error('Error updating wallet:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 //s
 
 export default {
@@ -217,5 +325,10 @@ export default {
   viewCart,
   removeFromCart,
   incMedicine,
-  decMedicine
+  decMedicine,
+  viewOrderDetails,
+  cancelOrder, 
+  addAddressToPatient, 
+  updateWallet, 
+  getCartTotal
 }
