@@ -83,9 +83,9 @@ const getPatientById = async (req, res) => {
 
 const addAddressToPatient = async (req, res) => {
   try {
-    const patientId = req.params.id;
+
     const { newAddress } = req.body;
-    const patient = await PatientModel.findById(patientId);
+    const patient = await PatientModel.findOne({ user: res.locals.userId })
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -102,6 +102,8 @@ const addAddressToPatient = async (req, res) => {
 
 
 const addToCart = async (req, res) => {
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
   //const patientId = '65212c32f90a57e39e26a1c2';
   const { medicineId, quantity } = req.body;
 
@@ -133,7 +135,8 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
 
   try {
     const patient = await PatientModel.findOne({ user: res.locals.userId }).populate('cart.medicine');
@@ -156,7 +159,9 @@ const viewCart = async (req, res) => {
   }
 };
 const removeFromCart = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  // const patientId = req.params.id;
   const { medicineId } = req.body;
 
   try {
@@ -185,7 +190,9 @@ const removeFromCart = async (req, res) => {
   }
 };
 const incMedicine = async (req, res) => {
-  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  //const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
@@ -222,7 +229,9 @@ const incMedicine = async (req, res) => {
   }
 };
 const decMedicine = async (req, res) => {
-  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  //const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
@@ -248,7 +257,9 @@ const decMedicine = async (req, res) => {
   }
 };
 const viewOrderDetails = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  // const patientId = req.params.id;
   const orderId = req.params.orderId;
 
   try {
@@ -264,8 +275,9 @@ const viewOrderDetails = async (req, res) => {
   }
 };
 const getCartTotal = async (req, res) => {
-  const patientId = req.params.id;
-  const patient = await PatientModel.findById(patientId);
+
+  //const patientId = req.params.id;
+  const patient = await PatientModel.findOne({ user: res.locals.userId });
 
   if (!patient) {
     return res.status(404).json({ error: 'Patient not found' });
@@ -285,7 +297,8 @@ const getCartTotal = async (req, res) => {
   res.status(200).json(total);
 };
 const cancelOrder = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
   const orderId = req.params.orderId;
 
   try {
@@ -311,7 +324,7 @@ const cancelOrder = async (req, res) => {
 const updateWallet = async (req, res) => {
   try {
     const { patientId, paymentAmount } = req.body;
-    const patient = await PatientModel.findById(patientId);
+    const patient = await PatientModel.findOne({ user: res.locals.userId })
     console.log(patient);
     patient.wallet += paymentAmount;
     const updatedPatient = await patient.save();
