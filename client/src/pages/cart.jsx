@@ -54,9 +54,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function cart() {
-  const [cartItems, setCartItems] = useState([]);
-  const patientId = "65212c32f90a57e39e26a1c2";
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  // const patientId = "65212c32f90a57e39e26a1c2";
 
   useEffect(() => {
     const apiUrl = `http://localhost:9000/patient/${patientId}/viewCart`;

@@ -69,10 +69,8 @@ const getPatients = async (req, res) => {
 };
 
 const getPatientById = async (req, res) => {
-  const patientId = req.params.id;
   try {
-    //const patient = await PatientModel.find({ user: new mongoose.Types.ObjectId(req.params.id) });
-    const patient = await PatientModel.findById(patientId);
+    const patient = await PatientModel.findOne({ user: res.locals.userId })
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -134,8 +132,8 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const pat = await PatientModel.findOne({ user: res.locals.userId })
-  const patientId = pat._id;
+  //const pat = await PatientModel.findOne({ user: res.locals.userId })
+  //const patientId = pat._id;
 
   try {
     const patient = await PatientModel.findOne({ user: res.locals.userId }).populate('cart.medicine');
@@ -322,7 +320,7 @@ const cancelOrder = async (req, res) => {
 
 const updateWallet = async (req, res) => {
   try {
-    const { patientId, paymentAmount } = req.body;
+    const { paymentAmount } = req.body;
     const patient = await PatientModel.findOne({ user: res.locals.userId })
     console.log(patient);
     patient.wallet += paymentAmount;

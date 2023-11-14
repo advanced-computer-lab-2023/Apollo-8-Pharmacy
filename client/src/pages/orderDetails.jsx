@@ -55,20 +55,21 @@ import BottomBar from "./BottomBar";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import order from "./orderCard";
 
 function orderDetails() {
-    const [medicine, setMedicine] = useState([]);
+    const [order, setOrder] = useState(null);
 
     useEffect(() => {
-        const apiUrl = `http://localhost:9000/medicine/listMedicines`;
+        const apiUrl = `http://localhost:9000/order/orderDetails`;
 
         axios
             .get(apiUrl)
             .then((response) => {
                 if (response.data) {
                     console.log(response.data); // Log the response to the console
-                    setMedicine(response.data);
-                    console.log("Medicine length:", response.data.length);
+                    setOrder(response.data);
+                    console.log("order length:", response.data.length);
                 }
             })
             .catch((error) => {
@@ -98,18 +99,18 @@ function orderDetails() {
                 >
 
 
-                    {medicine.map((item) => (
-                        <MedicineCard
-                            key={item._id}
-                            name={item.medicineName}
-                            image={item.image} // Assuming your backend sends the image URL
-                            info={item.description}
-                            quantity={item.quantity}
-                            price={item.price}
-                            medicineId={item._id}
-                            setMedicine={setMedicine}
-                        />
-                    ))}
+                    {order && (
+                        order.items.map((item, index) => (
+                            <MedicineCard
+                                key={index}
+                                name={item.medicine.medicineName}
+                                price={item.medicine.price}
+                                quantity={item.quantity}
+                                createdAt={item.medicine.createdAt}
+                                updatedAt={item.medicine.updatedAt}
+                            />
+                        ))
+                    )}
                 </div>
 
                 <Stack

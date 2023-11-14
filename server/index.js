@@ -50,7 +50,7 @@ app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/order", orderRoutes);
 
-const PACKAGE_DOMAIN = 'http://localhost:5173/Checkout/';
+const PACKAGE_DOMAIN = 'http://localhost:5174/Checkout/';
 
 app.post('/Checkout', async (req, res) => {
   const session = await stripeInstance.checkout.sessions.create({
@@ -69,4 +69,4 @@ app.post('/Checkout', async (req, res) => {
   res.redirect(303, session.url);
 });
 
-app.listen(4243, () => console.log('Running on port 4243'));
+app.listen(4242, () => console.log('Running on port 4242'));
