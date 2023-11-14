@@ -10,7 +10,7 @@ const getType = async (req, res, next) => {
       if (err){
         // console.log('You are not logged in.');
         // res send status 401 you are not logged in
-        res.status(401).json({message:"You have no authorization"})
+        res.status(400).json({message:"You are not loggedIn"})
         // res.redirect('/login');
       } else {
           const name=decodedToken.name;
@@ -19,12 +19,12 @@ const getType = async (req, res, next) => {
             res.status(201).json({type:user.type})
           }
           else{
-              res.status(401).json({message:"You have no authorization"})
+            res.status(400).json({message:"You are not loggedIn"})
           }
       }
     });
   } else {
-    res.status(401).json({message:"You have no authorization"})
+    res.status(400).json({message:"You are not loggedIn"})
   }
 };
 

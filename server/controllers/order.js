@@ -29,7 +29,8 @@ async function calculateCartTotalPrice(cart) {
 }
 
 const addOrder = async (req, res) => {
-  const patientId = '652aebde203548e19b62d4b1';
+  const pat=await PatientModel.findOne({user:res.locals.userId})
+  const patientId = pat._id;
   const { deliveryAddress, paymentMethod } = req.body;
 
   try {
@@ -69,7 +70,7 @@ const addOrder = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+//not linkedd with front end
 const viewOrderDetails = async (req, res) => {
   const orderId = '6551ff758f207fe689a67e5f';
 
@@ -88,8 +89,8 @@ const viewOrderDetails = async (req, res) => {
 
 
 const getOrders = async (req, res) => {
-  const patientId = '652aebde203548e19b62d4b1';
-
+  const pat=await PatientModel.findOne({user:res.locals.userId})
+  const patientId = pat._id;
   try {
     const order = await OrderModel.find({patient: patientId});
     console.log(order);
@@ -105,7 +106,7 @@ const getOrders = async (req, res) => {
 };
 
 
-
+//not linkedd with front end
 const cancelOrder = async (req, res) => {
   const orderId = '6551ff758f207fe689a67e5f';
 

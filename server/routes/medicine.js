@@ -1,15 +1,17 @@
 import express from "express";
 import controllers from "../controllers/medicine.js";
 import uploadMiddleware from "../middlewares/uploadMiddleware.js";
-
+import Middle from "../Authentication/Middleware.js"
 const router = express.Router();
 
-router.put("/:id", controllers.updateMedicine);
-router.get("/filter", controllers.filterMedicine);
-router.get("/search", controllers.searchByName);
-router.get("/listMedicines", controllers.listMedicines);
-router.get("/medicineDetails", controllers.medicineDetails);
-router.post("/addMedicine", uploadMiddleware, controllers.addMedicine);
+router.put("/:id",Middle.requireAuthPhatmacist, controllers.updateMedicine);
+router.get("/filter",Middle.requireAuth, controllers.filterMedicine);
+//check not found in front end check this
+router.get("/search",Middle.requireAuth, controllers.searchByName);
+
+router.get("/listMedicines",Middle.requireAuth, controllers.listMedicines);
+router.get("/medicineDetails",Middle.requireAuthPhatmacist, controllers.medicineDetails);
+router.post("/addMedicine", uploadMiddleware,Middle.requireAuthPhatmacist, controllers.addMedicine);
 
 
 export default router;

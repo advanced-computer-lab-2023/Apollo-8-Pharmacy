@@ -34,6 +34,7 @@ import Forget from "./pages/ForgetPassword";
 import ChangePass from "./pages/chnagePass";
 import ChangePassPharm from "./pages/changePassPharm";
 import ChangePassAdm from "./pages/changePassAdm";
+import OrderDetails from "./pages/orderDetails";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -98,7 +99,7 @@ function App() {
             element={<PharmacistsListPending />}
           />
           <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/cart/:patientId" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/listMedicine" element={<ListMedicine />} />
           <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
@@ -130,6 +131,8 @@ function App() {
           <Route path="/patients/:id" element={<PatientDetails />} />
           <Route path="/medicinesList/:id" element={<EditMedicine />} />
           <Route path="/addMedicine" element={<AddMedicine />} />
+          <Route path="/orderDetails" element={<OrderDetails />} />
+
           <Route path="/medicineSales" element={<MedicineSales />} />
           <Route
             path="/medicinesListPharmacist"
@@ -166,6 +169,7 @@ function App() {
     return (
       <div>
         <Routes>
+          <Route path="/addMedicine" element={<AddMedicine />} />
           <Route path="/registerPharmacist" element={<PharmacistSignup />} />
           <Route path="/registerPatient" element={<PatientSignup />} />
           <Route path="/pharmacists" element={<PharmacistsList />} />

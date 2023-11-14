@@ -83,9 +83,9 @@ const getPatientById = async (req, res) => {
 
 const addAddressToPatient = async (req, res) => {
   try {
-    const patientId = req.params.id;
-    const {newAddress} = req.body;
-    const patient = await PatientModel.findById(patientId);
+
+    const { newAddress } = req.body;
+    const patient = await PatientModel.findOne({ user: res.locals.userId })
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -102,17 +102,23 @@ const addAddressToPatient = async (req, res) => {
 
 
 const addToCart = async (req, res) => {
-  const patientId = '65212c32f90a57e39e26a1c2';
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  //const patientId = '65212c32f90a57e39e26a1c2';
   const { medicineId, quantity } = req.body;
 
   try {
-    const patient = await PatientModel.findById(patientId);
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+    const patientId = patient._id
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
     }
 
-    const existingCartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+    const existingCartItem = patient.cart.find(item => {
+      console.log(item)
+      item.medicine.equals(medicineId)
+    });
 
     if (existingCartItem) {
       existingCartItem.quantity += quantity;
@@ -129,10 +135,14 @@ const addToCart = async (req, res) => {
   }
 };
 const viewCart = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
 
   try {
-    const patient = await PatientModel.findById(patientId).populate('cart.medicine');
+    const patient = await PatientModel.findOne({ user: res.locals.userId }).populate('cart.medicine');
+    console.log(res.locals.userId)
+    console.log(patient)
+    //const patient = await PatientModel.findById(patientId).populate('cart.medicine');
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -149,7 +159,9 @@ const viewCart = async (req, res) => {
   }
 };
 const removeFromCart = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  // const patientId = req.params.id;
   const { medicineId } = req.body;
 
   try {
@@ -178,7 +190,9 @@ const removeFromCart = async (req, res) => {
   }
 };
 const incMedicine = async (req, res) => {
-  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  //const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
@@ -197,7 +211,7 @@ const incMedicine = async (req, res) => {
       console.log(cartItem.quantity)
 
       if (medicine.quantity > cartItem.quantity) {
-        
+
         cartItem.quantity += 1;
       } else {
         return res.status(404).json({ error: 'sorry we do not have enough amount of the medicine' });
@@ -215,7 +229,9 @@ const incMedicine = async (req, res) => {
   }
 };
 const decMedicine = async (req, res) => {
-  const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  //const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
@@ -241,7 +257,9 @@ const decMedicine = async (req, res) => {
   }
 };
 const viewOrderDetails = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  // const patientId = req.params.id;
   const orderId = req.params.orderId;
 
   try {
@@ -257,28 +275,30 @@ const viewOrderDetails = async (req, res) => {
   }
 };
 const getCartTotal = async (req, res) => {
-  const patientId = req.params.id;
-  const patient = await PatientModel.findById(patientId);
 
-    if (!patient) {
-      return res.status(404).json({ error: 'Patient not found' });
-    }
-    const cartItems = patient.cart;
-    let total = 0;
+  //const patientId = req.params.id;
+  const patient = await PatientModel.findOne({ user: res.locals.userId });
 
-    for (const cartItem of cartItems) {
-      const medicine = await MedicineModel.findById(cartItem.medicine);
-      console.log(medicine);
-      total += medicine.price * cartItem.quantity;
-      console.log(medicine.price);
-      console.log(cartItem.quantity);
-  
-    }
+  if (!patient) {
+    return res.status(404).json({ error: 'Patient not found' });
+  }
+  const cartItems = patient.cart;
+  let total = 0;
 
-    res.status(200).json(total);
+  for (const cartItem of cartItems) {
+    const medicine = await MedicineModel.findById(cartItem.medicine);
+    console.log(medicine);
+    total += medicine.price * cartItem.quantity;
+    console.log(medicine.price);
+    console.log(cartItem.quantity);
+
+  }
+
+  res.status(200).json(total);
 };
 const cancelOrder = async (req, res) => {
-  const patientId = req.params.id;
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
   const orderId = req.params.orderId;
 
   try {
@@ -303,8 +323,8 @@ const cancelOrder = async (req, res) => {
 
 const updateWallet = async (req, res) => {
   try {
-    const { patientId , paymentAmount } = req.body;
-    const patient = await PatientModel.findById(patientId);
+    const { patientId, paymentAmount } = req.body;
+    const patient = await PatientModel.findOne({ user: res.locals.userId })
     console.log(patient);
     patient.wallet += paymentAmount;
     const updatedPatient = await patient.save();
@@ -327,8 +347,8 @@ export default {
   incMedicine,
   decMedicine,
   viewOrderDetails,
-  cancelOrder, 
-  addAddressToPatient, 
-  updateWallet, 
+  cancelOrder,
+  addAddressToPatient,
+  updateWallet,
   getCartTotal
 }
