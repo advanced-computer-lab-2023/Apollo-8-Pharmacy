@@ -99,7 +99,7 @@ function PharmacistSignup() {
       )
       .then((result) => {
         console.log(result);
-        navigate("/medicinesListPharmacist");
+        navigate("/HomePagePharm");
       })
       .catch((err) => console.log(err));
   };

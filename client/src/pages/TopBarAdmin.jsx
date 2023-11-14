@@ -70,6 +70,9 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleChangePassword = () => {
+        navigate("/ChangePassAdm");
+    };
 
     return (
         <AppBar style={{ height: "100px", backgroundColor: "rgb(0,140,990" }} position="static" >
@@ -153,7 +156,7 @@ function ResponsiveAppBar() {
                         <Button onClick={handlePharmPend} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Pharmacist Pending     </Button>
                         <Button onClick={handleRemoveUser} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Remove User     </Button>
                         <Button onClick={handleAddAdmin} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Add Admin     </Button>
-
+                        <Button onClick={handleChangePassword} sx={{ my: 2, color: 'white', display: 'block', marginLeft: '2%', fontSize: '16px' }}> Change Password   </Button>
 
                     </Box>
 

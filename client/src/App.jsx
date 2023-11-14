@@ -33,6 +33,7 @@ import Patientlogin from "./pages/PatientLogin";
 import Forget from "./pages/ForgetPassword";
 import ChangePass from "./pages/chnagePass";
 import ChangePassPharm from "./pages/changePassPharm";
+import ChangePassAdm from "./pages/changePassAdm";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -201,7 +202,7 @@ function App() {
           <Route path="/AdminLogin" element={<Adminlogin />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
-          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+          <Route path="/ChangePassAdm" element={<ChangePassAdm />} />
         </Routes>
       </div>
     );

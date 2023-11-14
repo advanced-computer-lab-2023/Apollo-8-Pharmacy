@@ -91,7 +91,7 @@ function PatientSignup() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/medicinesListPatient");
+        navigate("/HomePage");
       })
       .catch((err) => console.log(err));
   };
