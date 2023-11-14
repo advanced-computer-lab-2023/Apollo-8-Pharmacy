@@ -1,7 +1,9 @@
 import express from "express";
 import controllers from "../controllers/patient.js";
-
+import Auth from "../Authentication/login.js"
 const router = express.Router();
+//login
+router.post("/patientLogin",Auth.loginPatient)
 
 // to test this send a post request to this route: http://localhost:9000/patient
 router.post("/", controllers.createPatient);

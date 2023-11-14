@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  PIN:{
+    type:Number
+  },
   type: {
     type: String,
     enum: ['Pharmacist', 'Admin', 'Patient'],
