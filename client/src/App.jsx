@@ -97,7 +97,7 @@ function App() {
             element={<PharmacistsListPending />}
           />
           <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/cart/:patientId" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/listMedicine" element={<ListMedicine />} />
           <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
