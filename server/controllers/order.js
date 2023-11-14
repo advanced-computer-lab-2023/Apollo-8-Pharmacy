@@ -73,14 +73,36 @@ const addOrder = async (req, res) => {
   }
 };
 //not linkedd with front end
+// const viewOrderDetails = async (req, res) => {
+//   const orderId = req.body.id;
+//   console.log(req.params.id)
+
+//   try {
+//     const order = await OrderModel.findById(orderId);
+
+//     console.log(order)
+//     if (!order) {
+//       return res.status(404).json({ error: 'Order not found' });
+//     }
+
+//     res.status(200).json(order);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 const viewOrderDetails = async (req, res) => {
-  const orderId = '6551ff758f207fe689a67e5f';
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  // const patientId = req.params.id;
+  const orderId = req.params.id;
 
   try {
-    const order = await OrderModel.findById(orderId).populate('items.medicine');
+    console.log(orderId)
+    const order = await OrderModel.findById(orderId).populate('patient items.medicine');
 
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+    if (!order || !order.patient.equals(patientId)) {
+      return res.status(404).json({ error: 'Order not found for the patient' });
     }
 
     res.status(200).json(order);
@@ -109,14 +131,39 @@ const getOrders = async (req, res) => {
 
 
 //not linkedd with front end
+// const cancelOrder = async (req, res) => {
+//   const orderId = '6551ff758f207fe689a67e5f';
+
+//   try {
+//     const order = await OrderModel.findById(orderId);
+
+//     if (!order) {
+//       return res.status(404).json({ error: 'Order not found' });
+//     }
+
+//     if (order.status !== 'Pending') {
+//       return res.status(400).json({ error: 'Cannot cancel order. Status is not Pending.' });
+//     }
+
+//     order.status = 'Cancelled';
+//     await order.save();
+
+//     res.status(200).json({ message: 'Order cancelled successfully' });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 const cancelOrder = async (req, res) => {
-  const orderId = '6551ff758f207fe689a67e5f';
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const patientId = pat._id;
+  const orderId = req.body.orderId;
 
   try {
     const order = await OrderModel.findById(orderId);
 
     if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+      return res.status(404).json({ error: 'Order not found for the patient' });
     }
 
     if (order.status !== 'Pending') {

@@ -17,8 +17,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingBasketSharpIcon from "@mui/icons-material/ShoppingBasketSharp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useNavigate } from "react-router-dom";
-import { height } from "@mui/system";
+import { useNavigate, useParams } from "react-router-dom";
+import { color, height } from "@mui/system";
 import imgSrc from "../pictures/banner.jpg";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -58,70 +58,68 @@ import axios from "axios";
 import order from "./orderCard";
 
 function orderDetails() {
-    const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState(null);
+  const { id } = useParams();
+  console.log(id);
 
-    useEffect(() => {
-        const apiUrl = `http://localhost:9000/order/orderDetails`;
+  useEffect(() => {
+    const apiUrl = `http://localhost:9000/order/orderDetails/${id}`;
 
-        axios
-            .get(apiUrl)
-            .then((response) => {
-                if (response.data) {
-                    console.log(response.data); // Log the response to the console
-                    setOrder(response.data);
-                    console.log("order length:", response.data.length);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }, []);
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data); // Log the response to the console
+          setOrder(response.data);
+          console.log("order length:", response.data.length);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
-    return (
-        <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
-            <AppBar
-                style={{
-                    height: "100%",
-                    backgroundColor: "#F0F0F0",
-                    overflowY: "auto",
-                }}
-            >
-                <ResponsiveAppBar />
+  return (
+    <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
+      <AppBar
+        style={{
+          height: "100%",
+          backgroundColor: "#F0F0F0",
+          overflowY: "auto",
+        }}
+      >
+        <ResponsiveAppBar />
 
-
-                <div
-                    style={{
-                        backgroundColor: '',
-                        marginLeft: "25%",
-                        marginTop: "30%%",
-
-                    }}
-                >
-
-
-                    {order && (
-                        order.items.map((item, index) => (
-                            <MedicineCard
-                                key={index}
-                                name={item.medicine.medicineName}
-                                price={item.medicine.price}
-                                quantity={item.quantity}
-                                createdAt={item.medicine.createdAt}
-                                updatedAt={item.medicine.updatedAt}
-                            />
-                        ))
-                    )}
-                </div>
-
-                <Stack
-                    spacing={2}
-                    style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
-                >
-
-                </Stack>
-                <BottomBar />
-            </AppBar>
+        <div
+          style={{
+            backgroundColor: "",
+            marginLeft: "25%",
+            marginTop: "30%%",
+          }}
+        >
+          {order && (
+              <div>
+                {" "}
+                <p>{order.status}</p>
+                <p>{order.paymentMethod}</p>
+              </div>
+            ) &&
+            order.items.map((item, index) => (
+              <div>
+                <p>{item.medicine.medicineName}</p>
+                <p>{item.medicine.price}</p>
+                <p>{item.quantity}</p>
+              </div>
+            ))}
         </div>
-    );
+
+        <Stack
+          spacing={2}
+          style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
+        ></Stack>
+        <BottomBar />
+      </AppBar>
+    </div>
+  );
 }
 export default orderDetails;
