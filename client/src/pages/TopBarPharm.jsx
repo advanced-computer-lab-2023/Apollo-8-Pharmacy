@@ -37,7 +37,7 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    
+
     const logOut = (event) => {
         sessionStorage.removeItem('token');
         window.location.pathname = '/';
@@ -148,13 +148,12 @@ function ResponsiveAppBar() {
                         <Button onClick={handleHome} sx={{ my: 2, color: 'white', display: 'block' }}> Home     </Button>
                         <Button onClick={handleMedicine} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine     </Button>
                         <Button onClick={handleAddMed} sx={{ my: 2, color: 'white', display: 'block' }}> Add Medicine     </Button>
-                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block' }}> Change Pass</Button>
                         <Button onClick={handelSales} sx={{ my: 2, color: 'white', display: 'block' }}> Medicine Sales     </Button>
-                        <Button onClick={logOut} sx={{ my: 2, color: 'white', display: 'block' }}> Logout     </Button>
+                        <Button onClick={Change} sx={{ my: 2, color: 'white', display: 'block' }}> Change Pass</Button>
 
 
                     </Box>
-                    <div style={{marginLeft:'8%'}}>
+                    <div style={{ marginLeft: '8%' }}>
 
                         <Box
                             style={{ color: "white", backgroundColor: "white" }}
@@ -185,8 +184,8 @@ function ResponsiveAppBar() {
 
                     <Box sx={{ flexGrow: 0 }}>
 
-                        <Tooltip title="Open Your Profile">
-                            <IconButton style={{ paddingLeft: "20px" }} onClick={"/cart"} sx={{ p: 0 }}>
+                        <Tooltip title=" Logout">
+                            <IconButton style={{ paddingLeft: "20px" }} onClick={logOut} sx={{ p: 0 }}>
 
                                 <AccountCircleIcon fontSize='large' sx={{ color: "white" }} />
                             </IconButton>
