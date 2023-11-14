@@ -90,27 +90,35 @@ function orderDetails() {
       >
         <ResponsiveAppBar />
 
-        <div
-          style={{
-            backgroundColor: "",
-            marginLeft: "25%",
-            marginTop: "30%%",
-          }}
-        >
-          {order && (
+        <div>
+          <Card>
+            {order && (
               <div>
-                {" "}
-                <p>{order.status}</p>
-                <p>{order.paymentMethod}</p>
+                <p>Status: {order.status}</p>
+                <p>Payment Method: {order.paymentMethod}</p>
+                <p>Medicines List:</p>
               </div>
-            ) &&
-            order.items.map((item, index) => (
-              <div>
-                <p>{item.medicine.medicineName}</p>
-                <p>{item.medicine.price}</p>
-                <p>{item.quantity}</p>
-              </div>
-            ))}
+            )}
+          </Card>
+        </div>
+
+        <div>
+          <Card>
+            {order && (
+                <div>
+                  <p>{order.status}</p>
+                  <p>{order.paymentMethod}</p>
+                  <p>Medicines:</p>
+                </div>
+              ) &&
+              order.items.map((item, index) => (
+                <div>
+                  <p>name: {item.medicine.medicineName}</p>
+                  <p>price: {item.medicine.price}</p>
+                  <p>quantity: {item.quantity}</p>
+                </div>
+              ))}
+          </Card>
         </div>
 
         <Stack
