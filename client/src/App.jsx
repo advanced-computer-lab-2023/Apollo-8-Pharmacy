@@ -165,6 +165,7 @@ function App() {
     return (
       <div>
         <Routes>
+           <Route path="/addMedicine" element={<AddMedicine />} />
           <Route path="/registerPharmacist" element={<PharmacistSignup />} />
           <Route path="/registerPatient" element={<PatientSignup />} />
           <Route path="/pharmacists" element={<PharmacistsList />} />
