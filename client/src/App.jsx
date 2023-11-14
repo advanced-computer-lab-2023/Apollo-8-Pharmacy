@@ -73,49 +73,21 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-          <Route path="/registerPatient" element={<PatientSignup />} />
-          <Route path="/pharmacists" element={<PharmacistsList />} />
-          <Route path="/patients" element={<PatientsList />} />
-          <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
-          <Route path="/patients/:id" element={<PatientDetails />} />
-          <Route path="/medicinesList/:id" element={<EditMedicine />} />
-          <Route path="/addMedicine" element={<AddMedicine />} />
-          <Route path="/medicineSales" element={<MedicineSales />} />
-          <Route
-            path="/medicinesListPharmacist"
-            element={<MedicinesListPharmacist />}
-          />
           <Route
             path="/medicinesListPatient"
             element={<MedicinesListPatient />}
-          />
-          <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/addAdmin" element={<AddAdmin />} />
-          <Route path="/removeUser" element={<RemoveUser />} />
-          <Route
-            path="/pharmacistsListPending"
-            element={<PharmacistsListPending />}
           />
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/listMedicine" element={<ListMedicine />} />
-          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
-          <Route path="/HomePagePharm" element={<HomePagePharm />} />
-          <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
           <Route path="/AddressForm" element={<AddressForm />} />
           <Route path="/PaymentForm" element={<PaymentForm />} />
           <Route path="/Review" element={<Review />} />
           <Route path="/Checkout" element={<Checkout />} />
 
-          <Route path="/PatientLogin" element={<Patientlogin />} />
-          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-          <Route path="/AdminLogin" element={<Adminlogin />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
-          <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
         </Routes>
       </div>
     );
@@ -123,42 +95,16 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-          <Route path="/registerPatient" element={<PatientSignup />} />
-          <Route path="/pharmacists" element={<PharmacistsList />} />
-          <Route path="/patients" element={<PatientsList />} />
-          <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
-          <Route path="/patients/:id" element={<PatientDetails />} />
           <Route path="/medicinesList/:id" element={<EditMedicine />} />
           <Route path="/addMedicine" element={<AddMedicine />} />
-          <Route path="/orderDetails" element={<OrderDetails />} />
 
           <Route path="/medicineSales" element={<MedicineSales />} />
           <Route
             path="/medicinesListPharmacist"
             element={<MedicinesListPharmacist />}
           />
-          <Route
-            path="/medicinesListPatient"
-            element={<MedicinesListPatient />}
-          />
-          <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/addAdmin" element={<AddAdmin />} />
-          <Route path="/removeUser" element={<RemoveUser />} />
-          <Route
-            path="/pharmacistsListPending"
-            element={<PharmacistsListPending />}
-          />
-          <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/myorders" element={<MyOrders />} />
-          <Route path="/listMedicine" element={<ListMedicine />} />
-          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
+          {/* <Route path="/listMedicinepharm" element={<ListMedicinepharm />} /> */}
           <Route path="/HomePagePharm" element={<HomePagePharm />} />
-          <Route path="/PatientLogin" element={<Patientlogin />} />
-          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-          <Route path="/AdminLogin" element={<Adminlogin />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
@@ -169,41 +115,19 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/addMedicine" element={<AddMedicine />} />
-          <Route path="/registerPharmacist" element={<PharmacistSignup />} />
-          <Route path="/registerPatient" element={<PatientSignup />} />
           <Route path="/pharmacists" element={<PharmacistsList />} />
           <Route path="/patients" element={<PatientsList />} />
           <Route path="/pharmacists/:id" element={<PharmacistDetails />} />
           <Route path="/patients/:id" element={<PatientDetails />} />
           <Route path="/medicinesList/:id" element={<EditMedicine />} />
-          <Route path="/addMedicine" element={<AddMedicine />} />
-          <Route path="/medicineSales" element={<MedicineSales />} />
-          <Route
-            path="/medicinesListPharmacist"
-            element={<MedicinesListPharmacist />}
-          />
-          <Route
-            path="/medicinesListPatient"
-            element={<MedicinesListPatient />}
-          />
           <Route path="/medicinesListAdmin" element={<MedicinesListAdmin />} />
-          <Route path="/" element={<Home />} />
           <Route path="/addAdmin" element={<AddAdmin />} />
+          <Route path="/HomePageAdmin" element={<AddAdmin />} />
           <Route path="/removeUser" element={<RemoveUser />} />
           <Route
             path="/pharmacistsListPending"
             element={<PharmacistsListPending />}
           />
-          <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/myorders" element={<MyOrders />} />
-          <Route path="/listMedicine" element={<ListMedicine />} />
-          <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
-          <Route path="/HomePagePharm" element={<HomePagePharm />} />
-          <Route path="/PatientLogin" element={<Patientlogin />} />
-          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
-          <Route path="/AdminLogin" element={<Adminlogin />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePassAdm" element={<ChangePassAdm />} />
@@ -216,9 +140,7 @@ function App() {
         <Routes>
           <Route path="/registerPharmacist" element={<PharmacistSignup />} />
           <Route path="/registerPatient" element={<PatientSignup />} />{" "}
-          <Route path="/patients" element={<PatientsList />} />
           <Route path="/" element={<Home />} />
-          <Route path="/HomePage" element={<HomePage />} />
           <Route path="/PatientLogin" element={<Patientlogin />} />
           <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
           <Route path="/AdminLogin" element={<Adminlogin />} />

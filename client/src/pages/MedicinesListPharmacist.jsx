@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import SidebarPharmacist from "./SidebarPharmacist";
 import { config } from "../config/config";
+import { AppBar } from "@mui/material";
+import ResponsiveAppBar from "./TopBarPharm";
 
 function MedicinesListPharmacist() {
   const [data, setData] = useState([]);
@@ -49,77 +51,85 @@ function MedicinesListPharmacist() {
 
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
-      <SidebarPharmacist />
-
-      <div className="card m-3 col-12" style={{ width: "80%" }}>
-        <h1 className="text-center mt-4">List of Medicines</h1>
-        <Form>
-          <InputGroup className="my-3">
-            <Form.Control
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Medicines"
-            />
-          </InputGroup>
-          <InputGroup className="my-3">
-            <select
-              className="form-select"
-              onChange={(e) => setMedicinalUse(e.target.value)}
-            >
-              <option value="">Choose Medicinal Use</option>
-              <option value="diarrhea">diarrhea</option>
-              <option value="vomit">vomit</option>
-            </select>
-          </InputGroup>
-        </Form>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Ingredients</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Use</th>
-              <th>Quantity</th>
-              <th>Image</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {data
-              .filter((item) => {
-                return search.toLowerCase() === ""
-                  ? item
-                  : item.medicineName.toLowerCase().includes(search);
-              })
-              .map((item, index) => (
-                <tr key={index}>
-                  <td>{item.medicineName}</td>
-                  <td>{item.price}</td>
-                  <td>{item.ingredients}</td>
-                  <td>{item.description}</td>
-                  <td>{item.medicineStatus}</td>
-                  <td>{item.medicinalUse}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <img
-                      src={config.STORAGE_URL + item.image}
-                      alt="Medicine Image"
-                    />
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-success"
-                      onClick={() => handleEdit(item._id)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </div>
+      <AppBar
+        style={{
+          height: "100%",
+          backgroundColor: "#F0F0F0",
+          overflowY: "auto",
+        }}
+      >
+        <ResponsiveAppBar />
+        <div className="card m-3 col-12" style={{ width: "80%" }}>
+          <h1 className="text-center mt-4">List of Medicines</h1>
+          <Form>
+            <InputGroup className="my-3">
+              <Form.Control
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search Medicines"
+              />
+            </InputGroup>
+            <InputGroup className="my-3">
+              <select
+                className="form-select"
+                onChange={(e) => setMedicinalUse(e.target.value)}
+              >
+                <option value="">Choose Medicinal Use</option>
+                <option value="diarrhea">diarrhea</option>
+                <option value="vomit">vomit</option>
+              </select>
+            </InputGroup>
+          </Form>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Ingredients</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Use</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {data
+                .filter((item) => {
+                  return search.toLowerCase() === ""
+                    ? item
+                    : item.medicineName.toLowerCase().includes(search);
+                })
+                .map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.medicineName}</td>
+                    <td>{item.price}</td>
+                    <td>{item.ingredients}</td>
+                    <td>{item.description}</td>
+                    <td>{item.medicineStatus}</td>
+                    <td>{item.medicinalUse}</td>
+                    <td>{item.quantity}</td>
+                    <td>
+                      <img
+                        style={{ height: 200, width: 200 }}
+                        src={config.STORAGE_URL + item.image}
+                        alt="Medicine Image"
+                      />
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleEdit(item._id)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </div>
+      </AppBar>
     </div>
   );
 }
