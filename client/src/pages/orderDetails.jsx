@@ -92,8 +92,7 @@ function orderDetails() {
                     style={{
                         backgroundColor: '',
                         marginLeft: "25%",
-                        marginTop: "-62%",
-                        overflowX: 'auto',
+                        marginTop: "30%%",
 
                     }}
                 >
@@ -117,12 +116,7 @@ function orderDetails() {
                     spacing={2}
                     style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
                 >
-                    <Pagination
-                        count={10}
-                        color="primary"
-                        size="large"
-                        style={{ color: "blue" }}
-                    />
+
                 </Stack>
                 <BottomBar />
             </AppBar>
