@@ -29,7 +29,7 @@ async function calculateCartTotalPrice(cart) {
 }
 
 const addOrder = async (req, res) => {
-  const pat=await PatientModel.findOne({user:res.locals.userId})
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
   const patientId = pat._id;
   const { deliveryAddress, paymentMethod } = req.body;
 
@@ -43,14 +43,14 @@ const addOrder = async (req, res) => {
     let total = 0;
 
     for (const cartItem of cartItems) {
-      if (medicine) {
-      const medicine = await MedicineModel.findById(cartItem.medicine);
-      console.log(medicine);
-      total += medicine.price * cartItem.quantity;
-      console.log(medicine.price);
-      console.log(cartItem.quantity);
-      } 
-  
+      if (cartItem.medicine) {
+        const medicine = await MedicineModel.findById(cartItem.medicine);
+        console.log(medicine);
+        total += medicine.price * cartItem.quantity;
+        console.log(medicine.price);
+        console.log(cartItem.quantity);
+      }
+
     }
     const order = new OrderModel({
       patient: patientId,
@@ -91,10 +91,10 @@ const viewOrderDetails = async (req, res) => {
 
 
 const getOrders = async (req, res) => {
-  const pat=await PatientModel.findOne({user:res.locals.userId})
+  const pat = await PatientModel.findOne({ user: res.locals.userId })
   const patientId = pat._id;
   try {
-    const order = await OrderModel.find({patient: patientId});
+    const order = await OrderModel.find({ patient: patientId });
     console.log(order);
 
     if (!order) {
@@ -135,6 +135,6 @@ const cancelOrder = async (req, res) => {
 export default {
   addOrder,
   viewOrderDetails,
-  cancelOrder, 
+  cancelOrder,
   getOrders
 }
