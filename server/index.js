@@ -9,6 +9,9 @@ import patientRoutes from "./routes/patient.js";
 import adminRoutes from "./routes/admin.js";
 import medicineRoutes from "./routes/medicine.js";
 import orderRoutes from "./routes/order.js";
+import stripe from 'stripe';
+const stripeInstance = new stripe('sk_test_51OAbKKFG7BNY2kzIjyhX3ByBqijkVoASpjD4fcyOIjGcYiyxMdpHzQAf2rX7bBcokOGHeo7uwxDLX8mkStLJD3pj001MnvPqcn');
+
 
 
 const app = express();
@@ -46,3 +49,24 @@ app.use("/patient", patientRoutes);
 app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/order", orderRoutes);
+
+const PACKAGE_DOMAIN = 'http://localhost:5173/Checkout/';
+
+app.post('/Checkout', async (req, res) => {
+  const session = await stripeInstance.checkout.sessions.create({
+    payment_method_types: ['card'],
+    mode: 'payment',
+    line_items: [
+      {
+        price: 'price_1OAhcrFG7BNY2kzIxPQqkTZi', // Replace with the actual Price ID from your Stripe Dashboard
+        quantity: 1
+      }, 
+    ],
+    success_url: `${PACKAGE_DOMAIN}?success=true`,
+    cancel_url: `${PACKAGE_DOMAIN}?canceled=true`,
+  });
+
+  res.redirect(303, session.url);
+});
+
+app.listen(4243, () => console.log('Running on port 4243'));
