@@ -23,6 +23,10 @@ import ListMedicine from "./pages/Medicine";
 import ListMedicinepharm from "./pages/MedicinePharm";
 import HomePagePharm from "./pages/HomePagePharm";
 import HomePageAdmin from "./pages/HomePageAdmin";
+import AddressForm from "./pages/AddressForm";
+import PaymentForm from "./pages/PaymentForm";
+import Review from "./pages/Review";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -51,6 +55,12 @@ function App() {
         <Route path="/listMedicinepharm" element={<ListMedicinepharm />} />
         <Route path="/HomePagePharm" element={<HomePagePharm />} />
         <Route path="/HomePageAdmin" element={<HomePageAdmin />} />
+        <Route path="/AddressForm" element={<AddressForm />} />
+        <Route path="/PaymentForm" element={<PaymentForm />} />
+        <Route path="/Review" element={<Review />} />
+        <Route path="/Checkout" element={<Checkout />} />
+      
+
 
 
 

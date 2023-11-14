@@ -68,8 +68,10 @@ const getPatients = async (req, res) => {
 };
 
 const getPatientById = async (req, res) => {
+  const patientId = req.params.id;
   try {
-    const patient = await PatientModel.find({ user: new mongoose.Types.ObjectId(req.params.id) });
+    //const patient = await PatientModel.find({ user: new mongoose.Types.ObjectId(req.params.id) });
+    const patient = await PatientModel.findById(patientId);
     if (!patient) return res.status(404).send("Patient not found");
     return res.status(200).send(patient);
   } catch (error) {
@@ -77,6 +79,27 @@ const getPatientById = async (req, res) => {
   }
 };
 //s
+
+const addAddressToPatient = async (req, res) => {
+  try {
+    const patientId = req.params.id;
+    const {newAddress} = req.body;
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    patient.adresses.push(newAddress);
+    const updatedPatient = await patient.save();
+
+    res.status(200).json({ message: 'Address added successfully', patient: updatedPatient });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 const addToCart = async (req, res) => {
   const patientId = '652aebde203548e19b62d4b1';
   const { medicineId, quantity } = req.body;
@@ -226,6 +249,27 @@ const viewOrderDetails = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const getCartTotal = async (req, res) => {
+  const patientId = req.params.id;
+  const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+    const cartItems = patient.cart;
+    let total = 0;
+
+    for (const cartItem of cartItems) {
+      const medicine = await MedicineModel.findById(cartItem.medicine);
+      console.log(medicine);
+      total += medicine.price * cartItem.quantity;
+      console.log(medicine.price);
+      console.log(cartItem.quantity);
+  
+    }
+
+    res.status(200).json(total);
+};
 const cancelOrder = async (req, res) => {
   const patientId = req.params.id;
   const orderId = req.params.orderId;
@@ -250,6 +294,20 @@ const cancelOrder = async (req, res) => {
   }
 };
 
+const updateWallet = async (req, res) => {
+  try {
+    const { patientId , paymentAmount } = req.body;
+    const patient = await PatientModel.findById(patientId);
+    console.log(patient);
+    patient.wallet += paymentAmount;
+    const updatedPatient = await patient.save();
+    res.status(200).json({ updatedWallet: updatedPatient.wallet });
+  } catch (error) {
+    console.error('Error updating wallet:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 //s
 
 export default {
@@ -262,5 +320,8 @@ export default {
   incMedicine,
   decMedicine,
   viewOrderDetails,
-  cancelOrder
+  cancelOrder, 
+  addAddressToPatient, 
+  updateWallet, 
+  getCartTotal
 }
