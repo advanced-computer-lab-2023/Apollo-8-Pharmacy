@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import PharmacistModel from '../models/pharmacist.js';
 import UserModel from '../models/user.js';
+import OrderModel from '../models/order.js';
+import MedicineModel from '../models/medicine.js';
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
@@ -19,7 +21,7 @@ const createPharmacist = async (req, res) => {
     status,
   } = req.body;
   let files = {}
-  req.files.forEach(file => {
+   req.files.forEach(file => {
     if (file.fieldname == "idFile") {
       files = { ...files, idFile: file.filename }
     } else if (file.fieldname == "degreeFile") {
@@ -27,7 +29,7 @@ const createPharmacist = async (req, res) => {
     } else if (file.fieldname == "licenseFile") {
       files = { ...files, licenseFile: file.filename }
     }
-  });
+   });
   const salt = await bcrypt.genSalt(saltRounds);
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -111,6 +113,54 @@ const acceptPharmacist = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+const getPharmacistSalesReport = async (req, res) => {
+  try {
+    const pharmacistId = req.params.id;
+    const selectedMonth = req.query.month || (new Date().getMonth() + 1);
+
+    const startDate = new Date(2023, selectedMonth - 1, 1);
+    const endDate = new Date(2023, selectedMonth, 0, 23, 59, 59, 999);
+
+    console.log(startDate);
+
+    // Find orders for the chosen month and pharmacist
+    const orders = await OrderModel.find({
+      // status: 'Delivered',
+      pharmacist: pharmacistId,
+      createdAt: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    });
+
+    console.log(orders);
+
+    // Extract medicine ids from the orders
+    const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
+
+    // Find medicines based on the extracted ids
+    const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
+
+    // Calculate total sales for each medicine
+    const salesReport = medicines.map(medicine => {
+      const totalSales = orders.reduce((acc, order) => {
+        const item = order.items.find(item => item.medicine.equals(medicine._id));
+        return acc + (item ? medicine.price * item.quantity : 0);
+      }, 0);
+
+      return {
+        medicineName: medicine.medicineName,
+        totalSales,
+      };
+    });
+
+    console.log(salesReport);
+
+    res.status(200).send(salesReport);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
 
 export default {
@@ -118,5 +168,6 @@ export default {
   getPharmacists,
   getPharmacistById,
   acceptPharmacist,
-  rejectPharmacist
+  rejectPharmacist,
+  getPharmacistSalesReport
 }
