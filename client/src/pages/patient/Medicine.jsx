@@ -47,7 +47,10 @@ function listMedicine() {
             backgroundColor: "",
             marginLeft: "25%",
             marginTop: "-62%",
+            overflowY: "auto",
             overflowX: "auto",
+
+            display: 'flow'
           }}
         >
           {medicine.map((item) => (
