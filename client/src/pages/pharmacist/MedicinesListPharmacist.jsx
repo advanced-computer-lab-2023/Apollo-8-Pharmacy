@@ -52,6 +52,68 @@ function MedicinesListPharmacist() {
   const handleArchive = () => {
     navigate("/ArchivedMedicinesListPharmacist");
   };
+
+
+
+  const handleArchiveB = async (medicineId) => {
+    try {
+      if (!medicineId) {
+        console.error("Medicine or its ID is undefined.");
+        return;
+      }
+
+      const response = await axios.post(
+        "http://localhost:9000/medicine/updateArchiveStatus",
+        {
+          medicineId: medicineId,
+          archivedStatus: 'Archived'
+        }
+      );
+      navigate("/MedicinesListPharmacist");
+
+
+      if (response.data) {
+        // props.setMedicine((prevItems) =>
+        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
+        // );
+
+      }
+    } catch (error) {
+      console.error("Error Archive ", error);
+    }
+  };
+
+  const handbleUnarchiveB = async (medicineId) => {
+    try {
+      if (!medicineId) {
+        console.error("Medicine or its ID is undefined.");
+        return;
+      }
+
+      const response = await axios.post(
+        "http://localhost:9000/medicine/updateArchiveStatus",
+        {
+          medicineId: medicineId,
+          archivedStatus: 'Unarchived'
+        }
+
+      );
+
+
+      if (response.data) {
+        // props.setMedicine((prevItems) =>
+        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
+        // );
+      }
+    } catch (error) {
+      console.error("Error Archive ", error);
+    }
+  };
+
+
+
+
+
   const handleUnarchive = () => {
     navigate("/MedicinesListPharmacist");
   };
@@ -102,7 +164,8 @@ function MedicinesListPharmacist() {
                 <th>Description</th>
                 <th>Status</th>
                 <th>Use</th>
-                <th>Quantity</th>
+
+                <th>Status</th>
                 <th>Image</th>
                 <th></th>
               </tr>
@@ -122,7 +185,8 @@ function MedicinesListPharmacist() {
                     <td>{item.description}</td>
                     <td>{item.medicineStatus}</td>
                     <td>{item.medicinalUse}</td>
-                    <td>{item.quantity}</td>
+                    <td>{item.archiveStatus}</td>
+
                     <td>
                       <img
                         style={{ height: 200, width: 200 }}
@@ -132,10 +196,27 @@ function MedicinesListPharmacist() {
                     </td>
                     <td>
                       <button
+                        style={{ margin: '5%' }}
+
                         className="btn btn-success"
                         onClick={() => handleEdit(item._id)}
                       >
                         Edit
+                      </button>
+                      <button
+                        style={{ margin: '5%' }}
+
+                        className="btn btn-success"
+                        onClick={() => handleArchiveB(item._id)}
+                      >
+                        Archive
+                      </button>
+                      <button
+                        style={{ margin: '5%' }}
+                        className="btn btn-success"
+                        onClick={() => handbleUnarchiveB(item._id)}
+                      >
+                        Unarchive
                       </button>
                     </td>
                   </tr>
