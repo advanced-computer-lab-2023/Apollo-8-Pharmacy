@@ -13,7 +13,7 @@ router.get("/listMedicines",Middle.requireAuth, controllers.listMedicines);
 router.get("/medicineDetails",Middle.requireAuthPhatmacist, controllers.medicineDetails);
 router.post("/addMedicine", uploadMiddleware,Middle.requireAuthPhatmacist, controllers.addMedicine);
 
-
+router.post("/updateArchiveStatus",Middle.requireAuthPhatmacist, controllers.updateArchiveStatus);
 export default router;
 
 //
