@@ -46,6 +46,9 @@ function ResponsiveAppBar() {
   const handleOrders = () => {
     navigate("/MyOrders");
   };
+  const handlePrescription = () => {
+    navigate("/PrescriptionList");
+  };
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
     setAnchorElNav();
@@ -184,6 +187,20 @@ function ResponsiveAppBar() {
             >
               {" "}
               My Orders{" "}
+            </Button>
+            <Button
+              onClick={handlePrescription}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginRight: "2%",
+                marginLeft: "2%",
+                fontSize: "12px",
+              }}
+            >
+              {" "}
+              My Prescriptions
             </Button>
             <Button
               onClick={Change}
