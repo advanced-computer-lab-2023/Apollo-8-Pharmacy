@@ -36,6 +36,7 @@ import ChangePassPharm from "./pages/pharmacist/changePassPharm";
 import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
 import ArchivedMedicinesListPharmacist from "./pages/pharmacist/ArchivedMedicineListPharm";
+import PrescriptionList from "./pages/patient/PrescriptionList";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -90,7 +91,7 @@ function App() {
           <Route path="/ChangePassword" element={<ChangePass />} />
 
           <Route path="/ForgetPassword" element={<Forget />} />
-          <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/PrescriptionList" element={<PrescriptionList />} />
         </Routes>
       </div>
     );
