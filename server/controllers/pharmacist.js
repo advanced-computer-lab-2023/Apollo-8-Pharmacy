@@ -123,7 +123,7 @@ const getPharmacistSalesReport = async (req, res) => {
 
     console.log(startDate);
 
-    // Find orders for the chosen month and pharmacist
+    
     const orders = await OrderModel.find({
       // status: 'Delivered',
       pharmacist: pharmacistId,
@@ -134,14 +134,10 @@ const getPharmacistSalesReport = async (req, res) => {
     });
 
     console.log(orders);
-
-    // Extract medicine ids from the orders
     const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
 
-    // Find medicines based on the extracted ids
     const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
 
-    // Calculate total sales for each medicine
     const salesReport = medicines.map(medicine => {
       const totalSales = orders.reduce((acc, order) => {
         const item = order.items.find(item => item.medicine.equals(medicine._id));
