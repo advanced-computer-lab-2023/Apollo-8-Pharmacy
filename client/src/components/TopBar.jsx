@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
             Elha2ony
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, width: '80%' }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -205,35 +205,14 @@ function ResponsiveAppBar() {
               style={{ color: "white", backgroundColor: "white" }}
               sx={{
                 marginLeft: "-20%",
-                width: 500,
-                maxWidth: "100%",
                 borderRadius: "100px",
                 borderColor: "rgba(0, 140, 990, 0.1)",
               }}
             >
-              <TextField
-                placeholder="Searching for..."
-                fullWidth
-                id="fullWidth"
-                style={{
-                  border: "none",
-                  outline: "none",
-                }}
-              />
+
             </Box>
           </div>
-          <Button
-            style={{
-              right: "12%",
-              borderRadius: "100px",
-              height: "56px",
-              width: "160px",
-              backgroundColor: "rgb(0,0,139)",
-            }}
-            variant="contained"
-          >
-            Search
-          </Button>
+
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Your Shopping Cart">

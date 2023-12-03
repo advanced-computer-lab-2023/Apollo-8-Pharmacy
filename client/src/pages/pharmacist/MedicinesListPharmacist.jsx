@@ -6,8 +6,10 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../config/config";
-import { AppBar } from "@mui/material";
+import { AppBar, colors } from "@mui/material";
 import ResponsiveAppBar from "../../components/TopBarPharm";
+import Button from '@mui/material/Button';
+
 
 function MedicinesListPharmacist() {
   const [data, setData] = useState([]);
@@ -47,6 +49,13 @@ function MedicinesListPharmacist() {
     navigate(`/medicinesList/${id}`);
   }
 
+  const handleArchive = () => {
+    navigate("/ArchivedMedicinesListPharmacist");
+  };
+  const handleUnarchive = () => {
+    navigate("/MedicinesListPharmacist");
+  };
+
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
       <AppBar
@@ -57,8 +66,15 @@ function MedicinesListPharmacist() {
         }}
       >
         <ResponsiveAppBar />
-        <div className="card m-3 col-12" style={{ width: "80%" }}>
-          <h1 className="text-center mt-4">List of Medicines</h1>
+        <div
+          className="card m-3 col-12"
+          style={{ width: "80%", borderRadius: "50px", left: "9%" }}
+        >
+          <div>
+            <h1 className="text-center mt-4">List of Medicines</h1>
+            <Button style={{ margin: '10px', backgroundColor: 'DarkGreen' }} variant="contained" onClick={handleArchive}>Archive</Button>
+            <Button style={{ backgroundColor: 'DarkGreen' }} variant="contained" onClick={handleUnarchive}>Unarchive</Button>
+          </div>
           <Form>
             <InputGroup className="my-3">
               <Form.Control

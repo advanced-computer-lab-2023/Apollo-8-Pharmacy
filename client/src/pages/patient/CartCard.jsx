@@ -91,8 +91,8 @@ function card(props) {
         className="card-img-top"
       />
       <Button
-        style={{ left: "20%", bottom: "55px", margin: "0px" }}
-        size="small"
+        style={{ left: "12%", marginBottom: '45%' }}
+        size="large"
         onClick={handleRemoveCard}
       >
         <HighlightOffIcon />

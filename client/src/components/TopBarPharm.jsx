@@ -125,7 +125,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           ></Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, width: '80%' }}>
             <Button
               onClick={handleHome}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -138,7 +138,7 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {" "}
-              Medicine{" "}
+              Medicine List{" "}
             </Button>
             <Button
               onClick={handleAddMed}
@@ -173,29 +173,10 @@ function ResponsiveAppBar() {
                 borderColor: "rgba(0, 140, 990, 0.1)",
               }}
             >
-              <TextField
-                placeholder="Searching for..."
-                fullWidth
-                id="fullWidth"
-                style={{
-                  border: "none",
-                  outline: "none",
-                }}
-              />
+
             </Box>
           </div>
-          <Button
-            style={{
-              right: "8%",
-              borderRadius: "100px",
-              height: "56px",
-              width: "160px",
-              backgroundColor: "rgb(0,0,139)",
-            }}
-            variant="contained"
-          >
-            Search
-          </Button>
+
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title=" Logout">
