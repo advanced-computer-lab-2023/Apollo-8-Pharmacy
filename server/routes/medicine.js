@@ -13,6 +13,8 @@ router.get("/listMedicines",Middle.requireAuth, controllers.listMedicines);
 router.get("/medicineDetails",Middle.requireAuthPhatmacist, controllers.medicineDetails);
 router.post("/addMedicine", uploadMiddleware,Middle.requireAuthPhatmacist, controllers.addMedicine);
 
+//for data exchange with the clinic , don't put auth here
+router.get("/medicinesTotPrice",controllers.medicinePrice);
 
 export default router;
 
