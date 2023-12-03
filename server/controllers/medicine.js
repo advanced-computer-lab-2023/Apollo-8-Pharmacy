@@ -156,6 +156,51 @@ const updateArchiveStatus = async (req, res) => {
   }
 };
 
+/*const addPrescriptionMedicine = async (req, res) => {
+  try {
+    const { patientId, medicineId, prescriptionInfo } = req.body;
+
+    // Validate input parameters
+    if (!patientId || !medicineId || !prescriptionInfo) {
+      return res.status(400).json({ error: "Missing parameters" });
+    }
+
+    // Check if the patient exists
+    const patient = await PatientModel.findById(patientId);
+    if (!patient) {
+      return res.status(404).json({ error: "Patient not found" });
+    }
+
+    // Check if the medicine exists and is available
+    const medicine = await MedicineModel.findById(medicineId);
+    if (!medicine || medicine.medicineStatus !== "Available" || medicine.archiveStatus === "Archived") {
+      return res.status(404).json({ error: "Prescription medicine not available" });
+    }
+
+    // Check if the medicine is in the recent prescription
+    const recentPrescription = // Logic to retrieve recent prescription ;
+    const isMedicineInPrescription = recentPrescription.some(prescriptionMedicine => prescriptionMedicine.medicine.toString() === medicineId);
+    if (!isMedicineInPrescription) {
+      return res.status(403).json({ error: "Medicine not in recent prescription" });
+    }
+
+    // Add medicine to the cart
+    const cartItem = {
+      medicine: medicineId,
+      quantity: 1, // You can adjust the quantity as needed
+    };
+
+    patient.cart.push(cartItem);
+    await patient.save();
+
+    return res.status(200).json({ message: "Prescription medicine added to the cart successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};*/
+
+
 
 
 //ss
@@ -168,5 +213,6 @@ export default {
   searchByName,
   medicineDetails,
   listMedicines,
-  updateArchiveStatus
+  updateArchiveStatus,
+  
 }

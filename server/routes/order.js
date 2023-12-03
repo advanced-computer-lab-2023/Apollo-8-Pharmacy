@@ -7,5 +7,7 @@ router.post("/add", Middle.requireAuthPatient, controllers.addOrder);
 router.get("/orderDetails/:id", Middle.requireAuthPatient, controllers.viewOrderDetails);
 router.put("/cancel", Middle.requireAuthPatient, controllers.cancelOrder);
 router.get("/getOrders", Middle.requireAuthPatient, controllers.getOrders);
+router.post("/getOrders", Middle.requireAuthPatient, controllers.viewOrders);
+
 
 export default router;
