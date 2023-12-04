@@ -12,6 +12,9 @@ function MedicineSales() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  
+
   /*useEffect(() => {
     const apiUrl = "http://localhost:9000/medicine/medicineDetails";
     axios
@@ -40,6 +43,20 @@ function MedicineSales() {
       }
     }, [selectedMonth]);
   
+    useEffect(() => {
+      if (selectedDate) {
+        const apiUrl = `http://localhost:9000/pharmacist/salesdate/${selectedDate}`;
+        axios
+          .get(apiUrl)
+          .then((response) => {
+            console.log("Data received for date:", response.data);
+            setData(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching pharmacist sales for date:", error);
+          });
+      }
+    }, [selectedDate]);
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -101,21 +118,41 @@ function MedicineSales() {
             <InputGroup className="my-3" style={{ width: "80%" }}>
 
               <Form.Control
-  style={{ color: "black", backgroundColor: "white" }}
-  sx={{
-    marginLeft: "-10%",
-    width: 500,
-    maxWidth: "100%",
-    borderRadius: "100px",
-    borderColor: "rgba(0, 140, 990, 0.1)",
-  }}
-  onInput={(e) => {
-    const monthValue = parseInt(e.target.value, 10);
-    setSelectedMonth(monthValue);
-  }}
-  placeholder="Search by month"
-/>
+                   style={{ color: "black", backgroundColor: "white" }}
+                   sx={{
+                   marginLeft: "-10%",
+                   width: 500,
+                   maxWidth: "100%",
+                   borderRadius: "100px",
+                   borderColor: "rgba(0, 140, 990, 0.1)",
+                 }}
+                  onInput={(e) => {
+                    const monthValue = parseInt(e.target.value, 10);
+                    setSelectedMonth(monthValue);
+                    }}
+                placeholder="Search by month"
+               />
               
+            </InputGroup>
+          </Form>
+          <Form>
+            <InputGroup className="my-3" style={{ width: "80%" }}>
+
+            <Form.Control
+                  type="date"
+                  style={{ color: "black", backgroundColor: "white" }}
+                  sx={{
+                       marginLeft: "-10%",
+                       width: 500,
+                       maxWidth: "100%",
+                       borderRadius: "100px",
+                       borderColor: "rgba(0, 140, 990, 0.1)",
+                      }}
+                   onChange={(e) => {
+                       const selectedDate = e.target.value;
+                       setSelectedDate(selectedDate);
+                   }}
+             />
             </InputGroup>
           </Form>
           <Table striped bordered hover>

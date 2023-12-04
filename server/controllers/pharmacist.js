@@ -114,11 +114,10 @@ const acceptPharmacist = async (req, res) => {
   }
 };
 const getPharmacistSalesReport = async (req, res) => {
-  console.log("fofa");
   try {
     const pharm = await PharmacistModel.findOne({ user: res.locals.userId });
     const pharmacistId = pharm._id;
-    console.log("pharm:" + pharm);
+
     
     const selectedMonth = req.params.month || (new Date().getMonth() + 1);
     const currentYear = new Date().getFullYear(); // Get the current year
@@ -126,8 +125,7 @@ const getPharmacistSalesReport = async (req, res) => {
     const startDate = new Date(currentYear, selectedMonth - 1, 1);
     const endDate = new Date(currentYear, selectedMonth, 0, 23, 59, 59, 999);
 
-    console.log("selectedMonth: " + selectedMonth);
-    console.log("startDate: " + startDate);
+  
     
     const orders = await OrderModel.find({
       createdAt: {
@@ -136,7 +134,6 @@ const getPharmacistSalesReport = async (req, res) => {
       },
     });
 
-    console.log("orders: ", orders);
     const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
     const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
 
@@ -152,20 +149,59 @@ const getPharmacistSalesReport = async (req, res) => {
       };
     });
 
-    console.log("salesReport: ", salesReport);
 
     res.status(200).send(salesReport);
   } catch (error) {
     res.status(400).send(error.message);
   }
 }
+const getPharmacistSalesReportByDate = async (req, res) => {
+  try {
+    const pharm = await PharmacistModel.findOne({ user: res.locals.userId });
+    const pharmacistId = pharm._id;
+    const dateString = req.params.date; 
+    const dateParts = dateString.split('-');
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; 
+    const day = parseInt(dateParts[2]);
+    const selectedDate = new Date(year, month, day);
+    const nextDay=new Date(selectedDate);
+    nextDay.setDate(nextDay.getDate()+1);
+  
+    console.log(selectedDate); 
+    const orders = await OrderModel.find({
+      createdAt: {
+        $gte: new Date(selectedDate), 
+        $lt: nextDay,
+      },
+    });
 
+    const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
+    const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
 
+    const salesReport = medicines.map(medicine => {
+      const totalSales = orders.reduce((acc, order) => {
+        const item = order.items.find(item => item.medicine.equals(medicine._id));
+        return acc + (item ? medicine.price * item.quantity : 0);
+      }, 0);
+
+      return {
+        medicineName: medicine.medicineName,
+        totalSales,
+      };
+    });
+   
+    res.status(200).send(salesReport);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 export default {
   createPharmacist,
   getPharmacists,
   getPharmacistById,
   acceptPharmacist,
   rejectPharmacist,
-  getPharmacistSalesReport
+  getPharmacistSalesReport,
+  getPharmacistSalesReportByDate
 }
