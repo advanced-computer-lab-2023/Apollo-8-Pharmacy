@@ -15,5 +15,5 @@ router.get("/",Middle.requireAuthAdmin, controllers.getPharmacists);
 router.get("/:id",Middle.requireAuthAdmin ,controllers.getPharmacistById);
 router.put("/accept/:id",Middle.requireAuthAdmin, controllers.acceptPharmacist);
 router.put("/reject/:id",Middle.requireAuthAdmin, controllers.rejectPharmacist);
-router.get("/:id/sales",Middle.requireAuthPhatmacist, controllers.getPharmacistSalesReport);
+router.get("/sales/:month?",Middle.requireAuthPhatmacist, controllers.getPharmacistSalesReport);
 export default router;

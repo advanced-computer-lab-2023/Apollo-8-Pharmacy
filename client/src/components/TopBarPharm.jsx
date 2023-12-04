@@ -152,7 +152,7 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {" "}
-              Medicine Sales{" "}
+              Sales Report{" "}
             </Button>
             <Button
               onClick={Change}

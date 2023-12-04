@@ -114,28 +114,30 @@ const acceptPharmacist = async (req, res) => {
   }
 };
 const getPharmacistSalesReport = async (req, res) => {
+  console.log("fofa");
   try {
-    const pharmacistId = req.params.id;
-    const selectedMonth = req.query.month || (new Date().getMonth() + 1);
+    const pharm = await PharmacistModel.findOne({ user: res.locals.userId });
+    const pharmacistId = pharm._id;
+    console.log("pharm:" + pharm);
+    
+    const selectedMonth = req.params.month || (new Date().getMonth() + 1);
+    const currentYear = new Date().getFullYear(); // Get the current year
 
-    const startDate = new Date(2023, selectedMonth - 1, 1);
-    const endDate = new Date(2023, selectedMonth, 0, 23, 59, 59, 999);
+    const startDate = new Date(currentYear, selectedMonth - 1, 1);
+    const endDate = new Date(currentYear, selectedMonth, 0, 23, 59, 59, 999);
 
-    console.log(startDate);
-
+    console.log("selectedMonth: " + selectedMonth);
+    console.log("startDate: " + startDate);
     
     const orders = await OrderModel.find({
-      // status: 'Delivered',
-      pharmacist: pharmacistId,
       createdAt: {
         $gte: startDate,
         $lte: endDate,
       },
     });
 
-    console.log(orders);
+    console.log("orders: ", orders);
     const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
-
     const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
 
     const salesReport = medicines.map(medicine => {
@@ -150,13 +152,13 @@ const getPharmacistSalesReport = async (req, res) => {
       };
     });
 
-    console.log(salesReport);
+    console.log("salesReport: ", salesReport);
 
     res.status(200).send(salesReport);
   } catch (error) {
     res.status(400).send(error.message);
   }
-};
+}
 
 
 export default {
