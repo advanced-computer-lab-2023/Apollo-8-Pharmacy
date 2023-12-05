@@ -16,6 +16,9 @@ router.get("/byId", Middle.requireAuth, controllers.getPatientById);
 //not found in front checkk but tmam
 router.post('/addToCart', Middle.requireAuthPatient, controllers.addToCart);
 
+router.post('/addToCartFromClinic',controllers.addToCart);
+router.delete('/removeFromCartClinic', controllers.removeFromCart);
+
 router.get('/viewCart', Middle.requireAuthPatient, controllers.viewCart);
 router.delete('/:id/removeFromCart', Middle.requireAuthPatient, controllers.removeFromCart);
 router.put('/:id/incMed', Middle.requireAuthPatient, controllers.incMedicine);

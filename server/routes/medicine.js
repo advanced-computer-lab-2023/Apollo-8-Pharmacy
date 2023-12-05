@@ -9,6 +9,8 @@ router.get("/filter",Middle.requireAuth, controllers.filterMedicine);
 //check not found in front end check this
 router.get("/search",Middle.requireAuth, controllers.searchByName);
 
+router.get("/searchMedForClinic", controllers.searchByName);
+
 router.get("/listMedicines",Middle.requireAuth, controllers.listMedicines);
 router.get("/medicineDetails",Middle.requireAuthPhatmacist, controllers.medicineDetails);
 router.post("/addMedicine", uploadMiddleware,Middle.requireAuthPhatmacist, controllers.addMedicine);
