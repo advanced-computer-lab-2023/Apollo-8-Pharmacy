@@ -13,6 +13,7 @@ import MedicineSales from "./pages/pharmacist/MedicineSales";
 import AddAdmin from "./pages/admin/AddAdmin";
 import RemoveUser from "./pages/admin/RemoveUser";
 import PharmacistsListPending from "./pages/admin/PharmacistsListPending";
+import SalesReport from"./pages/admin/SalesReport"
 import MedicinesListPharmacist from "./pages/pharmacist/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/patient/MedicinesListPatient";
 import HomePage from "./pages/patient/HomePage";
@@ -130,6 +131,7 @@ function App() {
           <Route path="/addAdmin" element={<AddAdmin />} />
           <Route path="/HomePageAdmin" element={<AddAdmin />} />
           <Route path="/removeUser" element={<RemoveUser />} />
+          <Route path="/salesreport" element={<SalesReport />} />
           <Route
             path="/pharmacistsListPending"
             element={<PharmacistsListPending />}
