@@ -52,6 +52,9 @@ function ResponsiveAppBar() {
   const handlePrescription = () => {
     navigate("/PrescriptionList");
   };
+  const handleOutOfStock= () => {
+    navigate("/OutOfStock");
+  };
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
     setAnchorElNav();
@@ -218,6 +221,20 @@ function ResponsiveAppBar() {
             >
               {" "}
               Change Pass
+            </Button>
+            <Button
+              onClick={handleOutOfStock}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginRight: "2%",
+                marginLeft: "2%",
+                fontSize: "12px",
+              }}
+            >
+              {" "}
+            Medecines OutOfStock
             </Button>
           </Box>
           <div style={{ marginLeft: "20%" }}>

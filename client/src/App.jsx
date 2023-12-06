@@ -32,6 +32,7 @@ import Pharmacistlogin from "./pages/auth/PharmacistLogin";
 import Adminlogin from "./pages/auth/AdminLogin";
 import Patientlogin from "./pages/auth/PatientLogin";
 import PatientWallet from "./pages/patient/PatientWallet";
+import OutOfStock from "./pages/patient/OutOfStock";
 import PharmacistWallet from "./pages/pharmacist/PharmacistWallet";
 import Forget from "./pages/auth/ForgetPassword";
 import ChangePass from "./pages/patient/chnagePass";
@@ -95,6 +96,7 @@ function App() {
           <Route path="/PatientWallet" element={<PatientWallet />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/PrescriptionList" element={<PrescriptionList />} />
+          <Route path="/OutOfStock" element={<OutOfStock />} />
         </Routes>
       </div>
     );

@@ -55,6 +55,7 @@ function listMedicine() {
         >
           {medicine.map((item) => (
             <MedicineCard
+            
               key={item._id}
               name={item.medicineName}
               image={item.image} // Assuming your backend sends the image URL
