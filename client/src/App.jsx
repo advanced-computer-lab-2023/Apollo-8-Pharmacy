@@ -31,6 +31,8 @@ import Checkout from "./pages/patient/Checkout";
 import Pharmacistlogin from "./pages/auth/PharmacistLogin";
 import Adminlogin from "./pages/auth/AdminLogin";
 import Patientlogin from "./pages/auth/PatientLogin";
+import PatientWallet from "./pages/patient/PatientWallet";
+import PharmacistWallet from "./pages/pharmacist/PharmacistWallet";
 import Forget from "./pages/auth/ForgetPassword";
 import ChangePass from "./pages/patient/chnagePass";
 import ChangePassPharm from "./pages/pharmacist/changePassPharm";
@@ -90,7 +92,7 @@ function App() {
           <Route path="/Review" element={<Review />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
-
+          <Route path="/PatientWallet" element={<PatientWallet />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/PrescriptionList" element={<PrescriptionList />} />
         </Routes>
@@ -114,7 +116,7 @@ function App() {
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
           <Route path="/ArchivedMedicinesListPharmacist" element={<ArchivedMedicinesListPharmacist />} />
-
+          <Route path="/PharmacistWallet" element={<PharmacistWallet />} />
         </Routes>
       </div>
     );

@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import WalletIcon from "@mui/icons-material/Wallet";
 import { useNavigate } from "react-router-dom";
 
 function ResponsiveAppBar() {
@@ -36,6 +37,9 @@ function ResponsiveAppBar() {
   };
   const handleHome = () => {
     navigate("/HomePagePharm");
+  };
+  const handleMyWallet = () => {
+    navigate("/PharmacistWallet");
   };
   const handleMedicine = () => {
     navigate("/medicinesListPharmacist");
@@ -179,6 +183,11 @@ function ResponsiveAppBar() {
 
 
           <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="My Wallet">
+              <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
+                <WalletIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title=" Logout">
               <IconButton
                 style={{ paddingLeft: "20px" }}
