@@ -25,7 +25,7 @@ router.put('/:id/decMed', Middle.requireAuthPatient, controllers.decMedicine);
 router.get('/:id/orders/:orderId', Middle.requireAuthPatient, controllers.viewOrderDetails);
 router.get('/getCartTotal', Middle.requireAuthPatient, controllers.getCartTotal);
 router.post('/:id/orders/:orderId/cancel', Middle.requireAuthPatient, controllers.cancelOrder);
-
+router.get("/getWallet", Middle.requireAuthPatient, controllers.getWallet)
 
 
 export default router;

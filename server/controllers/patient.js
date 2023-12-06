@@ -331,8 +331,20 @@ const updateWallet = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+const getWallet = async (req, res) => {
+  try {
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
 
-//s
+    const patientWallet = patient.wallet;
+    res.status(200).json(patientWallet);
+  } catch (error) {
+    console.error('Error in getwallet:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 export default {
   createPatient,
@@ -347,5 +359,6 @@ export default {
   cancelOrder,
   addAddressToPatient,
   updateWallet,
-  getCartTotal
+  getCartTotal,
+  getWallet
 }

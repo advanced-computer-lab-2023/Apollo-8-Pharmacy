@@ -155,6 +155,7 @@ const getPharmacistSalesReport = async (req, res) => {
     res.status(400).send(error.message);
   }
 }
+
 const getPharmacistSalesReportByDate = async (req, res) => {
   try {
     const pharm = await PharmacistModel.findOne({ user: res.locals.userId });
@@ -196,6 +197,23 @@ const getPharmacistSalesReportByDate = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+  const getWallet = async (req, res) => {
+    console.log("nano");
+    try {
+
+      const pharmacist = await PharmacistModel.findOne({ user: res.locals.userId });
+      console.log("user: res.locals.userId "+  res.locals.userId );
+      if (!pharmacist) {
+        return res.status(404).json({ error: 'pharmacist not found' });
+      }
+      const pharmacistWallet = pharmacist.wallet;
+      console.log("harmacistWallet"+pharmacistWallet);
+      res.status(200).json(pharmacistWallet);
+    } catch (error) {
+      console.error('Error in getwallet:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 export default {
   createPharmacist,
   getPharmacists,
@@ -203,5 +221,6 @@ export default {
   acceptPharmacist,
   rejectPharmacist,
   getPharmacistSalesReport,
-  getPharmacistSalesReportByDate
+  getPharmacistSalesReportByDate,
+  getWallet
 }
