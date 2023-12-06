@@ -14,7 +14,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingBasketSharpIcon from "@mui/icons-material/ShoppingBasketSharp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-
+import WalletIcon from "@mui/icons-material/Wallet";
 const pages = ["Home", "Medicine", "My Cart", "My Orders"];
 
 function ResponsiveAppBar() {
@@ -40,6 +40,9 @@ function ResponsiveAppBar() {
   const handleHome = () => {
     navigate("/HomePage");
   };
+  const handleMyWallet = () => {
+    navigate("/PatientWallet");
+  };
   const handleMedicine = () => {
     navigate("/ListMedicine");
   };
@@ -48,6 +51,9 @@ function ResponsiveAppBar() {
   };
   const handlePrescription = () => {
     navigate("/PrescriptionList");
+  };
+  const handleOutOfStock= () => {
+    navigate("/OutOfStock");
   };
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
@@ -216,6 +222,20 @@ function ResponsiveAppBar() {
               {" "}
               Change Pass
             </Button>
+            <Button
+              onClick={handleOutOfStock}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginRight: "2%",
+                marginLeft: "2%",
+                fontSize: "12px",
+              }}
+            >
+              {" "}
+            Medecines OutOfStock
+            </Button>
           </Box>
           <div style={{ marginLeft: "20%" }}>
             <Box
@@ -232,6 +252,11 @@ function ResponsiveAppBar() {
 
 
           <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="My Wallet">
+              <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
+                <WalletIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Open Your Shopping Cart">
               <IconButton style={{}} onClick={handleCart} sx={{ p: 0 }}>
                 <ShoppingBasketSharpIcon
