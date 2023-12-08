@@ -41,18 +41,15 @@ function Adminlogin() {
           window.location.pathname = "/HomePageAdmin";
         })
         .catch((err) => {
-          console.log(err.response.data); // log the error response
-  
-          // Check if the error message is available in the response
+          console.log(err.response.data); 
           const errorMessage = err.response?.data || "Incorrect username or password";
           setError(errorMessage);
         });
     };
     const inputStyle = {
-      border: `1px solid ${error ? 'red' : '#ced4da'}`, // Set border to red when there's an error
+      border: `1px solid ${error ? 'red' : '#ced4da'}`, 
     };
     const handleInputChange = () => {
-      // Clear the error message when the input changes
       setError("");
     };
 
@@ -111,7 +108,7 @@ function Adminlogin() {
                   style={inputStyle}
                   onChange={(e) => {
                     setPassword(e.target.value);
-                    handleInputChange(); // Clear error message when input changes
+                    handleInputChange();
                   }}
                 />
                   {error && <div style={{ color: "red" }}>{error}</div>}
