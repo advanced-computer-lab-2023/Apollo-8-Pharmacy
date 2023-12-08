@@ -35,8 +35,12 @@ import ChangePass from "./pages/patient/chnagePass";
 import ChangePassPharm from "./pages/pharmacist/changePassPharm";
 import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
+import Chat from "./pages/patient/Chat";
+import ChatPhamacist from "./pages/pharmacist/Chat";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:9000");
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
   sessionStorage.getItem("token")
@@ -86,7 +90,7 @@ function App() {
           <Route path="/PaymentForm" element={<PaymentForm />} />
           <Route path="/Review" element={<Review />} />
           <Route path="/Checkout" element={<Checkout />} />
-
+          <Route path="/Chat" element={<Chat />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
         </Routes>
@@ -109,6 +113,7 @@ function App() {
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+          <Route path="/ChatPharmacist" element={<ChatPhamacist />} />
         </Routes>
       </div>
     );

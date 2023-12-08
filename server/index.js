@@ -9,14 +9,57 @@ import patientRoutes from "./routes/patient.js";
 import adminRoutes from "./routes/admin.js";
 import medicineRoutes from "./routes/medicine.js";
 import orderRoutes from "./routes/order.js";
+import chatRoutes from "./routes/message.js";
+import MessageModel from './models/message.js';
 import stripe from 'stripe';
 const stripeInstance = new stripe('sk_test_51OAbKKFG7BNY2kzIjyhX3ByBqijkVoASpjD4fcyOIjGcYiyxMdpHzQAf2rX7bBcokOGHeo7uwxDLX8mkStLJD3pj001MnvPqcn');
-
-
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+import http from "http";
+import { Server } from "socket.io";
+import chat from "./controllers/chat.js";
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"], 
+  }, 
+})
+
+global.onlineUsers = new Map();
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+    console.log(`user ${userId}is added`);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    console.log(`${data.msg} is sent from ${data.from} to ${data.to}`);
+    if (sendUserSocket) {
+      console.log(`${data.msg} is received by ${data.to}`);
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
+});
+// socket.on('sendMessage', async (data) => {
+//   // Save the message to the database
+//   const newMessage = new MessageModel({
+//     sender: data.senderId,
+//     receiver: data.receiverId,
+//     content: data.content
+//   });
+//   await newMessage.save();
+
+//   // Emit to the specific user
+//   io.to(data.receiverSocketId).emit('receiveMessage', newMessage);
+// });
+
+// Other Socket.IO event handlers...
 
 const port = process.env.PORT || 9000;
 const MONGO_URI = process.env.MONGO_URI;
@@ -27,7 +70,7 @@ mongoose
   .then(() => {
     console.log("MongoDB is now connected!");
     // Starting server
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Listening to requests on http://localhost:${port}`);
     });
   })
@@ -49,6 +92,7 @@ app.use("/patient", patientRoutes);
 app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/order", orderRoutes);
+app.use("/chat" , chatRoutes);
 
 const PACKAGE_DOMAIN = 'http://localhost:5174/Checkout/';
 

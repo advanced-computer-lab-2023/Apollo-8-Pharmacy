@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingBasketSharpIcon from "@mui/icons-material/ShoppingBasketSharp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ChatIcon from '@mui/icons-material/Chat';
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Home", "Medicine", "My Cart", "My Orders"];
@@ -49,6 +50,9 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
     setAnchorElNav();
+  };
+  const handleChatNavigate = () => {
+    navigate("/Chat");
   };
 
   const handleCloseUserMenu = () => {
@@ -236,18 +240,32 @@ function ResponsiveAppBar() {
           </Button>
 
           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title=" Chat">
+              <IconButton
+                style={{ paddingLeft: "20px" }}
+                onClick={handleChatNavigate}
+                sx={{ p: 0 }}
+              >
+                <ChatIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Your Shopping Cart">
-              <IconButton style={{}} onClick={handleCart} sx={{ p: 0 }}>
+              <IconButton style={{paddingLeft: "10px" }}  onClick={handleCart} sx={{ p: 0 }}>
                 <ShoppingBasketSharpIcon
                   fontSize="large"
                   sx={{ color: "white" }}
                 />
               </IconButton>
             </Tooltip>
+          </Box>
+          <p></p>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
               <IconButton
                 style={{ paddingLeft: "10px" }}
-                onClick={logOut}
+                onClick={handleChatNavigate}
                 sx={{ p: 0 }}
               >
                 <AccountCircleIcon fontSize="large" sx={{ color: "white" }} />
