@@ -113,9 +113,9 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ error: 'Patient not found' });
     }
 
-    const existingCartItem = patient.cart.find(item => {
+    const existingCartItem = patient.cart.find(item => 
       item.medicine.equals(medicineId)
-    });
+    );
 
     if (existingCartItem) {
       existingCartItem.quantity += quantity;
@@ -239,7 +239,7 @@ const decMedicine = async (req, res) => {
     }
 
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
-
+    if(!cartItem) return;
     if (cartItem.quantity > 0) {
       cartItem.quantity -= 1;
     } else {
