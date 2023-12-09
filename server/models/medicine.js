@@ -36,6 +36,11 @@ const medicineSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    archiveStatus: {
+      type: String,
+      enum: ["Archived", "Unarchived"],
+      default: "Unarchived",
+    },
     image: {
       type: String,
       required: true,

@@ -12,7 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ChatIcon from '@mui/icons-material/Chat';
+import WalletIcon from "@mui/icons-material/Wallet";
+import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
 
 function ResponsiveAppBar() {
@@ -37,6 +38,9 @@ function ResponsiveAppBar() {
   };
   const handleHome = () => {
     navigate("/HomePagePharm");
+  };
+  const handleMyWallet = () => {
+    navigate("/PharmacistWallet");
   };
   const handleMedicine = () => {
     navigate("/medicinesListPharmacist");
@@ -130,7 +134,13 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           ></Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              width: "80%",
+            }}
+          >
             <Button
               onClick={handleHome}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -143,7 +153,7 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {" "}
-              Medicine{" "}
+              Medicine List{" "}
             </Button>
             <Button
               onClick={handleAddMed}
@@ -157,7 +167,7 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {" "}
-              Medicine Sales{" "}
+              Sales Report{" "}
             </Button>
             <Button
               onClick={Change}
@@ -177,30 +187,8 @@ function ResponsiveAppBar() {
                 borderRadius: "100px",
                 borderColor: "rgba(0, 140, 990, 0.1)",
               }}
-            >
-              <TextField
-                placeholder="Searching for..."
-                fullWidth
-                id="fullWidth"
-                style={{
-                  border: "none",
-                  outline: "none",
-                }}
-              />
-            </Box>
+            ></Box>
           </div>
-          <Button
-            style={{
-              right: "8%",
-              borderRadius: "100px",
-              height: "56px",
-              width: "160px",
-              backgroundColor: "rgb(0,0,139)",
-            }}
-            variant="contained"
-          >
-            Search
-          </Button>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title=" Chat">
@@ -214,6 +202,11 @@ function ResponsiveAppBar() {
             </Tooltip>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="My Wallet">
+              <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
+                <WalletIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title=" Logout">
               <IconButton
                 style={{ paddingLeft: "20px" }}

@@ -23,4 +23,6 @@ router.post("/createUser", controllers.createUser);
 router.get("/getUsers",Middle.requireAuthAdmin ,controllers.getUsers);
 router.post("/addAdministrator",Middle.requireAuthAdmin, controllers.addAdministrator);
 router.delete("/removeUser",Middle.requireAuthAdmin, controllers.removeUser);
+router.get("/sales/:month?",Middle.requireAuthAdmin,controllers.getAdminSalesReport);
+
 export default router;

@@ -13,6 +13,7 @@ import MedicineSales from "./pages/pharmacist/MedicineSales";
 import AddAdmin from "./pages/admin/AddAdmin";
 import RemoveUser from "./pages/admin/RemoveUser";
 import PharmacistsListPending from "./pages/admin/PharmacistsListPending";
+import SalesReport from "./pages/admin/SalesReport";
 import MedicinesListPharmacist from "./pages/pharmacist/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/patient/MedicinesListPatient";
 import HomePage from "./pages/patient/HomePage";
@@ -30,11 +31,16 @@ import Checkout from "./pages/patient/Checkout";
 import Pharmacistlogin from "./pages/auth/PharmacistLogin";
 import Adminlogin from "./pages/auth/AdminLogin";
 import Patientlogin from "./pages/auth/PatientLogin";
+import PatientWallet from "./pages/patient/PatientWallet";
+import OutOfStock from "./pages/patient/OutOfStock";
+import PharmacistWallet from "./pages/pharmacist/PharmacistWallet";
 import Forget from "./pages/auth/ForgetPassword";
 import ChangePass from "./pages/patient/chnagePass";
 import ChangePassPharm from "./pages/pharmacist/changePassPharm";
 import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
+import ArchivedMedicinesListPharmacist from "./pages/pharmacist/ArchivedMedicineListPharm";
+import PrescriptionList from "./pages/patient/PrescriptionList";
 import Chat from "./pages/patient/Chat";
 import ChatPhamacist from "./pages/pharmacist/Chat";
 import axios from "axios";
@@ -93,6 +99,10 @@ function App() {
           <Route path="/Chat" element={<Chat />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
+          <Route path="/PatientWallet" element={<PatientWallet />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
+          <Route path="/PrescriptionList" element={<PrescriptionList />} />
+          <Route path="/OutOfStock" element={<OutOfStock />} />
         </Routes>
       </div>
     );
@@ -113,6 +123,11 @@ function App() {
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
+          <Route
+            path="/ArchivedMedicinesListPharmacist"
+            element={<ArchivedMedicinesListPharmacist />}
+          />
+          <Route path="/PharmacistWallet" element={<PharmacistWallet />} />
           <Route path="/ChatPharmacist" element={<ChatPhamacist />} />
         </Routes>
       </div>
@@ -130,13 +145,13 @@ function App() {
           <Route path="/addAdmin" element={<AddAdmin />} />
           <Route path="/HomePageAdmin" element={<AddAdmin />} />
           <Route path="/removeUser" element={<RemoveUser />} />
+          <Route path="/salesreport" element={<SalesReport />} />
           <Route
             path="/pharmacistsListPending"
             element={<PharmacistsListPending />}
           />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
-          <Route path="/ChangePassAdm" element={<ChangePassAdm />} />
         </Routes>
       </div>
     );

@@ -90,7 +90,7 @@ function cart() {
           </Button>
         </div>
 
-        <div style={{ display: "flex", flexWrap: "nowrap" }}>
+        <div style={{ display: "flex", flexWrap: 'wrap', display: 'flex', marginLeft: '7%' }}>
           {cartItems &&
             cartItems.map((item, index) => (
               <Card1

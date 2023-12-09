@@ -102,6 +102,31 @@ const medicineDetails = async (req, res) => {
   }
 }
 
+//get the total price for a list of medicines in a prescription (from the clinic)
+const medicinePrice = async (req, res) => {
+  try {
+    let price = 0;
+    const medicines = req.body;
+    if (!medicines) {
+      console.log("the pres medicine array is null!!!")
+      return;
+    }
+    for (const element of medicines) {
+      const medicine = await MedicineModel.findOne({ "medicineName": element.name });
+      if (!medicine) {
+        res.status(200).send("Oops, medicine not found");
+        return;
+      }
+      price += medicine.price;
+    }
+    res.status(200).send(price);
+  }
+  catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+
 
 // list specific details of all medicines 
 const listMedicines = async (req, res) => {
@@ -130,6 +155,35 @@ const listMedicines = async (req, res) => {
   }
 }
 
+//ss
+const updateArchiveStatus = async (req, res) => {
+  const { medicineId, archivedStatus } = req.body;
+
+  try {
+    if (!medicineId || !archivedStatus) {
+      return res.status(400).json({ error: "Missing parameters" });
+    }
+
+    const updatedMedicine = await MedicineModel.findByIdAndUpdate(
+      medicineId,
+      { $set: { archiveStatus: archivedStatus } },
+      { new: true }
+    );
+
+    if (!updatedMedicine) {
+      return res.status(404).json({ error: "Medicine not found" });
+    }
+
+    return res.status(200).json(updatedMedicine);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+
+//ss
 
 
 export default {
@@ -138,5 +192,7 @@ export default {
   addMedicine,
   searchByName,
   medicineDetails,
-  listMedicines
+  listMedicines,
+  updateArchiveStatus,
+  medicinePrice
 }
