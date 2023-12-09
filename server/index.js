@@ -19,13 +19,13 @@ app.use(express.json());
 app.use(cors());
 import http from "http";
 import { Server } from "socket.io";
-import chat from "./controllers/chat.js";
+// import chat from "./controllers/chat.js";
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"], 
-  }, 
+    methods: ["GET", "POST"],
+  },
 })
 
 global.onlineUsers = new Map();
@@ -92,7 +92,7 @@ app.use("/patient", patientRoutes);
 app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/order", orderRoutes);
-app.use("/chat" , chatRoutes);
+app.use("/chat", chatRoutes);
 
 const PACKAGE_DOMAIN = 'http://localhost:5174/Checkout/';
 
@@ -104,7 +104,7 @@ app.post('/Checkout', async (req, res) => {
       {
         price: 'price_1OAhcrFG7BNY2kzIxPQqkTZi', // Replace with the actual Price ID from your Stripe Dashboard
         quantity: 1
-      }, 
+      },
     ],
     success_url: `${PACKAGE_DOMAIN}?success=true`,
     cancel_url: `${PACKAGE_DOMAIN}?canceled=true`,
