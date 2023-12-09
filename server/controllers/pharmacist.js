@@ -84,6 +84,18 @@ const getPharmacistById = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+const getPharmacistByIdForChat = async (req, res) => {
+  try {
+    const pharmacist = await PharmacistModel.findOne(
+      {user: res.locals.userId }
+    );
+    if (!pharmacist) return res.status(404).send("Pharmacist not found");
+    res.status(200).send(pharmacist);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 const acceptPharmacist = async (req, res) => {
   try {
     const pharmacist = await PharmacistModel.findByIdAndUpdate(
@@ -218,6 +230,7 @@ export default {
   createPharmacist,
   getPharmacists,
   getPharmacistById,
+  getPharmacistByIdForChat,
   acceptPharmacist,
   rejectPharmacist,
   getPharmacistSalesReport,

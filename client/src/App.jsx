@@ -13,7 +13,7 @@ import MedicineSales from "./pages/pharmacist/MedicineSales";
 import AddAdmin from "./pages/admin/AddAdmin";
 import RemoveUser from "./pages/admin/RemoveUser";
 import PharmacistsListPending from "./pages/admin/PharmacistsListPending";
-import SalesReport from"./pages/admin/SalesReport"
+import SalesReport from "./pages/admin/SalesReport";
 import MedicinesListPharmacist from "./pages/pharmacist/MedicinesListPharmacist";
 import MedicinesListPatient from "./pages/patient/MedicinesListPatient";
 import HomePage from "./pages/patient/HomePage";
@@ -41,8 +41,12 @@ import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
 import ArchivedMedicinesListPharmacist from "./pages/pharmacist/ArchivedMedicineListPharm";
 import PrescriptionList from "./pages/patient/PrescriptionList";
+import Chat from "./pages/patient/Chat";
+import ChatPhamacist from "./pages/pharmacist/Chat";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:9000");
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
   sessionStorage.getItem("token")
@@ -92,6 +96,8 @@ function App() {
           <Route path="/PaymentForm" element={<PaymentForm />} />
           <Route path="/Review" element={<Review />} />
           <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/Chat" element={<Chat />} />
+          <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/PatientWallet" element={<PatientWallet />} />
           <Route path="/ForgetPassword" element={<Forget />} />
@@ -117,8 +123,12 @@ function App() {
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
-          <Route path="/ArchivedMedicinesListPharmacist" element={<ArchivedMedicinesListPharmacist />} />
+          <Route
+            path="/ArchivedMedicinesListPharmacist"
+            element={<ArchivedMedicinesListPharmacist />}
+          />
           <Route path="/PharmacistWallet" element={<PharmacistWallet />} />
+          <Route path="/ChatPharmacist" element={<ChatPhamacist />} />
         </Routes>
       </div>
     );

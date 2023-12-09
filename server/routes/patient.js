@@ -10,7 +10,7 @@ router.post("/patientLogin", Auth.loginPatient)
 //no middleware needed
 router.post("/", controllers.createPatient);
 //
-router.get("/", Middle.requireAuthAdmin, controllers.getPatients);
+router.get("/", controllers.getPatients);
 //check as two persons is usning it
 router.get("/byId", Middle.requireAuth, controllers.getPatientById);
 //not found in front checkk but tmam

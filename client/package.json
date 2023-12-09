@@ -17,11 +17,15 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.5",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
+    "emoji-picker-react": "^4.5.16",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
     "react-router-dom": "^6.16.0",
-    "styled-components": "^6.1.1"
+    "socket.io-client": "^4.7.2",
+    "styled-components": "^6.1.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
