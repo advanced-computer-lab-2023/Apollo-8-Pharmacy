@@ -211,7 +211,7 @@ const incMedicine = async (req, res) => {
     if (cartItem) {
       if (medicine.quantity > 0 && cartItem.quantity < medicine.quantity) {
         cartItem.quantity += 1;
-        console.log("cartItem.quantity :"+cartItem.quantity )
+        console.log("cartItem.quantity :" + cartItem.quantity)
       } else {
         return res.status(400).json({ error: 'Cannot increment quantity. Limited to available stock.' });
       }
@@ -240,7 +240,7 @@ const decMedicine = async (req, res) => {
     }
 
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
-
+    if (!cartItem) return;
     if (cartItem.quantity > 0) {
       cartItem.quantity -= 1;
     } else {
@@ -384,7 +384,7 @@ const outofstock = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
- 
+
 export default {
   createPatient,
   getPatients,
@@ -401,5 +401,5 @@ export default {
   getCartTotal,
   getWallet,
   outofstock
-  
+
 }
