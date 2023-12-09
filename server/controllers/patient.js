@@ -102,7 +102,6 @@ const addAddressToPatient = async (req, res) => {
 const addToCart = async (req, res) => {
   const pat = await PatientModel.findOne({ user: res.locals.userId })
   const patientId = pat._id;
-  //const patientId = '65212c32f90a57e39e26a1c2';
   const { medicineId, quantity } = req.body;
 
   try {
@@ -112,10 +111,18 @@ const addToCart = async (req, res) => {
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
     }
+    const medicine = await MedicineModel.findById(medicineId);
 
-    const existingCartItem = patient.cart.find(item => 
+    if (!medicine) {
+      return res.status(404).json({ error: 'Medicine not found' });
+    }
+
+    if (medicine.quantity === 0) {
+      return res.status(400).json({ error: 'Medicine is out of stock' });
+    }
+    const existingCartItem = patient.cart.find(item => {
       item.medicine.equals(medicineId)
-    );
+    });
 
     if (existingCartItem) {
       existingCartItem.quantity += quantity;
@@ -187,15 +194,13 @@ const removeFromCart = async (req, res) => {
   }
 };
 const incMedicine = async (req, res) => {
-  const pat = await PatientModel.findOne({ user: res.locals.userId })
+  const pat = await PatientModel.findOne({ user: res.locals.userId });
   const patientId = pat._id;
-  //const patientId = req.params.id; // Assuming you're passing the patientId in the route parameters
   const { medicineId } = req.body;
 
   try {
     const patient = await PatientModel.findById(patientId);
     const medicine = await MedicineModel.findById(medicineId);
-
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -204,16 +209,12 @@ const incMedicine = async (req, res) => {
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (cartItem) {
-      console.log(medicine.quantity)
-      console.log(cartItem.quantity)
-
-      if (medicine.quantity > cartItem.quantity) {
-
+      if (medicine.quantity > 0 && cartItem.quantity < medicine.quantity) {
         cartItem.quantity += 1;
+        console.log("cartItem.quantity :" + cartItem.quantity)
       } else {
-        return res.status(404).json({ error: 'sorry we do not have enough amount of the medicine' });
+        return res.status(400).json({ error: 'Cannot increment quantity. Limited to available stock.' });
       }
-
     } else {
       return res.status(404).json({ error: 'Item not found in the cart' });
     }
@@ -239,7 +240,7 @@ const decMedicine = async (req, res) => {
     }
 
     const cartItem = patient.cart.find(item => item.medicine.equals(medicineId));
-    if(!cartItem) return;
+    if (!cartItem) return;
     if (cartItem.quantity > 0) {
       cartItem.quantity -= 1;
     } else {
@@ -331,8 +332,58 @@ const updateWallet = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+const getWallet = async (req, res) => {
+  try {
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
 
-//s
+    const patientWallet = patient.wallet;
+    res.status(200).json(patientWallet);
+  } catch (error) {
+    console.error('Error in getwallet:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const outofstock = async (req, res) => {
+  try {
+    const medicinesWithZeroQuantity = await MedicineModel.find({ quantity: { $lte: 0 } });
+    console.log("medicinesWithZeroQuantity:", medicinesWithZeroQuantity);
+    const outOfStockMedicines = [];
+
+    for (const medicine of medicinesWithZeroQuantity) {
+      console.log("Processing medicine:", medicine);
+
+      const medicinesWithSameIngredient = await MedicineModel.find({
+        ingredients: medicine.ingredients,
+        _id: { $ne: medicine._id }, // Exclude the same medicine
+        quantity: { $gt: 0 }, // Exclude medicines with zero or negative quantity
+      });
+
+      console.log("medicinesWithSameIngredient:", medicinesWithSameIngredient);
+
+      if (medicinesWithSameIngredient.length > 0) {
+        outOfStockMedicines.push({
+          medicineWithZeroQuantity: medicine.medicineName,
+          medicinesWithSameIngredient: medicinesWithSameIngredient.map((m) => m.medicineName),
+        });
+      } else {
+        outOfStockMedicines.push({
+          medicineWithZeroQuantity: medicine.medicineName,
+          medicinesWithSameIngredient: ["No alternatives available"],
+        });
+      }
+    }
+
+    console.log("outOfStockMedicines:", outOfStockMedicines);
+    res.status(200).json(outOfStockMedicines);
+  } catch (error) {
+    console.error('Error fetching out-of-stock medicines:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 export default {
   createPatient,
@@ -347,5 +398,8 @@ export default {
   cancelOrder,
   addAddressToPatient,
   updateWallet,
-  getCartTotal
+  getCartTotal,
+  getWallet,
+  outofstock
+
 }

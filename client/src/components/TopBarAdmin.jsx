@@ -29,6 +29,9 @@ function ResponsiveAppBar() {
   const handleAddAdmin = () => {
     navigate("/addAdmin");
   };
+  const handleSalesReport = () => {
+    navigate("/salesreport");
+  };
   const handleRemoveUser = () => {
     navigate("/removeUser");
   };
@@ -240,6 +243,19 @@ function ResponsiveAppBar() {
             >
               {" "}
               Change Password{" "}
+            </Button>
+            <Button
+              onClick={handleSalesReport}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginLeft: "2%",
+                fontSize: "12px",
+              }}
+            >
+              {" "}
+              Sales Report{" "}
             </Button>
           </Box>
 

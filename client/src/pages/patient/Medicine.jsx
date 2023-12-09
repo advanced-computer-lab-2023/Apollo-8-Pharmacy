@@ -30,7 +30,7 @@ function listMedicine() {
   }, []);
 
   return (
-    <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
+    <div style={{ marginRight: "-5%", marginLeft: "-5%", marginTop: '100px' }}>
       <AppBar
         style={{
           height: "100%",
@@ -46,12 +46,16 @@ function listMedicine() {
           style={{
             backgroundColor: "",
             marginLeft: "25%",
-            marginTop: "-62%",
+            marginTop: "-55%",
+            overflowY: "auto",
             overflowX: "auto",
+
+            display: 'flow'
           }}
         >
           {medicine.map((item) => (
             <MedicineCard
+            
               key={item._id}
               name={item.medicineName}
               image={item.image} // Assuming your backend sends the image URL
@@ -68,12 +72,7 @@ function listMedicine() {
           spacing={2}
           style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
         >
-          <Pagination
-            count={10}
-            color="primary"
-            size="large"
-            style={{ color: "blue" }}
-          />
+
         </Stack>
         <BottomBar />
       </AppBar>
