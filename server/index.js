@@ -12,6 +12,7 @@ import orderRoutes from "./routes/order.js";
 import chatRoutes from "./routes/message.js";
 import MessageModel from './models/message.js';
 import stripe from 'stripe';
+import Auth from "./Authentication/login.js"
 const stripeInstance = new stripe('sk_test_51OAbKKFG7BNY2kzIjyhX3ByBqijkVoASpjD4fcyOIjGcYiyxMdpHzQAf2rX7bBcokOGHeo7uwxDLX8mkStLJD3pj001MnvPqcn');
 
 const app = express();
@@ -93,6 +94,7 @@ app.use("/admin", adminRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/order", orderRoutes);
 app.use("/chat", chatRoutes);
+app.post("/login", Auth.login)
 
 const PACKAGE_DOMAIN = 'http://localhost:5174/Checkout/';
 

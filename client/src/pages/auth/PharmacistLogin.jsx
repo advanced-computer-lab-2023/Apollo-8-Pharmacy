@@ -30,7 +30,7 @@ function Pharmacistlogin() {
       }
       //  console.log(email);
       axios
-        .post(" http://localhost:9000/pharmacist/PharmicistLogin", {
+        .post(" http://localhost:9000/login", {
           name,
           password,
         })
@@ -40,7 +40,16 @@ function Pharmacistlogin() {
 
           const data = sessionStorage.getItem("token");
           console.log("asassaas " + data);
-          window.location.pathname = "/HomePagePharm";
+          if(result.data.type==="Pharmacist"){
+            window.location.pathname = "/HomePagePharm";
+          }
+          else if(result.data.type==="Patient"){
+            window.location.pathname = "/HomePage";
+          }
+          else{
+            window.location.pathname = "/addAdmin";
+          }
+  
        
         })
         .catch((err) => {
@@ -78,7 +87,7 @@ function Pharmacistlogin() {
               display: "flex",
             }}
           >
-            <h2>Pharmacist Login</h2>
+            <h2>Pharmacy Login</h2>
             <form action="" onSubmit={handleSubmit}>
             <div className={`mb-3 ${error ? 'has-error' : ''}`}>
                 <label htmlFor="email">

@@ -4,6 +4,9 @@ import PharmacistModel from '../models/pharmacist.js';
 import UserModel from '../models/user.js';
 import OrderModel from '../models/order.js';
 import MedicineModel from '../models/medicine.js';
+import bcrypt from "bcrypt";
+const saltRounds = 10;
+
 const createUser = async (req, res) => {
   const {
     username,
@@ -42,9 +45,11 @@ const addAdministrator = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: 'Username is already taken ,please choose a different username' });
     }
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const newAdmin = new UserModel({
       username,
-      password,
+      password:hashedPassword,
       type: 'Admin'
     });
     await newAdmin.save();

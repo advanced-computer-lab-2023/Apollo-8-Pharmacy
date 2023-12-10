@@ -93,9 +93,31 @@ const logout = async (req, res) => {
     res.status(200).json({message:'Succefully logedout'})
 }
 
+const login = async (req, res) => {
+    try{
+    const { name,  password } = req.body;
+    const user=await UserModel.findOne({username:name});
+    const passwordMatch=await bcrypt.compare(password,user.password);
+    if(!passwordMatch){
+       return res.status(400).json("wrong username or password");
+    }
+    else{
+        console.log(user)
+        const token = createToken(user.username);
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        return res.status(201).json({token:token,type:user.type})
+
+        } 
+    }
+    catch(err){
+       return res.status(400).json("wrong username or password");
+    }
+}
+
 export default {
     loginPharmacist,
     loginAdmin,
     loginPatient,
-    logout
+    logout,
+    login
   }

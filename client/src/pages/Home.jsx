@@ -24,7 +24,7 @@ function Home() {
     navigate("/PatientLogin");
   };
   const handlePharmacistLogin = () => {
-    navigate("/PharmacistLogin");
+    navigate("/Login");
   };
   const handleAdminLogin = () => {
     navigate("/Adminlogin");
@@ -63,7 +63,7 @@ function Home() {
             <Card1 style={{ width: "18rem", marginRight: "10%" }}>
               <Card1.Img variant="top" src={img2} alt="family.png" />
               <Card1.Body>
-                <Card1.Title style={{}}>Pharmacist Login</Card1.Title>
+                <Card1.Title style={{}}>Pharmacy Login</Card1.Title>
 
                 <Button1
                   variant="primary"

@@ -163,7 +163,7 @@ function App() {
           <Route path="/registerPatient" element={<PatientSignup />} />{" "}
           <Route path="/" element={<Home />} />
           <Route path="/PatientLogin" element={<Patientlogin />} />
-          <Route path="/PharmacistLogin" element={<Pharmacistlogin />} />
+          <Route path="/Login" element={<Pharmacistlogin />} />
           <Route path="/AdminLogin" element={<Adminlogin />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
