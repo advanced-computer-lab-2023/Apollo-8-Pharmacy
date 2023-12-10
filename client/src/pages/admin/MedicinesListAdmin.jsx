@@ -10,6 +10,7 @@ import AppBar from "@mui/material/AppBar";
 import "../../App.css";
 import ResponsiveAppBar from "../../components/TopBarAdmin";
 import BottomBar from "../../components/BottomBar";
+import { medicinalUses } from "../../config/constants";
 
 function MedicinesListAdmin() {
   const [data, setData] = useState([]);
@@ -95,8 +96,11 @@ function MedicinesListAdmin() {
                 onChange={(e) => setMedicinalUse(e.target.value)}
               >
                 <option value="">Choose Medicinal Use</option>
-                <option value="diarrhea">diarrhea</option>
-                <option value="vomit">vomit</option>
+                {medicinalUses.map((use) => (
+                  <option key={use} value={use}>
+                    {use}
+                  </option>
+                ))}
               </select>
             </InputGroup>
           </Form>

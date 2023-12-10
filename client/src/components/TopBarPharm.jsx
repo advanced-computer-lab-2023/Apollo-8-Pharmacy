@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import WalletIcon from "@mui/icons-material/Wallet";
+import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
 
 function ResponsiveAppBar() {
@@ -37,6 +39,9 @@ function ResponsiveAppBar() {
   const handleHome = () => {
     navigate("/HomePagePharm");
   };
+  const handleMyWallet = () => {
+    navigate("/PharmacistWallet");
+  };
   const handleMedicine = () => {
     navigate("/medicinesListPharmacist");
   };
@@ -46,6 +51,10 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
     setAnchorElNav();
+  };
+
+  const handleChatNavigate = () => {
+    navigate("/ChatPharmacist");
   };
 
   const handleCloseUserMenu = () => {
@@ -125,7 +134,13 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           ></Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, width: '80%' }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              width: "80%",
+            }}
+          >
             <Button
               onClick={handleHome}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -152,7 +167,7 @@ function ResponsiveAppBar() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {" "}
-              Medicine Sales{" "}
+              Sales Report{" "}
             </Button>
             <Button
               onClick={Change}
@@ -172,13 +187,26 @@ function ResponsiveAppBar() {
                 borderRadius: "100px",
                 borderColor: "rgba(0, 140, 990, 0.1)",
               }}
-            >
-
-            </Box>
+            ></Box>
           </div>
 
-
           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title=" Chat">
+              <IconButton
+                style={{ paddingLeft: "20px" }}
+                onClick={handleChatNavigate}
+                sx={{ p: 0 }}
+              >
+                <ChatIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="My Wallet">
+              <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
+                <WalletIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title=" Logout">
               <IconButton
                 style={{ paddingLeft: "20px" }}

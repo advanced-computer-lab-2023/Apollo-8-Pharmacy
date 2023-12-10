@@ -7,6 +7,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import BottomBar from "../../components/BottomBar";
 import { useState } from "react";
+import { medicinalUses } from "../../config/constants";
 
 function AddMedicine() {
   const [medicineName, setMedicineName] = useState();
@@ -231,14 +232,17 @@ function AddMedicine() {
                   <label htmlFor="medicinalUse">
                     <strong>Medicinal Use</strong>
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Enter medicinal use"
-                    autoComplete="off"
-                    name="medicinalUse"
-                    className="form-control rounded-0"
+                  <select
+                    className="form-select"
                     onChange={(e) => setMedicinalUse(e.target.value)}
-                  />
+                  >
+                    <option value="">Choose Medicinal Use</option>
+                    {medicinalUses.map((use) => (
+                      <option key={use} value={use}>
+                        {use}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 

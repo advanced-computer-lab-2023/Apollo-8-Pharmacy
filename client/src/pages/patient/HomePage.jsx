@@ -33,48 +33,7 @@ function homePage() {
         }}
       >
         <ResponsiveAppBar />
-
         <Ads />
-
-        <FilterList />
-        <div
-          style={{
-            backgroundColor: "",
-            marginLeft: "25%",
-            marginTop: "-62%",
-            display: "flex",
-            flexWrap: "nowrap",
-          }}
-        >
-          <MedicineCard name={name[0]} image={img1} info={info} />
-          <MedicineCard name={name[1]} image={img2} info={info} />
-          <MedicineCard name={name[2]} image={img3} info={info} />
-        </div>
-        <div
-          style={{
-            backgroundColor: "",
-            marginLeft: "25%",
-            marginTop: "-2%",
-            display: "flex",
-            flexWrap: "nowrap",
-          }}
-        >
-          <MedicineCard name={name[3]} image={img3} info={info} />
-          <MedicineCard name={name[4]} image={img3} info={info} />
-          <MedicineCard name={name[5]} image={img3} info={info} />
-        </div>
-        <Stack
-          spacing={2}
-          style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
-        >
-          <Pagination
-            count={10}
-            color="primary"
-            size="large"
-            style={{ color: "blue" }}
-          />
-        </Stack>
-        <BottomBar />
       </AppBar>
     </div>
   );

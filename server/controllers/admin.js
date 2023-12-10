@@ -2,7 +2,8 @@
 import PatientModel from '../models/patient.js';
 import PharmacistModel from '../models/pharmacist.js';
 import UserModel from '../models/user.js';
-
+import OrderModel from '../models/order.js';
+import MedicineModel from '../models/medicine.js';
 const createUser = async (req, res) => {
   const {
     username,
@@ -75,8 +76,54 @@ const removeUser = async (req, res) => {
     res.status(404).json({ error: error.message })
   }
 };
+const getAdminSalesReport = async (req, res) => {
+  try {
+    console.log("res.locals.userId:", res.locals.userId);
+    const admin = await UserModel.findOne({ _id: res.locals.userId });
+   // Check if admin is found
+   if (!admin) {
+    return res.status(404).send("Admin not found");
+}
 
+console.log("admin._id", admin._id);
+    
+    const selectedMonth = req.params.month || (new Date().getMonth() + 1);
+    const currentYear = new Date().getFullYear(); // Get the current year
+
+    const startDate = new Date(currentYear, selectedMonth - 1, 1);
+    const endDate = new Date(currentYear, selectedMonth, 0, 23, 59, 59, 999);
+
+  
+    
+    const orders = await OrderModel.find({
+      createdAt: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    });
+
+    const medicineIds = orders.flatMap(order => order.items.map(item => item.medicine));
+    const medicines = await MedicineModel.find({ _id: { $in: medicineIds } });
+
+    const salesReport = medicines.map(medicine => {
+      const totalSales = orders.reduce((acc, order) => {
+        const item = order.items.find(item => item.medicine.equals(medicine._id));
+        return acc + (item ? medicine.price * item.quantity : 0);
+      }, 0);
+
+      return {
+        medicineName: medicine.medicineName,
+        totalSales,
+      };
+    });
+
+
+    res.status(200).send(salesReport);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
 export default {
   createUser, getUsers,
-  addAdministrator, removeUser
+  addAdministrator, removeUser,getAdminSalesReport
 }

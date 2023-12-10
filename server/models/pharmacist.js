@@ -33,6 +33,7 @@ const pharmacistSchema = new mongoose.Schema(
     },
     wallet: {
       type: Number,
+      default: 0,
     },
     status: {
       type: String,

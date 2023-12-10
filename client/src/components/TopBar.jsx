@@ -13,8 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingBasketSharpIcon from "@mui/icons-material/ShoppingBasketSharp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
-
+import WalletIcon from "@mui/icons-material/Wallet";
 const pages = ["Home", "Medicine", "My Cart", "My Orders"];
 
 function ResponsiveAppBar() {
@@ -40,6 +41,9 @@ function ResponsiveAppBar() {
   const handleHome = () => {
     navigate("/HomePage");
   };
+  const handleMyWallet = () => {
+    navigate("/PatientWallet");
+  };
   const handleMedicine = () => {
     navigate("/ListMedicine");
   };
@@ -49,9 +53,15 @@ function ResponsiveAppBar() {
   const handlePrescription = () => {
     navigate("/PrescriptionList");
   };
+  const handleOutOfStock = () => {
+    navigate("/OutOfStock");
+  };
   const handleCloseNavMenu = () => {
     //   navigate("/cart");
     setAnchorElNav();
+  };
+  const handleChatNavigate = () => {
+    navigate("/Chat");
   };
 
   const handleCloseUserMenu = () => {
@@ -59,11 +69,8 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar
-      style={{ height: "100px", backgroundColor: "rgb(0,140,990" }}
-      position="static"
-    >
-      <Container style={{ marginTop: "10px" }} maxWidth="xl">
+    <AppBar style={{ backgroundColor: "rgb(0,140,990" }} position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -84,7 +91,13 @@ function ResponsiveAppBar() {
             Elha2ony
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, width: '80%' }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              width: "80%",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -161,20 +174,6 @@ function ResponsiveAppBar() {
               Medicine{" "}
             </Button>
             <Button
-              onClick={handleCart}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                marginRight: "2%",
-                marginLeft: "2%",
-                fontSize: "12px",
-              }}
-            >
-              {" "}
-              My Cart{" "}
-            </Button>
-            <Button
               onClick={handleOrders}
               sx={{
                 my: 2,
@@ -186,7 +185,7 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              My Orders{" "}
+              Orders{" "}
             </Button>
             <Button
               onClick={handlePrescription}
@@ -200,7 +199,7 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              My Prescriptions
+              Prescriptions
             </Button>
             <Button
               onClick={Change}
@@ -214,7 +213,21 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              Change Pass
+              Change Password
+            </Button>
+            <Button
+              onClick={handleOutOfStock}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginRight: "2%",
+                marginLeft: "2%",
+                fontSize: "12px",
+              }}
+            >
+              {" "}
+              Medecines OutOfStock
             </Button>
           </Box>
           <div style={{ marginLeft: "20%" }}>
@@ -225,21 +238,41 @@ function ResponsiveAppBar() {
                 borderRadius: "100px",
                 borderColor: "rgba(0, 140, 990, 0.1)",
               }}
-            >
-
-            </Box>
+            ></Box>
           </div>
 
-
           <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title=" Chat">
+              <IconButton
+                style={{ paddingLeft: "20px" }}
+                onClick={handleChatNavigate}
+                sx={{ p: 0 }}
+              >
+                <ChatIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="My Wallet">
+              <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
+                <WalletIcon fontSize="large" sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Open Your Shopping Cart">
-              <IconButton style={{}} onClick={handleCart} sx={{ p: 0 }}>
+              <IconButton
+                style={{ paddingLeft: "10px" }}
+                onClick={handleCart}
+                sx={{ p: 0 }}
+              >
                 <ShoppingBasketSharpIcon
                   fontSize="large"
                   sx={{ color: "white" }}
                 />
               </IconButton>
             </Tooltip>
+          </Box>
+          <p></p>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
               <IconButton
                 style={{ paddingLeft: "10px" }}

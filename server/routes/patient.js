@@ -10,22 +10,26 @@ router.post("/patientLogin", Auth.loginPatient)
 //no middleware needed
 router.post("/", controllers.createPatient);
 //
-router.get("/", Middle.requireAuthAdmin, controllers.getPatients);
+router.get("/", controllers.getPatients);
 //check as two persons is usning it
 router.get("/byId", Middle.requireAuth, controllers.getPatientById);
 //not found in front checkk but tmam
 router.post('/addToCart', Middle.requireAuthPatient, controllers.addToCart);
 
+router.post('/addToCartFromClinic',controllers.addToCart);
+router.delete('/removeFromCartClinic', controllers.removeFromCart);
+
 router.get('/viewCart', Middle.requireAuthPatient, controllers.viewCart);
 router.delete('/:id/removeFromCart', Middle.requireAuthPatient, controllers.removeFromCart);
-router.put('/:id/incMed', Middle.requireAuthPatient, controllers.incMedicine);
+router.put('/incMed', Middle.requireAuthPatient, controllers.incMedicine);
 router.put('/addAddress', Middle.requireAuthPatient, controllers.addAddressToPatient);
 router.put('/updateWallet', Middle.requireAuthPatient, controllers.updateWallet);
 router.put('/:id/decMed', Middle.requireAuthPatient, controllers.decMedicine);
 router.get('/:id/orders/:orderId', Middle.requireAuthPatient, controllers.viewOrderDetails);
 router.get('/getCartTotal', Middle.requireAuthPatient, controllers.getCartTotal);
 router.post('/:id/orders/:orderId/cancel', Middle.requireAuthPatient, controllers.cancelOrder);
-
+router.get("/getWallet", Middle.requireAuthPatient, controllers.getWallet)
+router.get('/outofstock', Middle.requireAuthPatient, controllers.outofstock);
 
 
 export default router;

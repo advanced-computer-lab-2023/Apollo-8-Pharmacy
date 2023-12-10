@@ -18,10 +18,10 @@ async function calculateCartTotalPrice(cart) {
     // })
     // .exec();
     const medicine = await MedicineModel.findById(cartItem.medicine);
-    console.log(medicine);
+    //console.log(medicine);
     total += medicine.price * cartItem.quantity;
-    console.log(medicine.price);
-    console.log(cartItem.quantity);
+    //console.log(medicine.price);
+    //console.log(cartItem.quantity);
 
   }
   console.log(total);
@@ -34,7 +34,7 @@ const addOrder = async (req, res) => {
   const { deliveryAddress, paymentMethod } = req.body;
 
   try {
-    const patient = await PatientModel.findOne(patientId);
+    const patient = await PatientModel.findOne(patientId).populate('cart.medicine');
 
     if (!patient) {
       return res.status(404).json({ error: 'Patient not found' });
@@ -45,13 +45,23 @@ const addOrder = async (req, res) => {
     for (const cartItem of cartItems) {
       if (cartItem.medicine) {
         const medicine = await MedicineModel.findById(cartItem.medicine);
-        console.log(medicine);
+        console.log("medicine quantity before: " + medicine.quantity);
+    
+        // Update the quantity of the medicine in the database
+        medicine.quantity -= cartItem.quantity;
+    
+        try {
+          await medicine.save();
+          console.log("medicine quantity after: " + medicine.quantity);
+        } catch (error) {
+          console.error('Error saving medicine:', error);
+        }
+    
         total += medicine.price * cartItem.quantity;
-        console.log(medicine.price);
-        console.log(cartItem.quantity);
       }
-
     }
+
+    
     const order = new OrderModel({
       patient: patientId,
       deliveryAddress,
@@ -117,7 +127,7 @@ const getOrders = async (req, res) => {
   const patientId = pat._id;
   try {
     const order = await OrderModel.find({ patient: patientId });
-    console.log(order);
+    //console.log(order);
 
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
@@ -169,11 +179,25 @@ const cancelOrder = async (req, res) => {
     if (order.status !== 'Pending') {
       return res.status(400).json({ error: 'Cannot cancel order. Status is not Pending.' });
     }
-
+// Iterate through order items and increment the quantity in the MedicineModel
+     for (const orderItem of order.items) {
+      const medicine = await MedicineModel.findById(orderItem.medicine);
+      console.log("medicine quantity before: " + medicine.quantity);
+  
+      // Update the quantity of the medicine in the database
+      medicine.quantity += orderItem.quantity;
+  
+      try {
+        await medicine.save();
+        console.log("medicine quantity after: " + medicine.quantity);
+      } catch (error) {
+        console.error('Error saving medicine:', error);
+      }
     order.status = 'Cancelled';
     await order.save();
 
     res.status(200).json({ message: 'Order cancelled successfully' });
+     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

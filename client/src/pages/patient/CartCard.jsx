@@ -23,7 +23,7 @@ function card(props) {
       }
 
       const response = await axios.put(
-        `http://localhost:9000/patient/65212c32f90a57e39e26a1c2/incMed`,
+        `http://localhost:9000/patient/incMed`,
         { medicineId: props.medicineId, quantity: quantity + 1 }
       );
 
