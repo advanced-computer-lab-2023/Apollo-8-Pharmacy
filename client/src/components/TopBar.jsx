@@ -69,11 +69,8 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar
-      style={{ height: "100px", backgroundColor: "rgb(0,140,990" }}
-      position="static"
-    >
-      <Container style={{ marginTop: "10px" }} maxWidth="xl">
+    <AppBar style={{ backgroundColor: "rgb(0,140,990" }} position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -177,20 +174,6 @@ function ResponsiveAppBar() {
               Medicine{" "}
             </Button>
             <Button
-              onClick={handleCart}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                marginRight: "2%",
-                marginLeft: "2%",
-                fontSize: "12px",
-              }}
-            >
-              {" "}
-              My Cart{" "}
-            </Button>
-            <Button
               onClick={handleOrders}
               sx={{
                 my: 2,
@@ -202,7 +185,7 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              My Orders{" "}
+              Orders{" "}
             </Button>
             <Button
               onClick={handlePrescription}
@@ -216,7 +199,7 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              My Prescriptions
+              Prescriptions
             </Button>
             <Button
               onClick={Change}
@@ -230,7 +213,7 @@ function ResponsiveAppBar() {
               }}
             >
               {" "}
-              Change Pass
+              Change Password
             </Button>
             <Button
               onClick={handleOutOfStock}
@@ -293,7 +276,7 @@ function ResponsiveAppBar() {
             <Tooltip title="Logout">
               <IconButton
                 style={{ paddingLeft: "10px" }}
-                onClick={handleChatNavigate}
+                onClick={logOut}
                 sx={{ p: 0 }}
               >
                 <AccountCircleIcon fontSize="large" sx={{ color: "white" }} />

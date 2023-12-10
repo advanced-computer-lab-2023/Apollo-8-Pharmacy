@@ -33,8 +33,8 @@ function MedicineCard(props) {
   };
 
   return (
-    <Card sx={{ margin: "30px" }}>
-      <img style={{ marginTop: "10px" }} src={props.image} alt="" />
+    <Card sx={{ margin: "30px" }} style={{ height: "500px", width: "270px" }}>
+      <img style={{ margin: "10px" }} src={props.image} alt="" />
 
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

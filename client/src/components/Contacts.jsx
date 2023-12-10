@@ -2,40 +2,40 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function Contacts({ contacts, changeChat }) {
-    const [currentSelected, setCurrentSelected] = useState(undefined);
-   
-    const changeCurrentChat = (index, contact) => {
-        setCurrentSelected(index);
-        changeChat(contact);
-    };
-    return (
-        <>
-            {(
-                <Container>
-                    <div className="brand">
-                        <h3>Chats</h3>
-                    </div>
-                    <div className="contacts">
-                        {contacts.map((contact, index) => {
-                            return (
-                                <div
-                                    key={contact._id}
-                                    className={`contact ${index === currentSelected ? "selected" : ""
-                                        }`}
-                                    onClick={() => changeCurrentChat(index, contact)}
-                                >
-                                    <div className="username">
-                                        <h5>{contact.name}</h5>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                   
-                </Container>
-            )}
-        </>
-    );
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+  return (
+    <>
+      {
+        <Container>
+          <div className="brand">
+            <h3>Chats</h3>
+          </div>
+          <div className="contacts">
+            {contacts.map((contact, index) => {
+              return (
+                <div
+                  key={contact._id}
+                  className={`contact ${
+                    index === currentSelected ? "selected" : ""
+                  }`}
+                  onClick={() => changeCurrentChat(index, contact)}
+                >
+                  <div className="username">
+                    <h5>{contact.name}</h5>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Container>
+      }
+    </>
+  );
 }
 const Container = styled.div`
   display: grid;

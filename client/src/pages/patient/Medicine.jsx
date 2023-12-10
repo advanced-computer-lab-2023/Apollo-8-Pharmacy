@@ -1,17 +1,32 @@
 import AppBar from "@mui/material/AppBar";
 import "../../App.css";
-import Stack from "@mui/material/Stack";
 import ResponsiveAppBar from "../../components/TopBar";
-import FilterList from "../../components/FilterList";
 import MedicineCard from "../../components/MedicineCard";
-import Pagination from "@mui/material/Pagination";
-import BottomBar from "../../components/BottomBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { medicinalUses } from "../../config/constants";
 
 function listMedicine() {
   const [medicine, setMedicine] = useState([]);
+  const [search, setSearch] = useState("");
+  const [medicinalUse, setMedicinalUse] = useState("");
 
+  useEffect(() => {
+    console.log(medicinalUse);
+    const apiUrl = `http://localhost:9000/medicine/filter?medicinalUse=${medicinalUse}`;
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        console.log("Data received:", response.data);
+        setMedicine(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [medicinalUse]);
   useEffect(() => {
     const apiUrl = `http://localhost:9000/medicine/listMedicines`;
 
@@ -30,7 +45,7 @@ function listMedicine() {
   }, []);
 
   return (
-    <div style={{ marginRight: "-5%", marginLeft: "-5%", marginTop: '100px' }}>
+    <div>
       <AppBar
         style={{
           height: "100%",
@@ -39,42 +54,63 @@ function listMedicine() {
         }}
       >
         <ResponsiveAppBar />
-
-        <FilterList />
-
         <div
           style={{
             backgroundColor: "",
-            marginLeft: "25%",
-            marginTop: "-55%",
-            overflowY: "auto",
-            overflowX: "auto",
-
-            display: 'flow'
+            width: "90%",
+            margin: "10px auto",
           }}
         >
-          {medicine.map((item) => (
-            <MedicineCard
-            
-              key={item._id}
-              name={item.medicineName}
-              image={item.image} // Assuming your backend sends the image URL
-              info={item.description}
-              quantity={item.quantity}
-              price={item.price}
-              medicineId={item._id}
-              setMedicine={setMedicine}
-            />
-          ))}
+          <Form>
+            <InputGroup className="my-3">
+              <Form.Control
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search Medicines"
+              />
+            </InputGroup>
+            <InputGroup className="my-3">
+              <select
+                className="form-select"
+                onChange={(e) => setMedicinalUse(e.target.value)}
+              >
+                <option value="">Choose Medicinal Use</option>
+                {medicinalUses.map((use) => (
+                  <option key={use} value={use}>
+                    {use}
+                  </option>
+                ))}
+              </select>
+            </InputGroup>
+          </Form>
         </div>
-
-        <Stack
-          spacing={2}
-          style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
+        <div
+          style={{
+            backgroundColor: "",
+            display: "flex",
+            flexWrap: "wrap",
+            width: "90%",
+            margin: "0px auto",
+          }}
         >
-
-        </Stack>
-        <BottomBar />
+          {medicine
+            .filter((item) => {
+              return search.toLowerCase() === ""
+                ? item
+                : item.medicineName.toLowerCase().includes(search);
+            })
+            .map((item) => (
+              <MedicineCard
+                key={item._id}
+                name={item.medicineName}
+                image={item.image} // Assuming your backend sends the image URL
+                info={item.description}
+                quantity={item.quantity}
+                price={item.price}
+                medicineId={item._id}
+                setMedicine={setMedicine}
+              />
+            ))}
+        </div>
       </AppBar>
     </div>
   );
