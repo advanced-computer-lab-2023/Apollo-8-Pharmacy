@@ -14,6 +14,8 @@ router.get("/medicineDetails",Middle.requireAuthPhatmacist, controllers.medicine
 router.post("/addMedicine", uploadMiddleware,Middle.requireAuthPhatmacist, controllers.addMedicine);
 
 router.post("/updateArchiveStatus",Middle.requireAuthPhatmacist, controllers.updateArchiveStatus);
+router.post("/addPrescriptionMedicine",Middle.requireAuthPatient, controllers.addPrescriptionMed);
+
 
 export default router;
 

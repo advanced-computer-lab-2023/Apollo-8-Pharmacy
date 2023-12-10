@@ -1,4 +1,6 @@
 import MedicineModel from '../models/medicine.js';
+import PrescriptionModel from '../models/prescription.js';
+import PatientModel from '../models/patient.js';
 
 // add a new medicine with all the details 
 const addMedicine = async (req, res) => {
@@ -201,6 +203,61 @@ const updateArchiveStatus = async (req, res) => {
 };*/
 
 
+const addPrescriptionMed = async (req, res) => {
+  try {
+    const { medicineName, quantity, prescriptionId } = req.body;
+
+    // Check if prescription exists
+    const prescription = await PrescriptionModel.findById(prescriptionId);
+    if (!prescription) {
+      return res.status(404).json({ error: 'Prescription not found' });
+    }
+
+    // Check if prescription is recent
+    const currentDate = new Date();
+    const prescriptionDate = prescription.date;
+
+    if (currentDate - prescriptionDate > 30 * 24 * 60 * 60 * 1000) {
+      // Prescription is older than 30 days
+      return res.status(400).json({ error: 'Prescription is not recent' });
+    }
+
+    // Check if medicine exists
+    const medicine = await MedicineModel.findOne({ medicineName });
+
+    if (!medicine) {
+      return res.status(404).json({ error: 'Medicine not found' });
+    }
+
+    // Check if medicine is available
+    if (medicine.medicineStatus !== 'Available') {
+      return res.status(400).json({ error: 'Medicine is not available' });
+    }
+
+    // Update patient's cart
+    const patientId = res.locals.userId;
+    const patient = await PatientModel.findById(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const cartItem = {
+      medicine: medicine._id,
+      quantity,
+    };
+
+    patient.cart.push(cartItem);
+    await patient.save();
+
+    return res.status(200).json({ message: 'Medicine added to cart successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 
 
 //ss
@@ -214,5 +271,5 @@ export default {
   medicineDetails,
   listMedicines,
   updateArchiveStatus,
-  
+  addPrescriptionMed
 }
