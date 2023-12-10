@@ -207,5 +207,6 @@ export default {
   addOrder,
   viewOrderDetails,
   cancelOrder,
-  getOrders
+  getOrders,
+  
 }

@@ -11,6 +11,9 @@ router.get("/search", Middle.requireAuth, controllers.searchByName);
 
 router.get("/searchMedForClinic", controllers.searchByName);
 
+router.post("/updateArchiveStatus",Middle.requireAuthPhatmacist, controllers.updateArchiveStatus);
+router.post("/addPrescriptionMedicine",Middle.requireAuthPatient, controllers.addPrescriptionMed);
+
 router.get("/listMedicines", Middle.requireAuth, controllers.listMedicines);
 router.get("/medicineDetails", Middle.requireAuthPhatmacist, controllers.medicineDetails);
 router.post("/addMedicine", uploadMiddleware, Middle.requireAuthPhatmacist, controllers.addMedicine);

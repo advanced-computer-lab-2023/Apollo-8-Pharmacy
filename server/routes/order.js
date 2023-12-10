@@ -8,4 +8,5 @@ router.get("/orderDetails/:id", Middle.requireAuthPatient, controllers.viewOrder
 router.put("/cancel", Middle.requireAuthPatient, controllers.cancelOrder);
 router.get("/getOrders", Middle.requireAuthPatient, controllers.getOrders);
 
+
 export default router;
