@@ -4,13 +4,20 @@ import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import "../../App.css";
 import ResponsiveAppBar from "../../components/TopBarPharm";
+import { useNavigate } from "react-router-dom";
 
 function ChangePassPharm() {
+  const navigate = useNavigate();
+
   {
     const [password, setPass] = useState();
     const [password1, setPass1] = useState();
     const change = useRef(null);
     const change2 = useRef(null);
+
+    const handleHome = () => {
+      navigate("/HomePagePharm");
+    };
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -82,7 +89,7 @@ function ChangePassPharm() {
                     role="img"
                     aria-label="Info:"
                   >
-                    <use xlink:href="#info-fill" />
+                    <use xlink: href="#info-fill" />
                   </svg>
                   <div>New Password is successfully saved!</div>
                 </div>
@@ -99,7 +106,7 @@ function ChangePassPharm() {
                     role="img"
                     aria-label="Danger:"
                   >
-                    <use xlink:href="#exclamation-triangle-fill" />
+                    <use xlink: href="#exclamation-triangle-fill" />
                   </svg>
                   <div>Password not match or incorrect format</div>
                 </div>
@@ -138,6 +145,19 @@ function ChangePassPharm() {
                 </button>
               </form>
             </div>
+            <button className="btn btn-primary rounded-2"
+              style={{
+                position: 'fixed',
+                bottom: '5%',
+                right: '5%',
+                width: '5%',
+                height: '40px',
+              }}
+
+              onClick={handleHome}
+            >
+              Back
+            </button>
           </div>
         </AppBar>
       </div>
