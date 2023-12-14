@@ -1,4 +1,4 @@
-import "../App.css";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
@@ -8,24 +8,46 @@ import CardContent from "@mui/material/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { config } from "../config/config";
 import axios from "axios";
-
 function MedicineCard(props) {
+  const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    const checkIfMedicineIsAdded = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:9000/patient/checkIfMedicineIsAdded/${props.medicineId}`
+        );
+
+        if (response.data) {
+          setIsAdded(response.data.isAdded);
+        }
+      } catch (error) {
+        console.error("Error checking if medicine is added:", error);
+      }
+    };
+    checkIfMedicineIsAdded();
+  }, [props.medicineId]);
+
   const handleAddCard = async () => {
     try {
-      if (!props.medicineId) {
-        console.error("Medicine or its ID is undefined.");
+      if (!props.medicineId || isAdded) {
+        console.log("Invalid medicineId or already added.");
         return;
       }
 
+      console.log("Making request to add to cart...");
+
+      
       const response = await axios.post(
         `http://localhost:9000/patient/addToCart`,
         { medicineId: props.medicineId }
       );
 
+    
+      console.log("Response from addToCart:", response.data);
+
       if (response.data) {
-        // props.setMedicine((prevItems) =>
-        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
-        // );
+        setIsAdded(true);
       }
     } catch (error) {
       console.error("Error adding medicine to cart:", error);
@@ -69,6 +91,7 @@ function MedicineCard(props) {
           style={{ marginLeft: "50%" }}
           size="small"
           onClick={handleAddCard}
+          disabled={isAdded}
         >
           {" "}
           Add <AddCircleIcon />
@@ -77,6 +100,7 @@ function MedicineCard(props) {
     </Card>
   );
 }
+
 MedicineCard.propTypes = {
   name: PropTypes.string,
   image: PropTypes.string,
@@ -86,5 +110,4 @@ MedicineCard.propTypes = {
   medicineId: PropTypes.string,
   setMedicine: PropTypes.func,
 };
-
 export default MedicineCard;

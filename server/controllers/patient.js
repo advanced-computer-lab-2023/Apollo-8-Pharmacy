@@ -120,9 +120,8 @@ const addToCart = async (req, res) => {
     if (medicine.quantity === 0) {
       return res.status(400).json({ error: 'Medicine is out of stock' });
     }
-    const existingCartItem = patient.cart.find(item => {
-      item.medicine.equals(medicineId)
-    });
+
+    const existingCartItem = patient.cart.find(item => item.medicine.equals(medicineId));
 
     if (existingCartItem) {
       existingCartItem.quantity += quantity;
@@ -384,7 +383,27 @@ const outofstock = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+const checkIfMedicineIsAdded = async (req, res) => {
+  const { medicineId } = req.params;
 
+  try {
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    const existingCartItem = patient.cart.find(item => item.medicine.equals(medicineId));
+
+    if (existingCartItem && existingCartItem.quantity === 1) {
+      res.status(200).json({ isAdded: true });
+    } else {
+      res.status(200).json({ isAdded: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 export default {
   createPatient,
   getPatients,
@@ -400,6 +419,6 @@ export default {
   updateWallet,
   getCartTotal,
   getWallet,
-  outofstock
-
+  outofstock,
+  checkIfMedicineIsAdded
 }
