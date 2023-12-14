@@ -8,8 +8,11 @@ import axios from "axios";
 import BottomBar from "../../components/BottomBar";
 import { useState } from "react";
 import { medicinalUses } from "../../config/constants";
+import { useNavigate } from "react-router-dom";
 
 function AddMedicine() {
+  const navigate = useNavigate();
+
   const [medicineName, setMedicineName] = useState();
   const [price, setPrice] = useState();
   const [quantity, setQuantity] = useState();
@@ -49,7 +52,9 @@ function AddMedicine() {
         clearForm();
       })
       .catch((err) => {
+
         setMessage("Failed to add medicine. Please try again.");
+
         console.log(err);
         console.error(err);
       });
@@ -70,6 +75,9 @@ function AddMedicine() {
 
   const handleButtonClick = () => {
     setShowAlert(true);
+  };
+  const handleHome = () => {
+    navigate("/HomePagePharm");
   };
 
   return (
@@ -106,35 +114,20 @@ function AddMedicine() {
             Add Medicine{" "}
           </h1>
         </div>
-        {showAlert && (
-          <Alert
-            style={{
-              marginTop: "2%",
-              fontSize: "18px",
-              backgroundColor: " RGB(50, 205, 50)",
-              width: "70%",
-              marginLeft: "15%",
-            }}
-            variant="filled"
-            severity="success"
-            onClose={() => setShowAlert(false)}
-            dismissible
-          >
-            Medicine Added Successfully
-          </Alert>
-        )}
+        {showAlert}
         <div
           className="card m-3 col-12"
           style={{ width: "80%", borderRadius: "50px", left: "9%" }}
         >
+
           <div className="card-body" style={{}}>
             {message && (
+
               <div
-                className={`alert ${
-                  message.includes("successfully")
-                    ? "alert-success"
-                    : "alert-danger"
-                }`}
+                className={`alert ${message.includes("successfully")
+                  ? "alert-success"
+                  : "alert-danger"
+                  }`}
               >
                 {message}
               </div>
@@ -276,6 +269,20 @@ function AddMedicine() {
             </form>
           </div>
         </div>
+
+        <button className="btn btn-primary rounded-2"
+          style={{
+            position: 'fixed',
+            bottom: '5%',
+            right: '5%',
+            width: '5%',
+            height: '40px',
+          }}
+
+          onClick={handleHome}
+        >
+          Back
+        </button>
 
         <BottomBar />
       </AppBar>

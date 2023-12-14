@@ -82,6 +82,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+
             }}
           >
             Elha2ony
@@ -139,6 +140,9 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               width: "80%",
+              marginRight: '-40%',
+              marginLeft: '5%'
+
             }}
           >
             <Button
@@ -190,10 +194,9 @@ function ResponsiveAppBar() {
             ></Box>
           </div>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: '2%' }}>
             <Tooltip title=" Chat">
               <IconButton
-                style={{ paddingLeft: "20px" }}
                 onClick={handleChatNavigate}
                 sx={{ p: 0 }}
               >
@@ -201,15 +204,17 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: '2%' }}>
             <Tooltip title="My Wallet">
               <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
                 <WalletIcon fontSize="large" sx={{ color: "white" }} />
               </IconButton>
             </Tooltip>
+          </Box>
+          <Box sx={{ flexGrow: 0, marginRight: '1%' }}>
+
             <Tooltip title=" Logout">
               <IconButton
-                style={{ paddingLeft: "20px" }}
                 onClick={logOut}
                 sx={{ p: 0 }}
               >

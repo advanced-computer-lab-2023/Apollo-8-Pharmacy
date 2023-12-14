@@ -7,10 +7,13 @@ import Card from "@mui/material/Card";
 import BottomBar from "../../components/BottomBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function orderDetails() {
   const [order, setOrder] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
+
   console.log(id);
 
   useEffect(() => {
@@ -30,6 +33,9 @@ function orderDetails() {
       });
   }, []);
 
+  const handleHome = () => {
+    navigate("/MyOrders");
+  };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -56,12 +62,12 @@ function orderDetails() {
         <div>
           <Card>
             {order && (
-                <div>
-                  <p>{order.status}</p>
-                  <p>{order.paymentMethod}</p>
-                  <p>Medicines:</p>
-                </div>
-              ) &&
+              <div>
+                <p>{order.status}</p>
+                <p>{order.paymentMethod}</p>
+                <p>Medicines:</p>
+              </div>
+            ) &&
               order.items.map((item, index) => (
                 <div>
                   <p>name: {item.medicine.medicineName}</p>
@@ -76,6 +82,20 @@ function orderDetails() {
           spacing={2}
           style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
         ></Stack>
+
+        <button className="btn btn-primary rounded-2"
+          style={{
+            position: 'fixed',
+            bottom: '5%',
+            right: '5%',
+            width: '5%',
+            height: '40px',
+          }}
+
+          onClick={handleHome}
+        >
+          Back
+        </button>
         <BottomBar />
       </AppBar>
     </div>

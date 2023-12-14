@@ -241,7 +241,7 @@ function ResponsiveAppBar() {
             ></Box>
           </div>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: '2%' }}>
             <Tooltip title=" Chat">
               <IconButton
                 style={{ paddingLeft: "20px" }}
@@ -252,12 +252,13 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: '2%' }}>
             <Tooltip title="My Wallet">
               <IconButton style={{}} onClick={handleMyWallet} sx={{ p: 0 }}>
                 <WalletIcon fontSize="large" sx={{ color: "white" }} />
               </IconButton>
             </Tooltip>
+
             <Tooltip title="Open Your Shopping Cart">
               <IconButton
                 style={{ paddingLeft: "10px" }}

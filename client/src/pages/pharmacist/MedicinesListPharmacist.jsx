@@ -108,6 +108,10 @@ function MedicinesListPharmacist() {
     navigate("/MedicinesListPharmacist");
   };
 
+  const handleHome = () => {
+    navigate("/HomePagePharm");
+  };
+
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
       <AppBar
@@ -226,6 +230,21 @@ function MedicinesListPharmacist() {
                 ))}
             </tbody>
           </Table>
+
+
+          <button className="btn btn-primary rounded-2"
+            style={{
+              position: 'fixed',
+              bottom: '5%',
+              right: '5%',
+              width: '5%',
+              height: '40px',
+            }}
+
+            onClick={handleHome}
+          >
+            Back
+          </button>
         </div>
       </AppBar>
     </div>
