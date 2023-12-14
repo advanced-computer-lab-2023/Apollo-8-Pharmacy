@@ -49,7 +49,12 @@ function AddMedicine() {
         clearForm();
       })
       .catch((err) => {
+
         setMessage("Failed to add medicine. Please try again.");
+        < Alert
+
+        >            Medicine Added Successfully
+        </Alert>
         console.log(err);
         console.error(err);
       });
@@ -130,11 +135,10 @@ function AddMedicine() {
           <div className="card-body" style={{}}>
             {message && (
               <div
-                className={`alert ${
-                  message.includes("successfully")
-                    ? "alert-success"
-                    : "alert-danger"
-                }`}
+                className={`alert ${message.includes("successfully")
+                  ? "alert-success"
+                  : "alert-danger"
+                  }`}
               >
                 {message}
               </div>
