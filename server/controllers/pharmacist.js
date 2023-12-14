@@ -226,6 +226,31 @@ const getPharmacistSalesReportByDate = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
+  const getNotfication = async (req, res) => {
+    try {
+      console.log("wslnaa");
+      const pharmacist = await PharmacistModel.findOne({ user: res.locals.userId });
+      res.status(200).json(pharmacist.notifications);
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  };
+
+  const sawNotfication = async (req, res) => {
+    try {
+      console.log("wslnaa saww");
+      const pharmacist = await PharmacistModel.findOne({ user: res.locals.userId });
+      for (let i = 0; i < pharmacist.notifications.length; i++) {
+        pharmacist.notifications[i].state="read"
+      }
+     await pharmacist.save()
+      res.status(200).json(patient.notifications);
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  };
+
 export default {
   createPharmacist,
   getPharmacists,
@@ -235,5 +260,7 @@ export default {
   rejectPharmacist,
   getPharmacistSalesReport,
   getPharmacistSalesReportByDate,
-  getWallet
+  getWallet,
+  getNotfication,
+  sawNotfication
 }

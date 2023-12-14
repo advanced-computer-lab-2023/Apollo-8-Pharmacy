@@ -12,6 +12,8 @@ router.get("/getWallet",Middle.requireAuthPhatmacist, controllers.getWallet);
 router.post("/", uploadMiddleware, controllers.createPharmacist);
 
 router.get("/", controllers.getPharmacists);
+router.get("/getNotfication",Middle.requireAuthPhatmacist, controllers.getNotfication);
+router.get("/sawNotfication",Middle.requireAuthPhatmacist, controllers.sawNotfication);
 router.get("/:id",controllers.getPharmacistById);
 router.get("/get/byId", Middle.requireAuthPhatmacist,controllers.getPharmacistByIdForChat);
 router.put("/accept/:id",Middle.requireAuthAdmin, controllers.acceptPharmacist);

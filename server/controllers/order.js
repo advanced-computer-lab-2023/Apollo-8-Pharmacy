@@ -1,6 +1,8 @@
+import mailer from "nodemailer";
 import MedicineModel from '../models/medicine.js';
 import OrderModel from '../models/order.js';
 import PatientModel from '../models/patient.js';
+import PharmacistModel from '../models/pharmacist.js';
 
 
 async function calculateCartTotalPrice(cart) {
@@ -49,6 +51,57 @@ const addOrder = async (req, res) => {
     
         // Update the quantity of the medicine in the database
         medicine.quantity -= cartItem.quantity;
+
+        if(medicine.quantity===0){
+          console.log("yahyaa");
+          const message=`this message is to inform you that ${medicine.medicineName} is out of stock `;
+
+          const notifi = {
+            data: message,  
+            img:medicine.image,
+            state: "Unread",
+            time:new Date(),
+          }
+          const updateNotfi= await PharmacistModel.updateMany({}, { $push: { notifications: notifi} })
+          const result = await PharmacistModel.find({}, 'email');
+    
+          // Extract emails from the result
+          const emails = result.map(instance => instance.email);
+          
+          
+          //maill
+
+
+            let config={
+              service : "gmail",
+              auth :{
+                  user:process.env.mail,
+                  pass:process.env.appPss
+
+              },
+              tls: {
+                  rejectUnauthorized: false
+              },
+          }
+
+          let transporter=mailer.createTransport(config);
+
+          let messagee = {
+              from: process.env.mail, // sender address
+              to:emails , // list of receivers
+              subject: "Hello ✔", // Subject line
+              text: message // plain text body
+              //html: "<b>your verification code is 5555</b>", // html body
+            }
+
+            transporter.sendMail(messagee).then((info) => {
+              console.log(info);
+          }).catch(error => {
+            console.log(error)
+          })
+
+
+        }
     
         try {
           await medicine.save();

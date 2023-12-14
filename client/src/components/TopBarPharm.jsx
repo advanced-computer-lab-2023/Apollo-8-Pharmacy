@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import axios from "axios";
 import Toolbar from "@mui/material/Toolbar";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
+import { config } from "../config/config";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -15,12 +17,66 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import WalletIcon from "@mui/icons-material/Wallet";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useNavigate } from "react-router-dom";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import CircularProgress from '@mui/material/CircularProgress';
+import Badge from '@mui/material/Badge';
+import Popover from "@mui/material/Popover";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { useEffect, useState } from "react";
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
-
+  const [unseenNotifications, setunseenNotifications] = useState();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
+  const [dataFetched, setDataFetched] = useState(false);
+  const [notfications, setData] = useState(null);
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:9000/pharmacist/getNotfication")
+      .then((response) => {
+        
+        var num=0;
+        for (let i = 0; i < response.data.length; i++) {
+          if(response.data[i].state==="Unread"){
+            num++;
+          }
+        }
+        setunseenNotifications(num);
+        setData(response.data.reverse());
+        setDataFetched(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setDataFetched(true);
+      });
+  }, []);
+
+  const handleOpenPopover = (event) => {
+    
+    setPopoverAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    console.log("9999");
+    axios
+      .get("http://localhost:9000/pharmacist/sawNotfication")
+      .then((response) => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("out")
+    setPopoverAnchorEl(null);
+  };
+
+  const openPopover = Boolean(popoverAnchorEl);
+
 
   const logOut = (event) => {
     sessionStorage.removeItem("token");
@@ -189,6 +245,65 @@ function ResponsiveAppBar() {
               }}
             ></Box>
           </div>
+          
+          <Badge style={{marginRight:"40px", transform: 'none'}} overlap="circular" badgeContent={unseenNotifications} color="secondary">
+          <IconButton style={{color:"yellow"}}  aria-label="notifications" onClick={handleOpenPopover}>
+            <NotificationsIcon style={{ fontSize: '2rem' }}/>
+          </IconButton>
+        </Badge>
+
+         {/* Popover with Notification Data */}
+         <Popover
+            open={openPopover}
+            anchorEl={popoverAnchorEl}
+            onClose={handleClosePopover}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <div>
+            {dataFetched ? (
+             <div>
+      {notfications.map((notifi, index) => (
+          <Card sx={{ display: "flex", maxWidth: 500,backgroundColor:"skyblue",border:"solid",borderBlockWidth:"1px" }}>
+    {/* Smaller image and align to the left */}
+    <CardMedia
+      component="img"
+      alt="Notification Image"
+      height="70"
+      src={config.STORAGE_URL + notifi.img}
+      sx={{ alignSelf: "center", marginLeft: 1 }}
+    />
+    <CardContent>
+      <div>
+        {/* Title */}
+        <Typography variant="h6" component="div" sx={{ marginBottom: 1 }}>
+          Medicine Out Of Stock
+        </Typography>
+        {/* Text */}
+        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1 }}>
+          {notifi.data}
+        </Typography>
+        {/* Boolean value (example: true) */}
+          <Typography variant="body2" style={{color:"black"}} color="text.secondary">
+            {notifi.state}----{notifi.time} UK
+          </Typography>
+        </div>
+      </CardContent>
+    </Card>
+    ))}
+   </div>
+   ) : (
+    <p>Loading...</p>
+  )}
+  </div>
+          </Popover>
+
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title=" Chat">
