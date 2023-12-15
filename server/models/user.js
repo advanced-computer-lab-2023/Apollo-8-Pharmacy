@@ -9,13 +9,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  PIN:{
-    type:Number
+  PIN: {
+    type: Number
   },
   type: {
     type: String,
-    enum: ['Pharmacist', 'Admin', 'Patient'],
+    enum: ['Pharmacist', 'Admin', 'Patient', 'Doctor'],
     required: true,
+  },
+  socket: {
+    type: String
   },
 });
 
