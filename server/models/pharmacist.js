@@ -41,6 +41,16 @@ const pharmacistSchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
+  notifications: 
+       [
+        {
+          data: { type: String },
+          img:{ type: String},
+          state: { type: String,
+          enum: ["Unread", "read"] },
+          time:{type:Date}
+        }
+      ],
     idFile: {
       type: String,
       required: true,
