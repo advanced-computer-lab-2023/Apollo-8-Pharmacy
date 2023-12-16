@@ -73,7 +73,7 @@ function PharmacistsListPending() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "40%",

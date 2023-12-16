@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import VaccinesIcon from "@mui/icons-material/Vaccines";
 
 function ResponsiveAppBar() {
   const navigate = useNavigate();
@@ -67,13 +68,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar
-      style={{ height: "100px", backgroundColor: "rgb(0,140,990" }}
-      position="static"
-    >
-      <Container style={{ marginTop: "10px" }} maxWidth="xl">
+    <AppBar style={{ backgroundColor: "rgb(65, 105, 225)" }} position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <VaccinesIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -89,130 +87,60 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Elha2ony
+            El7a2ny
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            ></Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          ></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={handleHome}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
-              }}
-            >
-              {" "}
-              Home{" "}
-            </Button>
             <Button
               onClick={handlePatList}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
-              {" "}
-              Patients List{" "}
+              Patients
             </Button>
             <Button
               onClick={handlePharmList}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
-              {" "}
-              Pharmacist List{" "}
+              Pharmacist
             </Button>
             <Button
               onClick={handleMedList}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
-              {" "}
-              Medicine List{" "}
+              Medicines
             </Button>
             <Button
               onClick={handlePharmPend}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
-              {" "}
-              Pharmacist Pending{" "}
+              Pending Pharmacist
             </Button>
             <Button
               onClick={handleRemoveUser}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
               {" "}
@@ -221,11 +149,10 @@ function ResponsiveAppBar() {
             <Button
               onClick={handleAddAdmin}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
               {" "}
@@ -234,11 +161,10 @@ function ResponsiveAppBar() {
             <Button
               onClick={Change}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
               {" "}
@@ -247,11 +173,10 @@ function ResponsiveAppBar() {
             <Button
               onClick={handleSalesReport}
               sx={{
-                my: 2,
                 color: "white",
                 display: "block",
-                marginLeft: "2%",
-                fontSize: "12px",
+                fontSize: "13px",
+                fontWeight: 500,
               }}
             >
               {" "}
@@ -261,11 +186,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Logout">
-              <IconButton
-                style={{ paddingLeft: "20px" }}
-                onClick={logOut}
-                sx={{ p: 0 }}
-              >
+              <IconButton onClick={logOut}>
                 <AccountCircleIcon fontSize="large" sx={{ color: "white" }} />
               </IconButton>
             </Tooltip>

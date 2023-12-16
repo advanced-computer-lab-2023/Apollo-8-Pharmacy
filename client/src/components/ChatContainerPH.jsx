@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-//import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
@@ -179,7 +179,7 @@ const Container = styled.div`
       justify-content: flex-end;
 
       .content {
-        background-color: #008cff;
+        background-color: #3366CC;
       }
     }
 

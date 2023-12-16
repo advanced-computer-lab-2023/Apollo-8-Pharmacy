@@ -49,7 +49,7 @@ function cart() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "30%",
@@ -90,7 +90,14 @@ function cart() {
           </Button>
         </div>
 
-        <div style={{ display: "flex", flexWrap: 'wrap', display: 'flex', marginLeft: '7%' }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            display: "flex",
+            marginLeft: "7%",
+          }}
+        >
           {cartItems &&
             cartItems.map((item, index) => (
               <Card1

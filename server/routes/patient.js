@@ -15,8 +15,8 @@ router.get("/", controllers.getPatients);
 router.get("/byId", Middle.requireAuth, controllers.getPatientById);
 //not found in front checkk but tmam
 router.post('/addToCart', Middle.requireAuthPatient, controllers.addToCart);
-router.get("/checkIfMedicineIsAdded/:medicineId",Middle.requireAuthPatient, controllers.checkIfMedicineIsAdded);
-router.post('/addToCartFromClinic',controllers.addToCart);
+router.get("/checkIfMedicineIsAdded/:medicineId", Middle.requireAuthPatient, controllers.checkIfMedicineIsAdded);
+router.post('/addToCartFromClinic', controllers.addToCart);
 router.delete('/removeFromCartClinic', controllers.removeFromCart);
 
 router.get('/viewCart', Middle.requireAuthPatient, controllers.viewCart);
@@ -30,6 +30,11 @@ router.get('/getCartTotal', Middle.requireAuthPatient, controllers.getCartTotal)
 router.post('/:id/orders/:orderId/cancel', Middle.requireAuthPatient, controllers.cancelOrder);
 router.get("/getWallet", Middle.requireAuthPatient, controllers.getWallet)
 router.get('/outofstock', Middle.requireAuthPatient, controllers.outofstock);
+router.get("/getOnePatient/:id", Middle.requireAuthAdmin, controllers.getPatient);
+router.get("/getPerscriptions", Middle.requireAuthPatient, controllers.getPrescriptions)
+router.get("/getPerscription/:id", Middle.requireAuthPatient, controllers.getPres)
+router.post("/payForPrescription/:id", Middle.requireAuthPatient, controllers.payPrescription)
+
 
 
 export default router;

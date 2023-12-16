@@ -12,7 +12,7 @@ function PatientDetails() {
   const { id } = useParams();
 
   useEffect(() => {
-    const apiUrl = "http://localhost:9000/patient/" + id;
+    const apiUrl = "http://localhost:9000/patient/getOnePatient/" + id;
     axios
       .get(apiUrl)
       .then((response) => {
@@ -38,7 +38,7 @@ function PatientDetails() {
 
         <div
           style={{
-            backgroundColor: "rgb(0,140,990",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "30%",

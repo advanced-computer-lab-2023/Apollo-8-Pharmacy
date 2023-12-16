@@ -55,11 +55,8 @@ function listMedicine() {
       >
         <ResponsiveAppBar />
         <div
-          style={{
-            backgroundColor: "",
-            width: "90%",
-            margin: "10px auto",
-          }}
+          className="card m-3 col-12"
+          style={{ width: "80%", borderRadius: "50px", left: "9%" }}
         >
           <Form>
             <InputGroup className="my-3">
@@ -82,34 +79,36 @@ function listMedicine() {
               </select>
             </InputGroup>
           </Form>
-        </div>
-        <div
-          style={{
-            backgroundColor: "",
-            display: "flex",
-            flexWrap: "wrap",
-            width: "90%",
-            margin: "0px auto",
-          }}
-        >
-          {medicine
-            .filter((item) => {
-              return search.toLowerCase() === ""
-                ? item
-                : item.medicineName.toLowerCase().includes(search);
-            })
-            .map((item) => (
-              <MedicineCard
-                key={item._id}
-                name={item.medicineName}
-                image={item.image} // Assuming your backend sends the image URL
-                info={item.description}
-                quantity={item.quantity}
-                price={item.price}
-                medicineId={item._id}
-                setMedicine={setMedicine}
-              />
-            ))}
+          <div
+            style={{
+              backgroundColor: "",
+              display: "flex",
+              flexWrap: "wrap",
+              width: "90%",
+              margin: "0px auto",
+            }}
+          >
+            {medicine
+              .filter((item) => {
+                return search.toLowerCase() === ""
+                  ? item
+                  : item.medicineName.toLowerCase().includes(search);
+              })
+              .map((item) => (
+                <MedicineCard
+                  key={item._id}
+                  name={item.medicineName}
+                  image={item.image} // Assuming your backend sends the image URL
+                  info={item.description}
+                  quantity={item.quantity}
+                  price={item.price}
+                  medicineId={item._id}
+                  setMedicine={setMedicine}
+                  requiresPrescription={item.requiresPrescription}
+                  medicinalUse={item.medicinalUse}
+                />
+              ))}
+          </div>
         </div>
       </AppBar>
     </div>

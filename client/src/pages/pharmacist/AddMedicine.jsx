@@ -8,8 +8,13 @@ import axios from "axios";
 import BottomBar from "../../components/BottomBar";
 import { useState } from "react";
 import { medicinalUses } from "../../config/constants";
+import { useNavigate } from "react-router-dom";
+import Switch from "@mui/material/Switch";
 
 function AddMedicine() {
+  const navigate = useNavigate();
+  const [switchValue, setSwitchValue] = useState(false);
+
   const [medicineName, setMedicineName] = useState();
   const [price, setPrice] = useState();
   const [quantity, setQuantity] = useState();
@@ -36,6 +41,7 @@ function AddMedicine() {
           sales: "0",
           medicinalUse,
           image,
+          requiresPrescription: switchValue,
         },
         {
           headers: {
@@ -50,9 +56,14 @@ function AddMedicine() {
       })
       .catch((err) => {
         setMessage("Failed to add medicine. Please try again.");
+
         console.log(err);
         console.error(err);
       });
+  };
+
+  const handleSwitchChange = (event) => {
+    setSwitchValue(event.target.checked);
   };
 
   const clearForm = () => {
@@ -71,6 +82,9 @@ function AddMedicine() {
   const handleButtonClick = () => {
     setShowAlert(true);
   };
+  const handleHome = () => {
+    navigate("/HomePagePharm");
+  };
 
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
@@ -84,7 +98,7 @@ function AddMedicine() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "30%",
@@ -106,23 +120,7 @@ function AddMedicine() {
             Add Medicine{" "}
           </h1>
         </div>
-        {showAlert && (
-          <Alert
-            style={{
-              marginTop: "2%",
-              fontSize: "18px",
-              backgroundColor: " RGB(50, 205, 50)",
-              width: "70%",
-              marginLeft: "15%",
-            }}
-            variant="filled"
-            severity="success"
-            onClose={() => setShowAlert(false)}
-            dismissible
-          >
-            Medicine Added Successfully
-          </Alert>
-        )}
+        {showAlert}
         <div
           className="card m-3 col-12"
           style={{ width: "80%", borderRadius: "50px", left: "9%" }}
@@ -261,10 +259,17 @@ function AddMedicine() {
                 />
               </div>
 
+              <div>
+                <label className="form-label" htmlFor="customFile">
+                  <strong>Requires prescription</strong>
+                </label>
+                <Switch onChange={handleSwitchChange} />
+              </div>
+
               <button
                 onClick={handleButtonClick}
                 style={{
-                  backgroundColor: "rgb(0,140,990)",
+                  backgroundColor: "rgb(65, 105, 225)",
                   width: "10%",
                   borderRadius: "20px",
                 }}
@@ -276,6 +281,20 @@ function AddMedicine() {
             </form>
           </div>
         </div>
+
+        <button
+          className="btn btn-primary rounded-2"
+          style={{
+            position: "fixed",
+            bottom: "5%",
+            right: "5%",
+            width: "5%",
+            height: "40px",
+          }}
+          onClick={handleHome}
+        >
+          Back
+        </button>
 
         <BottomBar />
       </AppBar>

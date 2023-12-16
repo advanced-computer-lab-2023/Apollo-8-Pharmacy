@@ -15,6 +15,7 @@ const addMedicine = async (req, res) => {
       description,
       sales,
       medicinalUse,
+      requiresPrescription
     } = req.body;
     let files = {}
     req.files.forEach(file => {
@@ -32,6 +33,7 @@ const addMedicine = async (req, res) => {
       medicineStatus,
       sales,
       medicinalUse,
+      requiresPrescription,
       ...files
     });
     await medicine.save();
@@ -60,9 +62,10 @@ const updateMedicine = async (req, res) => {
     description,
     ingredients,
     price,
+    quantity,
   } = req.body;
   try {
-    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description, ingredients, price } }, { new: true });
+    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description, ingredients, price, quantity } }, { new: true });
     res.status(200).json(medicine);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -183,7 +186,8 @@ const listMedicines = async (req, res) => {
         medicineStatus: item.medicineStatus,
         medicinalUse: item.medicinalUse,
         quantity: item.quantity,
-        image: item.image
+        image: item.image,
+        requiresPrescription: item.requiresPrescription
       };
     });
 

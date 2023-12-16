@@ -37,13 +37,11 @@ function MedicineCard(props) {
 
       console.log("Making request to add to cart...");
 
-      
       const response = await axios.post(
         `http://localhost:9000/patient/addToCart`,
         { medicineId: props.medicineId }
       );
 
-    
       console.log("Response from addToCart:", response.data);
 
       if (response.data) {
@@ -70,6 +68,9 @@ function MedicineCard(props) {
         <Typography variant="body2" color="text.secondary">
           {props.info}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {props.medicinalUse}
+        </Typography>
         <br />
         <Typography variant="body2" color="text.secondary">
           quantity:{props.quantity}
@@ -87,15 +88,26 @@ function MedicineCard(props) {
         >
           Price: {props.price}
         </Typography>
-        <Button
-          style={{ marginLeft: "50%" }}
-          size="small"
-          onClick={handleAddCard}
-          disabled={isAdded}
-        >
-          {" "}
-          Add <AddCircleIcon />
-        </Button>
+        {props.requiresPrescription && (
+          <Typography
+            style={{ marginLeft: "40%", fontSize: "14px", color: "red" }}
+            variant="body2"
+            color="text.primary"
+          >
+            requires Prescription
+          </Typography>
+        )}
+        {!props.requiresPrescription && (
+          <Button
+            style={{ marginLeft: "50%" }}
+            size="small"
+            onClick={handleAddCard}
+            disabled={isAdded}
+          >
+            {" "}
+            Add <AddCircleIcon />
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
@@ -109,5 +121,7 @@ MedicineCard.propTypes = {
   price: PropTypes.number,
   medicineId: PropTypes.string,
   setMedicine: PropTypes.func,
+  requiresPrescription: PropTypes.bool,
+  medicinalUse: PropTypes.string,
 };
 export default MedicineCard;

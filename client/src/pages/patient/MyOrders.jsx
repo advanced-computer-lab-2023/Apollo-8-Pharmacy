@@ -26,7 +26,7 @@ function myOrders() {
   }, []);
 
   return (
-    <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
+    <div>
       <AppBar
         style={{
           height: "100%",
@@ -38,11 +38,11 @@ function myOrders() {
 
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
-            margin: "10px",
-            width: "30%",
-            marginLeft: "35%",
+            marginTop: "20px",
+            width: "20%",
+            marginLeft: "40%",
           }}
         >
           <h1
@@ -57,7 +57,7 @@ function myOrders() {
               fontSize="large"
               sx={{ color: "white", marginRight: "20px" }}
             />
-            My Orders{" "}
+            My Orders
           </h1>
         </div>
 

@@ -11,21 +11,19 @@ import BottomBar from "../../components/BottomBar";
 function MedecineOutOfStock() {
   const [data, setData] = useState([]);
 
-  
-    useEffect(() => {
-        const apiUrl = `http://localhost:9000/patient/outofstock`;
-        axios
-          .get(apiUrl)
-          .then((response) => {
-            console.log("Data received:", response.data);
-            setData(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching :", error);
-          });
-      
-    }, []);
-  
+  useEffect(() => {
+    const apiUrl = `http://localhost:9000/patient/outofstock`;
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        console.log("Data received:", response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching :", error);
+      });
+  }, []);
+
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -38,10 +36,10 @@ function MedecineOutOfStock() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
-            width: "30%",
+            width: "40%",
             marginLeft: "35%",
           }}
         >
@@ -65,21 +63,18 @@ function MedecineOutOfStock() {
           className="card m-3 col-12"
           style={{ width: "80%", borderRadius: "50px", left: "9%" }}
         >
-          
           <Table striped bordered hover>
             <thead>
               <tr>
-              <th>Medicine Out Of Stock</th>
+                <th>Medicine Out Of Stock</th>
                 <th>The Alternative Medicines</th>
               </tr>
             </thead>
             <tbody>
-            {data.map((item, index) => (
+              {data.map((item, index) => (
                 <tr key={index}>
                   <td>{item.medicineWithZeroQuantity}</td>
-                  <td>
-                    {item.medicinesWithSameIngredient.join(", ")}
-                  </td>
+                  <td>{item.medicinesWithSameIngredient.join(", ")}</td>
                 </tr>
               ))}
             </tbody>

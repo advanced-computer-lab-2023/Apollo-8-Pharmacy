@@ -13,7 +13,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddressForm() {
   const navigate = useNavigate();
@@ -22,8 +22,6 @@ export default function AddressForm() {
   const [paymentMethod, setpaymentMethod] = useState("");
   const [newAddress, setNewAddress] = useState("");
   const [total, setTotal] = useState();
-
-  //const patientId = '652aebde203548e19b62d4b1';
 
   const handleAddAddress = () => {
     axios
@@ -60,46 +58,36 @@ export default function AddressForm() {
         console.error("Error fetching data:", error);
       });
   }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:9000/patient/getCartTotal`)
+      .then((response) => {
+        const totalCart = response.data;
+        setTotal(totalCart);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
   const handleAddressChange = (event) => {
     setSelectedAddress(event.target.value);
   };
 
   const handleWalletPayment = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:9000/patient/getCartTotal`
-      );
-      const totalCart = response.data; // Assuming the total is in response.data
-
       setpaymentMethod("Wallet");
-      setTotal(totalCart); // Assuming setTotal is a function that updates the component state
-
       await axios.put(`http://localhost:9000/patient/updateWallet`, {
         paymentAmount: -total,
       });
-
       await axios.post(`http://localhost:9000/order/add`, {
         deliveryAddress: selectedAddress,
-        paymentMethod: "Wallet", // Assuming paymentMethod is a state variable or constant
+        paymentMethod: "Wallet",
       });
+      navigate("/orderPlaced");
     } catch (error) {
       console.error("Error handling wallet payment:", error);
     }
   };
-
-  // const handlePlaceOrder = async () => {
-  //     try {
-  //         const response = await axios.put(`http://localhost:9000/order/add`, {
-  //             deliveryAddress: selectedAddress
-  //             , paymentMethod: paymentMethod
-  //         });
-  //         if (response) {
-  //             navigate("/myorders");
-  //         }
-  //     } catch (error) {
-  //         console.error('Error updating wallet:', error);
-  //     }
-  // };
 
   // const handleCardPayment = () => {
   //     axios.post("http://localhost:9000/Checkout").then((response) => {
@@ -126,15 +114,13 @@ export default function AddressForm() {
         }
       );
       console.log("Response:", response.data);
+      navigate("/orderPlaced");
     } catch (error) {
       console.error("Error during the request:", error);
       // Handle the error as needed, e.g., show a user-friendly message or log more details
     }
   };
 
-  const MyOrders = () => {
-    navigate("/myorders");
-  };
   return (
     <React.Fragment>
       {/* <Typography variant="h6" gutterBottom>
@@ -219,20 +205,6 @@ export default function AddressForm() {
               onClick={handleCashOnDelivery}
             >
               Pay on Delivery & Place Order
-            </Button>
-          </div>
-        </Grid>
-
-        <Grid item xs={12}>
-          <div
-            style={{
-              marginTop: "10px",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Button variant="contained" color="primary" onClick={MyOrders}>
-              My orders
             </Button>
           </div>
         </Grid>

@@ -49,18 +49,8 @@ function Home() {
             display: "flex",
           }}
         >
-          <div style={{ display: "flex" }}>
-            <Card1 style={{ width: "18rem", marginRight: "10%" }}>
-              <Card1.Img variant="top" src={img3} alt="health package.png" />
-              <Card1.Body>
-                <Card1.Title>Patient Login</Card1.Title>
-
-                <Button1 variant="primary" onClick={handlePatientLogin}>
-                  Login
-                </Button1>
-              </Card1.Body>
-            </Card1>
-            <Card1 style={{ width: "18rem", marginRight: "10%" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Card1 style={{ width: "18rem", margin: "20px" }}>
               <Card1.Img variant="top" src={img2} alt="family.png" />
               <Card1.Body>
                 <Card1.Title style={{}}>Pharmacy Login</Card1.Title>
@@ -74,23 +64,7 @@ function Home() {
                 </Button1>
               </Card1.Body>
             </Card1>
-            <Card1 style={{ width: "18rem" }}>
-              <Card1.Img variant="top" src={img1} alt="family.png" />
-              <Card1.Body>
-                <Card1.Title>Admin Login</Card1.Title>
-
-                <Button1 variant="primary" onClick={handleAdminLogin}>
-                  Login
-                </Button1>
-              </Card1.Body>
-            </Card1>
-          </div>
-          <br />
-          <br />
-          <div style={{ display: "flex" }}>
-            <Card1
-              style={{ width: "18rem", marginRight: "11%", marginLeft: "18%" }}
-            >
+            <Card1 style={{ width: "18rem", margin: "20px" }}>
               <Card1.Img variant="top" src={img4} alt="health package.png" />
               <Card1.Body>
                 <Card1.Title>Patient SignUp</Card1.Title>
@@ -100,7 +74,7 @@ function Home() {
                 </Button1>
               </Card1.Body>
             </Card1>
-            <Card1 style={{ width: "18rem" }}>
+            <Card1 style={{ width: "18rem", margin: "20px" }}>
               <Card1.Img variant="top" src={img5} alt="family.png" />
               <Card1.Body>
                 <Card1.Title>Pharmacist SignUp</Card1.Title>

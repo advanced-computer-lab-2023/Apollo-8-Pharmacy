@@ -64,9 +64,41 @@ const patientSchema = new mongoose.Schema(
       type: String,
       enum: ["Pending", "Accepted", "Rejected"],
       required: true,
-      default: "Pending",
+      default: "Accepted"
     },
-
+    health_records: {
+      records: [
+        {
+          description: { type: String },
+          image: { type: String },
+          date: { type: Date }
+        }
+      ]
+    },
+    healthPackageSub: {
+      type: String,
+      default: ""
+    },
+    DateOfSubscribtion: {
+      type: Date,
+      required: false
+    },
+    notifications:
+      [
+        {
+          title: { type: String, enum: ["Reserved", "Cancelled", "Reschaduled"] },
+          data: { type: String },
+          state: {
+            type: String,
+            enum: ["Unread", "read"]
+          }
+        }
+      ]
+    ,
+    subscriptionStatus: {
+      type: String,
+      enum: ["cancelled with end date", "subscribed with renewal date", "unsubscribed"],
+    },
   },
   { timestamps: true }
 );

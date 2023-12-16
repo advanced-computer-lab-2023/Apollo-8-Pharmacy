@@ -24,7 +24,7 @@ import { Server } from "socket.io";
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: true,
     methods: ["GET", "POST"],
   },
 })
@@ -96,7 +96,8 @@ app.use("/order", orderRoutes);
 app.use("/chat", chatRoutes);
 app.post("/login", Auth.login)
 
-const PACKAGE_DOMAIN = 'http://localhost:5174/Checkout/';
+const PACKAGE_DOMAIN1 = 'http://localhost:3000/Checkout/';
+const PACKAGE_DOMAIN2 = 'http://localhost:3000/creditOrderPlaced/';
 
 app.post('/Checkout', async (req, res) => {
   const session = await stripeInstance.checkout.sessions.create({
@@ -108,8 +109,8 @@ app.post('/Checkout', async (req, res) => {
         quantity: 1
       },
     ],
-    success_url: `${PACKAGE_DOMAIN}?success=true`,
-    cancel_url: `${PACKAGE_DOMAIN}?canceled=true`,
+    success_url: `${PACKAGE_DOMAIN2}`,
+    cancel_url: `${PACKAGE_DOMAIN1}?canceled=true`,
   });
 
   res.redirect(303, session.url);

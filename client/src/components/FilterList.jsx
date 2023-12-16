@@ -27,7 +27,7 @@ function filterList() {
   return (
     <Box
       style={{
-        backgroundColor: "rgb(0,140,990)",
+        backgroundColor: "rgb(65, 105, 225)",
         color: "black",
         marginBottom: "3%",
       }}

@@ -3,6 +3,7 @@ import PatientModel from '../models/patient.js';
 import UserModel from '../models/user.js';
 import bcrypt from "bcrypt";
 import MedicineModel from '../models/medicine.js';
+import PrescriptionModel from '../models/prescription.js';
 const saltRounds = 10;
 
 const createPatient = async (req, res) => {
@@ -77,6 +78,16 @@ const getPatientById = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+const getPatient = async (req, res) => {
+  try {
+    const patient = await PatientModel.findOne({ _id: req.params.id })
+    if (!patient) return res.status(404).send("Patient not found");
+    return res.status(200).send(patient);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 //s
 
 const addAddressToPatient = async (req, res) => {
@@ -97,6 +108,65 @@ const addAddressToPatient = async (req, res) => {
   }
 };
 
+const getPrescriptions = async (req, res) => {
+  try {
+    console.log(req.query)
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+    const patientID = patient._id;
+    const arr = await PrescriptionModel.find({ "patientId": patientID });
+    res.status(200).json(arr);
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+};
+
+const getPres = async (req, res) => {
+  try {
+    const presID = req.params.id
+    const perscription = await PrescriptionModel.findById(presID)
+    res.status(200).json(perscription);
+  } catch {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const payPrescription = async (req, res) => {
+  try {
+    const presID = req.params.id;
+    const perscription = await PrescriptionModel.findById(presID);
+    //check its presence to avoid errors
+    if (!perscription) {
+      res.status(200).json({ error: "no prescription with this id , check the database" });
+      return;
+    }
+    if (perscription.status === "filled") {
+      res.status(200).json({ error: "already ordered!!, can not order it twice" });
+      return;
+    }
+
+    const patient = await PatientModel.findOne({ user: res.locals.userId });
+
+    // add medicine to cart
+    for (const medicine of perscription.medicine) {
+      const med = await MedicineModel.findOne({ medicineName: medicine.name });
+      if (med && patient.cart) {
+        const isFound = patient.cart.some(item => item.medicine.equals(med._id));
+        if (!isFound) {
+          patient.cart.push({
+            medicine: med._id,
+            quantity: 1
+          })
+        }
+      }
+    }
+    await patient.save();
+    perscription.status = "filled";
+    await perscription.save();
+    res.status(200).json("now the prescription is 'filled'");
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
 
 
 const addToCart = async (req, res) => {
@@ -408,6 +478,10 @@ export default {
   createPatient,
   getPatients,
   getPatientById,
+  getPatient,
+  getPrescriptions,
+  getPres,
+  payPrescription,
   addToCart,
   viewCart,
   removeFromCart,
