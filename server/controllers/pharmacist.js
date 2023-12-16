@@ -157,6 +157,7 @@ const getPharmacistSalesReport = async (req, res) => {
 
       return {
         medicineName: medicine.medicineName,
+        quantity:medicine.quantity,
         totalSales,
       };
     });
@@ -200,6 +201,7 @@ const getPharmacistSalesReportByDate = async (req, res) => {
 
       return {
         medicineName: medicine.medicineName,
+        quantity:medicine.quantity,
         totalSales,
       };
     });

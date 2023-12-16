@@ -13,26 +13,29 @@ import { useNavigate } from "react-router-dom";
 function MedicineSales() {
   const navigate = useNavigate();
 
+  const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-  /*useEffect(() => {
+  useEffect(() => {
     const apiUrl = "http://localhost:9000/medicine/medicineDetails";
     axios
       .get(apiUrl)
       .then((response) => {
         console.log("Data received:", response.data);
+        setOriginalData(response.data);
         setData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);*/
+  }, []);
   useEffect(() => {
     console.log("Selected Month State:", selectedMonth);
     if (selectedMonth) {
+      console.log("dcdcd");
       const apiUrl = `http://localhost:9000/pharmacist/sales/${selectedMonth}`;
       axios
         .get(apiUrl)
@@ -43,11 +46,40 @@ function MedicineSales() {
         .catch((error) => {
           console.error("Error fetching pharmacist sales:", error);
         });
+    } else {
+      fetchData();
     }
   }, [selectedMonth]);
 
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value === "") {
+      // If the search value is empty, use the original data
+      setData(originalData);
+    } else {
+      // If there is a search value, filter the data
+      setData((prevData) =>
+        prevData.filter((item) =>
+          item.medicineName.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }
+  };
+  const fetchData = async () => {
+    try {
+      const apiUrl = "http://localhost:9000/medicine/medicineDetails";
+      const response = await axios.get(apiUrl);
+      console.log("Data received:", response.data);
+      setOriginalData(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    if (selectedDate) {
+    if (selectedDate === "") {
+      fetchData();
+    } else {
       const apiUrl = `http://localhost:9000/pharmacist/salesdate/${selectedDate}`;
       axios
         .get(apiUrl)
@@ -61,9 +93,6 @@ function MedicineSales() {
     }
   }, [selectedDate]);
 
-  const handleHome = () => {
-    navigate("/HomePagePharm");
-  };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -130,8 +159,8 @@ function MedicineSales() {
                   borderRadius: "100px",
                   borderColor: "rgba(0, 140, 990, 0.1)",
                 }}
-                onInput={(e) => {
-                  const monthValue = parseInt(e.target.value, 10);
+                onChange={(e) => {
+                  const monthValue = parseInt(e.target.value);
                   setSelectedMonth(monthValue);
                 }}
                 placeholder="Search by month"
@@ -161,6 +190,7 @@ function MedicineSales() {
             <thead>
               <tr>
                 <th>Medicine Name</th>
+                <th>Quantity</th>
                 <th>TotalSales</th>
               </tr>
             </thead>
@@ -174,6 +204,7 @@ function MedicineSales() {
                 .map((item, index) => (
                   <tr key={index}>
                     <td>{item.medicineName}</td>
+                    <td>{item.quantity}</td>
                     <td>{item.totalSales}</td>
                   </tr>
                 ))}
