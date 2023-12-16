@@ -36,9 +36,10 @@ This system aims to improve the efficiency of healthcare services and enhance th
 
 ## Build Status 🔨
 
-[![Node.js Package](https://github.com/advanced-computer-lab-2023/Apollo-8-Clinic/actions/workflows/NodePackage.yml/badge.svg)](https://github.com/advanced-computer-lab-2023/Apollo-8-Clinic/actions/workflows/NodePackage.yml)
+[![Node.js Package](https://github.com/advanced-computer-lab-2023/Apollo-8-Pharmacy/actions/workflows/build.yml/badge.svg)](https://github.com/advanced-computer-lab-2023/Apollo-8-Pharmacy/actions/workflows/build.yml)
 
 - The project is currently in development.
+- missing a main home page for a guest.
 - The testing technique needs improvement. Plan to create Jest test files and enable them as workflows for more robust and efficient testing.
 - Future improvements:
   - Implement a caching layer to improve application performance.
@@ -76,6 +77,37 @@ Please ensure your code adheres to these guidelines before submitting a pull req
 
 ### Main Registeration page
 
+Screenshot of the Main page, which serves as the registration portal. It includes sign-up options for pharmacists and patients, and sign-in options for administrators, pharmacists, and patients.
+
+[Main Registeration page](./ReadmeImages/ph1.png)
+[Main Registeration page](./ReadmeImages/ph2.png)
+
+### pharmacist Homepage 
+
+This is the main interface for pharmacists after signing in, providing access to all pharmacist-specific features and functionalities.
+
+[homePage pharmacist](./ReadmeImages/ph4.png)
+
+### Admin Homepage
+
+This is the main interface for Admin after signing in, providing access to all Admin-specific features and functionalities.
+
+[homePage Admin](./ReadmeImages/ph10.png)
+
+### patient Homepage
+
+This is the main interface for patient after signing in, providing access to all patient-specific features and functionalities.
+
+[homePage patint](./ReadmeImages/ph11.png)
+
+### Medicine list
+
+Patients can view all the Medicines uploaded by the Pharmacists
+
+[medicine List](./ReadmeImages/ph5.png)
+[medicine List](./ReadmeImages/ph6.png)
+
+
 ## Tech/Framework used 🧰
 
 El7a2ny is built using the MERN (MongoDB, Express.js, React, Node.js) stack.
@@ -95,47 +127,173 @@ El7a2ny is built using the MERN (MongoDB, Express.js, React, Node.js) stack.
     
 ## Features ✨
 
+### Guests
+
+- **Registration:**
+  - Register as a patient.
+  - Submit a request to register as a pharmacist.
+
+### Patients/Pharmacists/Administrators
+
+- **Authentication and Profile Management:**
+  - Login with username and password.
+  - Logout.
+  - Change password.
+  - Reset a forgotten password through OTP sent to email.
+
+### Administrators
+
+- **User Management:**
+  - Add another administrator with a set username and password.
+  - Remove a pharmacist/patient from the system.
+  - View all of the information uploaded by a pharmacist to apply to join the platform.
+  - Accept or reject the request of a pharmacist to join the platform.
+
+### Pharmacists
+
+- **Medicine Management:**
+  - Upload and submit required documents upon registration such as ID, pharmacy degree, and working licenses.
+  - View the available quantity and sales of each medicine.
+  - Add a medicine with its details (active ingredients), price, and available quantity.
+  - Upload medicine image.
+  - Edit medicine details and price.
+  - Archive/unarchive a medicine.
+
+### Patients
+
+- **Order Management:**
+  - Add an over-the-counter medicine to the cart.
+  - Add a prescription medicine to the cart based on the prescription.
+  - View cart items.
+  - Remove an item from the cart.
+  - Change the amount of an item in the cart.
+  - Checkout the order.
+  - Add a new delivery address (or multiple addresses).
+  - Choose a delivery address from the delivery addresses available.
+  - Choose to pay with wallet, credit card (using Stripe), or cash on delivery.
+  - View current and past orders.
+  - View order details and status.
+  - Cancel an order.
+  - View alternatives to a medicine that is out of stock based on the main active ingredient.
+  - Chat with a pharmacist.
+
 
 and much more to discover... 😊🚀
 
 ## Code Examples 🐱‍💻
+
 here are some code examples for developers to have an overview about our implementation
 
-#### register for a new user:
+#### signup patient:
 ```
-//create a new user and save it in our database
+const createPatient = async (req, res) => {
+  // Destructure required fields from request body
+  const { username, name, email, password, /* ... other required fields */ } = req.body;
 
- const user = new UserModel({ username, password, type });
- await user.save();
-```
-#### login:
-```
-  //get user's information and compare it with the given
+  // Generate salt and hash the password
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-  const { name,  password } = req.body;
-  const user=await UserModel.findOne({username:name});
-  const passwordMatch=await bcrypt.compare(password,user.password);
+  try {
+    // Create a new user with the hashed password
+    const user = new UserModel({ username, password, type });
+    user.password = hashedPassword;
+    await user.save();
 
-  //create a token for the user and send t to his browser page 
+    // Create a new patient associated with the user
+    const patient = new PatientModel({ user: user._id, name, email /* ... other required fields */ });
+    await patient.save();
 
-  const token = createToken(user.username);
-  res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-  return res.status(201).json({token:token})
-```
+    // Respond with the created patient data
+    res.status(200).json(patient);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-#### view health records:
-```
-  //get patient's information for thet database 
-
-  const patientId = req.params.patientId;
-  const patient = await PatientModel.findOne({ user: res.locals.userId });
-
-  //send back the health_records
-
-  const patientRecords = patient.health_records;
-  res.status(200).json(patientRecords);
 ```
 
+#### login Patient:
+```
+const loginPatient = async (req, res) => {
+  try {
+    // get the username and password from the request body
+    const { name, password } = req.body;
+
+    // Find the user by username
+    const user = await UserModel.findOne({ username: name });
+
+    // Check if the password matches and the user type is 'patient'
+    const passwordMatch = user && (await bcrypt.compare(password, user.password));
+    if (!passwordMatch || !(user?.type.toLowerCase() === 'patient')) {
+      return res.status(400).json("Wrong username or password");
+    } 
+
+    else {
+      // Generate a token and set it as an HTTP-only cookie
+      const token = createToken(user.username);
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+
+      // Respond with the token
+      return res.status(201).json({ token });
+    }
+  } catch (err) {
+    return res.status(400).json("Wrong username or password");
+  }
+};
+
+```
+
+#### view patient's cart:
+```
+const viewCart = async (req, res) => {
+  try {
+    // Find patient by user ID and populate medicine details in the cart
+    const patient = await PatientModel.findOne({ user: res.locals.userId }).populate('cart.medicine');
+
+    // Extract relevant details from the patient's cart
+    const cartDetails = patient.cart.map(item => ({
+      medicine: item.medicine,
+      quantity: item.quantity,
+    }));
+
+    // Respond with the cart details
+    res.status(200).json(cartDetails);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+```
+#### Add a medicine as a pharmacist:
+```
+const addMedicine = async (req, res) => {
+  try {
+    const { medicineName, price, ingredients, /* ... other required fields */ } = req.body;
+
+    // Extract image file details from the request
+    let files = {};
+    req.files.forEach(file => {
+      if (file.fieldname === "image") {
+        files = { ...files, image: file.filename };
+      }
+    });
+
+    // Create a new MedicineModel instance with the provided details
+    const medicine = new MedicineModel({
+      medicineName,price,quantity,ingredients, /* ... the same fields as above */
+      ...files});
+
+    // Save the new medicine to the database and send its details
+    await medicine.save();
+    res.status(200).json(medicine);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+```
 ## Configuration
 
 ### 1. Database Connection
@@ -190,14 +348,123 @@ http://localhost:5173/
 
 ## API reference
 
-<details> <summary>Patient APIs</summary>
- //patient 
+<details> <summary>medicine APIs</summary>
+
+#### GET /medicine/filter/{id}
+- **Purpose:** Retrieve medicines based on medicinal use.
+- **Authentication:** Required (Patient, Pharmacist, Admin)
+- **HTTP Method:** GET
+- **Parameters:** Query parameter - medicinalUse (string) - The medicinal use to filter medicines.
+- **Response:**
+    - Status 200: Array of medicines matching the medicinal use.
+    - Status 200 (No medicine found): Message - "No medicine found."
+    - Status 400: Error message if there's an issue.
+
+#### GET /medicine/search/{id}
+- **Purpose:** Search for medicines by name.
+- **Authentication:** Required (Patient, Pharmacist, Admin)
+- **HTTP Method:** GET
+- **Parameters:** Body parameter - name (string) - The name to search for.
+- **Response:**
+    - Status 200: Array of medicines matching the name.
+    - Status 400: Error message if there's an issue.
+
+#### GET /medicine/listMedicines/{id}
+- **Purpose:** Retrieve a list of all medicines with selected data.
+- **Authentication:** Required (Patient, Pharmacist, Admin)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of medicines with selected data (filtered fields).
+    - Status 400: Error message if there's an issue.
+
+#### PUT /medicine/update/{id}
+- **Purpose:** Update medicine details.
+- **Authentication:** Required (Pharmacist)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Path parameter - id (string) - The ID of the medicine to update.
+    - Body parameters - description (string), ingredients (string), price (number) - The updated details of the medicine.
+- **Response:**
+    - Status 200: Updated medicine object.
+    - Status 400: Error message if there's an issue.
+
+#### POST /medicine/add/{id}
+- **Purpose:** Add a new medicine.
+- **Authentication:** Required (Pharmacist)
+- **HTTP Method:** POST
+- **Parameters:** None
+- **Request Body:**
+    - medicineName (string), price (number), quantity (number), ingredients (string), medicineStatus (string), description (string), sales (number), medicinalUse (string) - Details of the new medicine.
+    - Image file - Attached in the request using form-data with fieldname "image."
+- **Response:**
+    - Status 200: Newly added medicine object.
+    - Status 400: Error message if there's an issue.
+
+#### POST /medicine/updateArchiveStatus/{id}
+- **Purpose:** Update the archive status of a medicine.
+- **Authentication:** Required (Pharmacist)
+- **HTTP Method:** POST
+- **Parameters:**
+    - Body parameters - medicineId (string), archivedStatus (string) - The ID of the medicine and the updated archive status.
+- **Response:**
+    - Status 200: Updated medicine object.
+    - Status 400: Error message if there are missing parameters.
+    - Status 404: Error message if the medicine is not found.
+    - Status 500: Internal server error.
+
+#### GET /medicine/medicineDetails/{id}
+- **Purpose:** Retrieve details of medicines.
+- **Authentication:** Required (Pharmacist)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of medicine details (filtered fields - medicineName, quantity, sales).
+    - Status 400: Error message if there's an issue.
+
+#### GET /medicine/searchMedForClinic
+- **Purpose:** Search for medicines by name.
+- **Authentication:** Required (Patient, Doctor, Admin)
+- **HTTP Method:** GET
+- **Parameters:** Body parameter - name (string) - The name to search for.
+- **Response:**
+    - Status 200: Array of medicines matching the name.
+    - Status 400: Error message if there's an issue.
+
+#### GET /medicinesTotPrice
+- **Purpose:** Calculate the total price of prescribed medicines.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:**
+    - Body parameter - medicines (array of objects) - The array of prescribed medicines.
+- **Response:**
+    - Status 200: Total price of prescribed medicines.
+    - Status 200 (Oops, medicine not found): Message - "Oops, medicine not found."
+    - Status 400: Error message if there's an issue.
+
+#### POST /addPrescriptionMedicine/{id}
+- **Purpose:** Add a prescribed medicine to the patient's cart.
+- **Authentication:** Required (Patient)
+- **TTP Method:** POST
+- **Parameters:** Body parameters - medicineName (string), quantity (number), prescriptionId (string)
+- **Response:**
+    - Status 200: Message - "Medicine added to cart successfully."
+    - Status 400: Error message if there's an issue (e.g., Prescription not found, Medicine not found, Medicine not available, Prescription not recent).
+
 </details>
+
+<details> <summary>pateint APIs</summary>
+
+///patient
+</details>
+
 <details> <summary>Admin APIs</summary>
+
  //here put the admin apis
 </details>
 
-<details> <summary>Doctor APIs</summary>
+<details> <summary>pharmacist APIs</summary>
+
 //here put the doctor APIs
 </details>
 
