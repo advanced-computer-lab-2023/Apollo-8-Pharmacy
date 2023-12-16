@@ -350,7 +350,7 @@ http://localhost:5173/
 
 <details> <summary>pateint APIs</summary>
 
-#### POST /patient
+#### POST /patient/
 - **Purpose:** Create a new patient account.
 - **Authentication:** None
 - **HTTP Method:** POST
@@ -374,7 +374,18 @@ http://localhost:5173/
     - Status 400: Error message if there's an issue.
     - Status 404: Username already exists.
 
-#### GET /patient
+#### POST /patient/PatientLogin
+- **Purpose:** Authenticate a patient and provide a JSON Web Token (JWT) for subsequent requests.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - name (string): The username of the patient.
+    - password (string): The password of the patient.
+- **Response:**
+    - Status 201: JSON object with a success message and the JWT token in a cookie.
+    - Status 400: JSON object with an error message if the provided username or password is incorrect.
+
+#### GET /patient/
 - **Purpose:** Retrieve a list of all patients.
 - **Authentication:** None
 - **HTTP Method:** GET
@@ -545,12 +556,96 @@ http://localhost:5173/
 
 <details> <summary>Admin APIs</summary>
 
- //here put the admin apis
+#### GET /admin/getUsers
+- **Purpose:** Retrieve a list of all users.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of user objects.
+    - Status 400: JSON object with an error message if there's an issue.
+
+#### POST /admin/addAdministrator
+- **Purpose:** Add a new administrator.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** POST
+- **Parameters:** 
+    - `username` (string): Username for the new administrator.
+    - `password` (string): Password for the new administrator.
+- **Response:**
+    - Status 200: The newly created administrator object.
+    - Status 400: JSON object with an error message if there's an issue.
+
+#### DELETE /admin/removeUser
+- **Purpose:** Remove a user.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** DELETE
+- **Parameters:** 
+    - `username` (string): Username of the user to be removed.
+- **Response:**
+    - Status 200: JSON object with a success message.
+    - Status 404: JSON object with an error message if the user is not found.
+
+#### GET /admin/sales/:month?
+- **Purpose:** Get sales report for the specified month.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** 
+    - `month` (number, optional): The month for which the sales report is requested. If not provided, the current month is used.
+- **Response:**
+    - Status 200: Array of sales report objects.
+    - Status 400: JSON object with an error message if there's an issue.
+
+#### POST /admin/createUser
+- **Purpose:** Create a new user.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:** 
+    - `username` (string): Username for the new user.
+    - `password` (string): Password for the new user.
+    - `type` (string): Type of the new user (e.g., "Pharmacist", "Patient").
+- **Response:**
+    - Status 200: The newly created user object.
+    - Status 400: JSON object with an error message if there's an issue.
+
+#### POST /admin/chanePass
+- **Purpose:** Change the password for the authenticated user.
+- **Authentication:** User authentication is required. The user must provide a valid JWT token in the Authorization header.
+- **HTTP Method:** POST
+- **Parameters:**
+    - `password` (string): The new password.
+- **Response:**
+    - Status 200: JSON object with a success message.
+    - Status 401: JSON object with an error message if the user is not logged in or the token is invalid.
+
+#### POST /admin/compare
+- **Purpose:** Compare the provided username and PIN to authenticate the user and generate a JWT token.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - `name` (string): The username of the user.
+    - `PIN` (string): The Personal Identification Number (PIN) of the user.
+- **Response:**
+    - Status 201: JSON object with a JWT token and the user type.
+    - Status 400: JSON object with an error message if the provided username or PIN is incorrect.
+    - Status 500: JSON object with an error message if there's a server error.
+
+#### POST /admin/forget
+- **Purpose:** Send a verification code to the user's email for password reset.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - `name` (string): The username of the user.
+- **Response:**
+    - Status 201: JSON object with a success message and email information.
+    - Status 400: JSON object with an error message if the provided username is incorrect.
+    - Status 500: JSON object with an error message if there's a server error.
+
 </details>
 
 <details> <summary>pharmacist APIs</summary>
 
-#### POST /pharmacist
+#### POST /pharmacist/
 - **Purpose:** Create a new pharmacist.
 - **Authentication:** None
 - **HTTP Method:** POST
@@ -571,7 +666,7 @@ http://localhost:5173/
     - Status 200: JSON object of the created pharmacist.
     - Status 400: Error message if there's an issue.
 
-#### GET /pharmacist
+#### GET /pharmacist/
 - **Purpose:** Retrieve a list of all pharmacists.
 - **Authentication:** None
 - **HTTP Method:** GET
@@ -579,6 +674,17 @@ http://localhost:5173/
 - **Response:**
     - Status 200: Array of pharmacists.
     - Status 400: Error message if there's an issue.
+
+#### POST /pharmacist/PharmicistLogin
+- **Purpose:** Authenticate a pharmacist and provide a JSON Web Token (JWT) for subsequent requests.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - name (string): The username of the pharmacist.
+    - password (string): The password of the pharmacist.
+- **Response:**
+    - Status 201: JSON object with a success message and the JWT token in a cookie.
+    - Status 400: JSON object with an error message if the provided username or password is incorrect.
 
 #### GET /pharmacist/:id
 - **Purpose:** Retrieve information about a specific pharmacist by their ID.
@@ -860,8 +966,6 @@ Before testing the API using Postman, make sure **Postman Installed**. Download 
 
 Use these test cases to test your code using Postman:
 
-**Note:** These are some test cases, not all of them.
-
 #### Add to Cart (POST)
 
 **Endpoint:** http://localhost:8000/patient/addToCart
@@ -974,7 +1078,46 @@ Use these test cases to test your code using Postman:
   "total": 39.98
 }
 ```
+#### Accept Pharmacist (PUT)
 
+**Endpoint:** http://localhost:8000/pharmacists/accept/:id
+
+**Header:**
+- Key: Authorization
+- Value: Bearer YOUR_ADMIN_ACCESS_TOKEN
+
+**Expected Response:**
+
+```json
+{
+  "_id": "some_pharmacist_id",
+  "name": "Pharmacist Name",
+  "email": "pharmacist@example.com",
+  "status": "Accepted",
+  // Add other pharmacist details here
+}
+```
+
+#### Reject Pharmacist (PUT)
+**Endpoint:** http://localhost:8000/pharmacists/reject/:id
+
+**Header:**
+- Key: Authorization
+- Value: Bearer YOUR_ADMIN_ACCESS_TOKEN
+
+**Expected Response:**
+
+```json
+{
+  "_id": "some_pharmacist_id",
+  "name": "Pharmacist Name",
+  "email": "pharmacist@example.com",
+  "status": "Rejected",
+  // Add other pharmacist details here
+}
+```
+
+**Note:** These are some test cases, not all of them.
 
 ## How to Use?
 
@@ -989,18 +1132,18 @@ Use these test cases to test your code using Postman:
 ### As a Pharmacist
 1. **Access the Application**: Launch your web browser and enter the provided URL to reach the registration page.
 
-2. **Registration**: Select "Doctor Signup" to initiate the registration process. Complete the form with the necessary details and click "Submit" to send your application for admin approval.
+2. **Registration**: Select "pharmacist Signup" to initiate the registration process. Complete the form with the necessary details and click "Submit" to send your application for admin approval.
 
 3. **Sign In**: Once your application is approved, return to the main page and sign in.
 
-4. **Dashboard Navigation**: Use the top navigation bar to access various features such as viewing your wallet balance, updating your information, adding a prescription, managing appointments, adding available slots, adding patient health records, viewing follow-ups, and reviewing your contract.
+4. **Dashboard Navigation**: Use the top navigation bar to access various features such as viewing your wallet balance, updating your password, chat with patients, adding/editing medicines, archive/ unarchive medicines, and sales reporting.
 
 ### As an Admin
 1. **Sign In**: Use the pre-configured credentials stored in the database to sign in.
 
 2. **Dashboard Navigation**: Post sign-in, you'll be redirected to the dashboard.
 
-3. **Admin Management**: Use the top bar to navigate through various admin tasks such as adding a new admin, removing a user, managing doctor's requests, and managing health packages.
+3. **Admin Management**: Use the top bar to navigate through various admin tasks such as adding a new admin, removing a user, managing pharmacist's requests, and viewing system patients, pharmacists and medicines.
 
 
 ## Contribute
