@@ -348,6 +348,331 @@ http://localhost:5173/
 
 ## API reference
 
+<details> <summary>pateint APIs</summary>
+
+#### POST /patient
+- **Purpose:** Create a new patient account.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - Body parameters -
+        - username (string),
+        - name (string),
+        - type (string),
+        - email (string),
+        - password (string),
+        - birthDate (string),
+        - gender (string),
+        - phone (string),
+        - emergencyName (string),
+        - emergencyNo (string),
+        - emergencyRel (string),
+        - adresses (array),
+        - status (string)
+- **Response:**
+    - Status 200: JSON object of the created patient.
+    - Status 400: Error message if there's an issue.
+    - Status 404: Username already exists.
+
+#### GET /patient
+- **Purpose:** Retrieve a list of all patients.
+- **Authentication:** None
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of patients.
+    - Status 400: Error message if there's an issue.
+
+#### GET /patient/byId
+- **Purpose:** Retrieve patient details by their ID.
+- **Authentication:** Required (Admin)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: JSON object of the patient details.
+    - Status 404: Patient not found.
+    - Status 500: Internal server error.
+
+#### POST /patient/addToCart
+- **Purpose:** Add a medicine to the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** POST
+- **Parameters:**
+    - Body parameters - medicineId (string), quantity (number) - ID of the medicine and quantity to add to the cart.
+- **Response:**
+    - Status 200: Array of items in the cart.
+    - Status 404: Medicine or patient not found.
+    - Status 400: Medicine is out of stock.
+
+#### GET /patient/checkIfMedicineIsAdded/:medicineId
+- **Purpose:** Check if a specific medicine is already added to the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:**
+    - Path parameter - medicineId (string) - ID of the medicine.
+- **Response:**
+    - Status 200: JSON object indicating if the medicine is added.
+    - Status 404: Patient not found.
+
+#### POST /patient/addToCartFromClinic
+- **Purpose:** Add a medicine to the patient's cart from the clinic.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of items in the cart.
+
+#### DELETE /patient/removeFromCartClinic
+- **Purpose:** Remove a medicine from the patient's cart (clinic).
+- **Authentication:** None
+- **HTTP Method:** DELETE
+- **Parameters:** None
+- **Response:**
+    - Status 404: Medicine not found in the cart.
+
+#### GET /patient/viewCart
+- **Purpose:** View the contents of the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of items in the cart.
+    - Status 404: Patient not found.
+
+#### DELETE /:id/removeFromCart
+- **Purpose:** Remove a medicine from the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** DELETE
+- **Parameters:**
+    - Path parameter - id (string) - ID of the medicine.
+- **Response:**
+    - Status 200: Array of items in the cart.
+    - Status 404: Medicine not found in the cart.
+
+#### PUT /patient/incMed
+- **Purpose:** Increment the quantity of a medicine in the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Body parameter - medicineId (string) - ID of the medicine.
+- **Response:**
+    - Status 200: Array of items in the cart.
+    - Status 404: Medicine not found in the cart.
+    - Status 400: Cannot increment quantity. Limited to available stock.
+
+#### PUT /patient/addAddress
+- **Purpose:** Add a new address to the patient's profile.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Body parameter - newAddress (string) - New address to add.
+- **Response:**
+    - Status 200: Message - "Address added successfully."
+    - Status 404: Patient not found.
+    - Status 500: Internal server error.
+
+#### PUT /patient/updateWallet
+- **Purpose:** Update the patient's wallet with a payment amount.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Body parameter - paymentAmount (number) - Amount to update the wallet.
+- **Response:**
+    - Status 200: JSON object with the updated wallet amount.
+    - Status 500: Internal server error.
+
+#### PUT /patient/:id/decMed
+- **Purpose:** Decrement the quantity of a medicine in the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Body parameter - medicineId (string) - ID of the medicine.
+- **Response:**
+    - Status 200: Array of items in the cart.
+
+#### GET /patient/:id/orders/:orderId
+- **Purpose:** View details of a specific order for the patient.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:**
+    - Path parameters - id (string) - ID of the patient, orderId (string) - ID of the order.
+- **Response:**
+    - Status 200: JSON object of the order details.
+    - Status 404: Order not found for the patient.
+    - Status 500: Internal server error.
+
+#### GET /patient/getCartTotal
+- **Purpose:** Get the total amount of the patient's cart.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Total amount of the cart.
+    - Status 404: Patient not found.
+
+#### POST /patient/:id/orders/:orderId/cancel
+- **Purpose:** Cancel a pending order for the patient.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** POST
+- **Parameters:**
+    - Path parameters - id (string) - ID of the patient, orderId (string) - ID of the order.
+- **Response:**
+    - Status 200: Message - "Order cancelled successfully."
+    - Status 400: Cannot cancel order. Status is not Pending.
+    - Status 404: Order not found for the patient.
+    - Status 500: Internal server error.
+
+#### GET /patient/getWallet
+- **Purpose:** Get the current amount in the patient's wallet.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Current amount in the wallet.
+    - Status 404: Patient not found.
+    - Status 500: Internal server error.
+
+#### GET /patient/outofstock
+- **Purpose:** Get a list of medicines that are out of stock.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of out-of-stock medicines.
+    - Status 500: Internal server error.
+
+</details>
+
+<details> <summary>Admin APIs</summary>
+
+ //here put the admin apis
+</details>
+
+<details> <summary>pharmacist APIs</summary>
+
+#### POST /pharmacist
+- **Purpose:** Create a new pharmacist.
+- **Authentication:** None
+- **HTTP Method:** POST
+- **Parameters:**
+    - username (string)
+    - name (string)
+    - type (string)
+    - email (string)
+    - password (string)
+    - birthDate (string)
+    - hourlyRate (number)
+    - hospital (string)
+    - eduBackground (string)
+    - wallet (object)
+    - status (string)
+    - Files: idFile, degreeFile, licenseFile (multipart/form-data)
+- **Response:**
+    - Status 200: JSON object of the created pharmacist.
+    - Status 400: Error message if there's an issue.
+
+#### GET /pharmacist
+- **Purpose:** Retrieve a list of all pharmacists.
+- **Authentication:** None
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of pharmacists.
+    - Status 400: Error message if there's an issue.
+
+#### GET /pharmacist/:id
+- **Purpose:** Retrieve information about a specific pharmacist by their ID.
+- **Authentication:** None
+- **HTTP Method:** GET
+- **Parameters:**
+    - id (Path Parameter): The ID of the pharmacist.
+- **Response:**
+    - Status 200: The pharmacist's information.
+    - Status 404: If the pharmacist is not found.
+    - Status 400: Error message if there's an issue.
+
+#### GET /pharmacist/current
+- **Purpose:** Retrieve information about the currently logged-in pharmacist for chat purposes.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: The pharmacist's information.
+    - Status 404: If the pharmacist is not found.
+    - Status 400: Error message if there's an issue.
+
+#### PUT /pharmacist/accept/:id
+- **Purpose:** Accept a pharmacist's registration request.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** PUT
+- **Parameters:**
+    - id (Path parameter): Pharmacist ID.
+- **Response:**
+    - Status 200: The updated pharmacist information after acceptance.
+    - Status 404: If the pharmacist is not found.
+    - Status 500: Internal Server Error.
+
+#### PUT /pharmacist/reject/:id
+- **Purpose:** Reject a pharmacist's registration request.
+- **Authentication:** Admin authentication is required.
+- **HTTP Method:** PUT
+- **Parameters:**
+    - id (Path parameter): Pharmacist ID.
+- **Response:**
+    - Status 200: The updated pharmacist information after rejection.
+    - Status 404: If the pharmacist is not found.
+    - Status 500: Internal Server Error.
+
+#### GET /pharmacist/sales/:month?
+- **Purpose:** Retrieve sales report for a specific month.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:**
+    - month (Optional Query parameter): Month for which the sales report is requested. If not provided, the current month is considered.
+- **Response:**
+    - Status 200: Array of objects containing medicineName and totalSales.
+    - Status 400: Error message if there's an issue.
+
+#### GET /pharmacist/salesdate/:date?
+- **Purpose:** Retrieve sales report for a specific date.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:**
+    - date (Path parameter): Date for which the sales report is requested in the format "YYYY-MM-DD."
+- **Response:**
+    - Status 200: Array of objects containing medicineName and totalSales.
+    - Status 400: Error message if there's an issue.
+
+#### GET /pharmacist/getWallet
+- **Purpose:** Retrieve the wallet information of the authenticated pharmacist.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: JSON object containing the pharmacist's wallet information.
+    - Status 404: JSON object with an error message if the pharmacist is not found.
+    - Status 500: JSON object with an error message for internal server error.
+
+#### GET /pharmacist/getNotfication
+- **Purpose:** Retrieve notifications for the authenticated pharmacist.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of notification objects.
+    - Status 400: JSON object with an error message if there's an issue.
+
+#### GET /pharmacist/sawNotfication
+- **Purpose:** Mark notifications as read for the authenticated pharmacist.
+- **Authentication:** Pharmacist authentication is required.
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of notification objects after marking as read.
+    - Status 400: JSON object with an error message if there's an issue.
+
+</details>
+
 <details> <summary>medicine APIs</summary>
 
 #### GET /medicine/filter/{id}
@@ -453,99 +778,203 @@ http://localhost:5173/
 
 </details>
 
-<details> <summary>pateint APIs</summary>
+<details> <summary>chat messages</summary>
 
-///patient
+#### GET /message/:senderId/:receiverId
+- **Purpose:** Retrieve messages between two users.
+- **Authentication:** 
+- **HTTP Method:** GET
+- **Parameters:**
+    - Path parameters - senderId (string), receiverId (string) - The IDs of the sender and receiver users.
+- **Response:**
+    - Status 200: Array of messages with additional information (fromSelf, message).
+    - Status 500: Internal server error.
+
+#### POST /message/createMessage
+- **Purpose:** Create a new message.
+- **Authentication:** 
+- **HTTP Method:** POST
+- **Parameters:**
+    - Body parameters - senderId (string), receiverId (string), content (string) - IDs of the sender and receiver, and the content of the message.
+- **Response:**
+    - Status 200: JSON object of the saved message.
+    - Status 500: Internal server error.
+
 </details>
 
-<details> <summary>Admin APIs</summary>
+<details> <summary> patient's order APIs</summary>
 
- //here put the admin apis
+#### POST /order/add/{id}
+- **Purpose:** Add a new order.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** POST
+- **Parameters:**
+    - Body parameters - deliveryAddress (string), paymentMethod (string) - Delivery address and payment method for the order.
+- **Response:**
+    - Status 201: JSON object of the created order.
+    - Status 500: Internal server error.
+
+#### GET /order/orderDetails/:id/{id}
+- **Purpose:** View details of a specific order.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:**
+    - Path parameter - id (string) - ID of the order.
+- **Response:**
+    - Status 200: JSON object of the order details.
+    - Status 404: Order not found for the patient.
+    - Status 500: Internal server error.
+
+#### PUT /order/cancel/{id}
+- **Purpose:** Cancel a pending order.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** PUT
+- **Parameters:**
+    - Body parameter - orderId (string) - ID of the order to cancel.
+- **Response:**
+    - Status 200: Message - "Order cancelled successfully."
+    - Status 400: Cannot cancel order. Status is not Pending.
+    - Status 404: Order not found for the patient.
+    - Status 500: Internal server error.
+
+#### GET /order/getOrders/{id}
+- **Purpose:** Retrieve a list of all orders for the patient.
+- **Authentication:** Required (Patient)
+- **HTTP Method:** GET
+- **Parameters:** None
+- **Response:**
+    - Status 200: Array of orders.
+    - Status 404: Order not found.
+    - Status 500: Internal server error.
+
 </details>
 
-<details> <summary>pharmacist APIs</summary>
+<details> <summary> APIs</summary>
 
-//here put the doctor APIs
+//other  APIs
 </details>
+
 
 ## Testing with Postman
 Before testing the API using Postman, make sure **Postman Installed**. Download and install [Postman](https://www.postman.com/downloads/).
 
 Use these test cases to test your code using Postman:
 
-#### **Create Patient (POST)**
+**Note:** These are some test cases, not all of them.
 
-- *Endpoint*: `http://localhost:8000/Patient/`
+#### Add to Cart (POST)
 
-- *Body Request*:
+**Endpoint:** http://localhost:8000/patient/addToCart
 
+**Header:**
+- Key: Authorization
+- Value: Bearer YOUR_ACCESS_TOKEN
+
+**Body Request:**
 ```json
 {
-  "username": "john_doe",
-  "name": "John Doe",
-  "type": "patient",
-  "email": "john@example.com",
-  "password": "SecurePassword123",
-  "birthDate": "1990-01-01",
-  "gender": "male",
-  "phone": "1234567890",
-  "emergencyName": "Emergency Contact",
-  "emergencyNo": "9876543210",
-  "emergencyRel": "Family",
-  "addresses": ["123 Main St"],
-  "status": "active",
-  "wallet": 100,
-  "health_records": []
-}
-```
-- *Expected Response*:
-```json
-{
-  "_id": "some_generated_id",
-  "name": "John Doe",
-  "email": "john@example.com",
-  "birthDate": "1990-01-01",
-  "gender": "male",
-  "phone": "1234567890",
-  "emergencyName": "Emergency Contact",
-  "emergencyNo": "9876543210",
-  "emergencyRel": "Family",
-  "addresses": ["123 Main St"],
-  "status": "active",
-  "wallet": 100,
-  "health_records": []
+  "medicineId": "some_medicine_id",
+  "quantity": 2
 }
 ```
 
-
-
-#### **Get Health Records (GET)**
-
-- *Endpoint*: `http://localhost:8000/Patient/health-records/${patientId}`
-
-- *Body Request*:
-
-```json
-{}  // No request body for GET request
-```
-- *Expected Response*:
+**Expected Response:**
 ```json
 [
   {
-    "_id": "record_id_1",
-    "date": "2023-01-10",
-    "description": "Regular check-up",
-    "image": "image_url_1"
-  },
-  {
-    "_id": "record_id_2",
-    "date": "2023-05-22",
-    "description": "X-ray results",
-    "image": "image_url_2"
+    "medicine": {
+      "_id": "some_medicine_id",
+      "name": "Medicine Name",
+      "price": 19.99,
+      "quantity": 50,
+      "ingredients": ["Ingredient1", "Ingredient2"],
+      "medicineStatus": "Available",
+      "description": "Description of the medicine.",
+      "sales": 100,
+      "medicinalUse": "Treatment of specific conditions"
+    },
+    "quantity": 2
   }
-  // ... additional health records
+  //  more items present in the cart
 ]
 ```
+
+#### View Cart (GET)
+
+**Endpoint:** http://localhost:8000/patient/viewCart
+
+**Header:**
+
+- Key: Authorization
+- Value: Bearer YOUR_ACCESS_TOKEN
+
+**Expected Response:**
+
+```json
+[
+  {
+    "medicine": {
+      "_id": "some_medicine_id",
+      "name": "Medicine Name",
+      "price": 19.99,
+      "quantity": 50,
+      "ingredients": ["Ingredient1", "Ingredient2"],
+      "medicineStatus": "Available",
+      "description": "Description of the medicine.",
+      "sales": 100,
+      "medicinalUse": "Treatment of specific conditions"
+    },
+    "quantity": 2
+  }
+  //  more items present in the cart
+]
+```
+#### Add Order (POST)
+
+**Endpoint:** http://localhost:8000/patient/addOrder
+
+**Header:**
+- Key: Authorization
+- Value: Bearer YOUR_ACCESS_TOKEN
+
+**Body Request:**
+```json
+{
+  "deliveryAddress": "123 Main St",
+  "paymentMethod": "Credit Card"
+}
+```
+
+**Expected Response:**
+
+```json
+{
+  "_id": "some_generated_order_id",
+  "patient": "some_patient_id",
+  "deliveryAddress": "123 Main St",
+  "paymentMethod": "Credit Card",
+  "items": [
+    {
+      "medicine": {
+        "_id": "some_medicine_id",
+        "name": "Medicine Name",
+        "price": 19.99,
+        "quantity": 50,
+        "ingredients": ["Ingredient1", "Ingredient2"],
+        "medicineStatus": "Available",
+        "description": "Description of the medicine.",
+        "sales": 100,
+        "medicinalUse": "Treatment of specific conditions"
+      },
+      "quantity": 2
+    }
+    // Add more items if present in the cart
+  ],
+  "status": "Pending",
+  "total": 39.98
+}
+```
+
 
 ## How to Use?
 
