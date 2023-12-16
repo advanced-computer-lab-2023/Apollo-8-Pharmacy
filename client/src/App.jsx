@@ -37,7 +37,6 @@ import ChangePass from "./pages/patient/chnagePass";
 import ChangePassPharm from "./pages/pharmacist/changePassPharm";
 import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
-import ArchivedMedicinesListPharmacist from "./pages/pharmacist/ArchivedMedicineListPharm";
 import PrescriptionList from "./pages/patient/PrescriptionList";
 import Chat from "./pages/patient/Chat";
 import ChatPhamacist from "./pages/pharmacist/Chat";
@@ -124,10 +123,6 @@ function App() {
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
-          <Route
-            path="/ArchivedMedicinesListPharmacist"
-            element={<ArchivedMedicinesListPharmacist />}
-          />
           <Route path="/PharmacistWallet" element={<PharmacistWallet />} />
           <Route path="/ChatPharmacist" element={<ChatPhamacist />} />
         </Routes>

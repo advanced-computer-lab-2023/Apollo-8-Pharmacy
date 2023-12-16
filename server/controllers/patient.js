@@ -77,6 +77,16 @@ const getPatientById = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+const getPatient = async (req, res) => {
+  try {
+    const patient = await PatientModel.findOne({ _id: req.params.id })
+    if (!patient) return res.status(404).send("Patient not found");
+    return res.status(200).send(patient);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 //s
 
 const addAddressToPatient = async (req, res) => {
@@ -408,6 +418,7 @@ export default {
   createPatient,
   getPatients,
   getPatientById,
+  getPatient,
   addToCart,
   viewCart,
   removeFromCart,

@@ -115,7 +115,7 @@ function MedicineSales() {
                   borderColor: "rgba(0, 140, 990, 0.1)",
                 }}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search contacts"
+                placeholder="Search medicine"
               />
             </InputGroup>
           </Form>

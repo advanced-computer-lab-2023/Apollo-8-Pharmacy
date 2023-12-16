@@ -49,10 +49,6 @@ function MedicinesListPharmacist() {
     navigate(`/medicinesList/${id}`);
   }
 
-  const handleArchive = () => {
-    navigate("/ArchivedMedicinesListPharmacist");
-  };
-
   const handleArchiveB = async (medicineId) => {
     try {
       if (!medicineId) {
@@ -104,10 +100,6 @@ function MedicinesListPharmacist() {
     }
   };
 
-  const handleUnarchive = () => {
-    navigate("/MedicinesListPharmacist");
-  };
-
   const handleHome = () => {
     navigate("/HomePagePharm");
   };
@@ -128,20 +120,6 @@ function MedicinesListPharmacist() {
         >
           <div>
             <h1 className="text-center mt-4">List of Medicines</h1>
-            <Button
-              style={{ margin: "10px", backgroundColor: "DarkGreen" }}
-              variant="contained"
-              onClick={handleArchive}
-            >
-              Archive
-            </Button>
-            <Button
-              style={{ backgroundColor: "DarkGreen" }}
-              variant="contained"
-              onClick={handleUnarchive}
-            >
-              Unarchive
-            </Button>
           </div>
           <Form>
             <InputGroup className="my-3">
@@ -231,16 +209,15 @@ function MedicinesListPharmacist() {
             </tbody>
           </Table>
 
-
-          <button className="btn btn-primary rounded-2"
+          <button
+            className="btn btn-primary rounded-2"
             style={{
-              position: 'fixed',
-              bottom: '5%',
-              right: '5%',
-              width: '5%',
-              height: '40px',
+              position: "fixed",
+              bottom: "5%",
+              right: "5%",
+              width: "5%",
+              height: "40px",
             }}
-
             onClick={handleHome}
           >
             Back
