@@ -92,7 +92,9 @@ function MedicineSales() {
         });
     }
   }, [selectedDate]);
-
+  const handleHome = () => {
+    navigate("/HomePagePharm");
+  };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar

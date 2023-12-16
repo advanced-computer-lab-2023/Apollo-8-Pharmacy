@@ -84,7 +84,7 @@ function PatientsList() {
                       <td>{item.email}</td>
                       <td>
                         <button
-                          className="btn btn-success"
+                        className="btn btn-primary rounded-2"
                           onClick={() => handleView(item._id)}
                         >
                           view

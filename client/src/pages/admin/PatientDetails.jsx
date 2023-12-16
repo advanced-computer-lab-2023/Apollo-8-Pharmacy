@@ -5,12 +5,12 @@ import AppBar from "@mui/material/AppBar";
 import "../../App.css";
 import ResponsiveAppBar from "../../components/TopBarAdmin";
 import BottomBar from "../../components/BottomBar";
-
+import { useNavigate } from "react-router-dom";
 function PatientDetails() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const apiUrl = "http://localhost:9000/patient/getOnePatient/" + id;
     axios
@@ -24,7 +24,9 @@ function PatientDetails() {
         setLoading(false);
       });
   }, []);
-
+  const handleBack = () => {
+    navigate("/patients");
+  };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -84,6 +86,20 @@ function PatientDetails() {
             </ul>
           )}
         </div>
+        <button className="btn btn-primary rounded-2"
+              style={{
+                position: 'absolute',
+                bottom: '1%',
+                right: '5%',
+                width: '5%',
+                height: '40px',
+                
+              }}
+              onClick={handleBack}
+             
+            >
+              Back
+            </button>
         <BottomBar />
       </AppBar>
     </div>
