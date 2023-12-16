@@ -9,7 +9,7 @@ import AppBar from "@mui/material/AppBar";
 import ResponsiveAppBar from "../../components/TopBar";
 import BottomBar from "../../components/BottomBar";
 
-export default function Chat() {
+export default function ChatDoctor() {
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -42,11 +42,9 @@ export default function Chat() {
   useEffect(() => {
     const fetchUsersList = async () => {
       try {
-        const pharmacistResponse = await axios.get(`http://localhost:9000/pharmacist/`);
         const doctorResponse = await axios.get(`http://localhost:8000/doctor/`);
-        const combinedContacts = [...pharmacistResponse.data, ...doctorResponse.data];
-        setContacts(combinedContacts);
-      
+        setContacts(doctorResponse.data);
+
       } catch (error) {
         console.error(error);
       }

@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
     setAnchorElNav();
   };
   const handleChatNavigate = () => {
-    navigate("/Chat");
+    navigate("/ChatChoice");
   };
 
   const handleCloseUserMenu = () => {

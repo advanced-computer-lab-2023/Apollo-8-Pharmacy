@@ -38,8 +38,16 @@ import ChangePassPharm from "./pages/pharmacist/changePassPharm";
 import ChangePassAdm from "./pages/admin/changePassAdm";
 import OrderDetails from "./pages/patient/orderDetails";
 import PrescriptionList from "./pages/patient/PrescriptionList";
-import Chat from "./pages/patient/Chat";
-import ChatPhamacist from "./pages/pharmacist/Chat";
+// Chat patient 
+import ChatPharmacist from "./pages/patient/ChatPharmacist";
+import ChatChoice from "./pages/patient/ChatChoice";
+import ChatDoctor from "./pages/patient/ChatDoctor";
+
+// Chat pharmacist 
+import ChatChoicePH from "./pages/pharmacist/ChatChoicePH";
+import ChatDoctorPH from "./pages/pharmacist/ChatDoctorPH";
+import ChatPatientPH from "./pages/pharmacist/ChatPatientPH";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
@@ -95,7 +103,9 @@ function App() {
           <Route path="/listMedicine" element={<ListMedicine />} />
           <Route path="/AddressForm" element={<AddressForm />} />
           <Route path="/Checkout" element={<Checkout />} />
-          <Route path="/Chat" element={<Chat />} />
+          <Route path="/ChatDoctor" element={<ChatDoctor />} />
+          <Route path="/ChatPharmacist" element={<ChatPharmacist />} />
+          <Route path="/ChatChoice" element={<ChatChoice />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/PatientWallet" element={<PatientWallet />} />
@@ -126,7 +136,9 @@ function App() {
           <Route path="/ChangePassword" element={<ChangePass />} />
           <Route path="/ChangePasswordPharm" element={<ChangePassPharm />} />
           <Route path="/PharmacistWallet" element={<PharmacistWallet />} />
-          <Route path="/ChatPharmacist" element={<ChatPhamacist />} />
+          <Route path="/ChatChoicePH" element={<ChatChoicePH />} />
+          <Route path="/ChatDoctorPH" element={<ChatDoctorPH />} />
+          <Route path="/ChatPatientPH" element={<ChatPatientPH />} />
         </Routes>
       </div>
     );
