@@ -908,6 +908,7 @@ http://localhost:5173/
 
 </details>
 
+<details> <summary> patient's order APIs</summary>
 
 #### POST /order/add/{id}
 - **Purpose:** Add a new order.
@@ -954,10 +955,6 @@ http://localhost:5173/
 
 </details>
 
-<details> <summary> APIs</summary>
-
-//other  APIs
-</details>
 
 
 ## Testing with Postman
