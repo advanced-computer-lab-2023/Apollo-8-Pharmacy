@@ -9,9 +9,11 @@ import BottomBar from "../../components/BottomBar";
 import { useState } from "react";
 import { medicinalUses } from "../../config/constants";
 import { useNavigate } from "react-router-dom";
+import Switch from "@mui/material/Switch";
 
 function AddMedicine() {
   const navigate = useNavigate();
+  const [switchValue, setSwitchValue] = useState(false);
 
   const [medicineName, setMedicineName] = useState();
   const [price, setPrice] = useState();
@@ -39,6 +41,7 @@ function AddMedicine() {
           sales: "0",
           medicinalUse,
           image,
+          requiresPrescription: switchValue,
         },
         {
           headers: {
@@ -57,6 +60,10 @@ function AddMedicine() {
         console.log(err);
         console.error(err);
       });
+  };
+
+  const handleSwitchChange = (event) => {
+    setSwitchValue(event.target.checked);
   };
 
   const clearForm = () => {
@@ -250,6 +257,13 @@ function AddMedicine() {
                   id="customFile"
                   onChange={(e) => setImage(e.target.files[0])}
                 />
+              </div>
+
+              <div>
+                <label className="form-label" htmlFor="customFile">
+                  <strong>Requires prescription</strong>
+                </label>
+                <Switch onChange={handleSwitchChange} />
               </div>
 
               <button

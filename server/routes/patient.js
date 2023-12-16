@@ -31,6 +31,10 @@ router.post('/:id/orders/:orderId/cancel', Middle.requireAuthPatient, controller
 router.get("/getWallet", Middle.requireAuthPatient, controllers.getWallet)
 router.get('/outofstock', Middle.requireAuthPatient, controllers.outofstock);
 router.get("/getOnePatient/:id", Middle.requireAuthAdmin, controllers.getPatient);
+router.get("/getPerscriptions", Middle.requireAuthPatient, controllers.getPrescriptions)
+router.get("/getPerscription/:id", Middle.requireAuthPatient, controllers.getPres)
+router.post("/payForPrescription/:id", Middle.requireAuthPatient, controllers.payPrescription)
+
 
 
 export default router;

@@ -41,6 +41,10 @@ const medicineSchema = new mongoose.Schema(
       enum: ["Archived", "Unarchived"],
       default: "Unarchived",
     },
+    requiresPrescription: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
       required: true,

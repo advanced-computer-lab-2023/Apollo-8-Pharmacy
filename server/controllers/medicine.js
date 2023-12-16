@@ -15,6 +15,7 @@ const addMedicine = async (req, res) => {
       description,
       sales,
       medicinalUse,
+      requiresPrescription
     } = req.body;
     let files = {}
     req.files.forEach(file => {
@@ -32,6 +33,7 @@ const addMedicine = async (req, res) => {
       medicineStatus,
       sales,
       medicinalUse,
+      requiresPrescription,
       ...files
     });
     await medicine.save();
@@ -145,7 +147,8 @@ const listMedicines = async (req, res) => {
         medicineStatus: item.medicineStatus,
         medicinalUse: item.medicinalUse,
         quantity: item.quantity,
-        image: item.image
+        image: item.image,
+        requiresPrescription: item.requiresPrescription
       };
     });
 

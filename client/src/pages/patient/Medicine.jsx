@@ -104,11 +104,12 @@ function listMedicine() {
                   price={item.price}
                   medicineId={item._id}
                   setMedicine={setMedicine}
+                  requiresPrescription={item.requiresPrescription}
+                  medicinalUse={item.medicinalUse}
                 />
               ))}
           </div>
         </div>
-
       </AppBar>
     </div>
   );

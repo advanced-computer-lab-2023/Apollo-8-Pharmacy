@@ -46,6 +46,7 @@ import io from "socket.io-client";
 import OrderPlaced from "./pages/patient/orderPlaced";
 import CreditOrderPlaced from "./pages/patient/CreditOrderPlaced";
 import PharmEditMedicine from "./pages/pharmacist/PharmEditMedicine";
+import PrescriptionsDetails from "./pages/patient/PrescriptionDetails";
 const socket = io.connect("http://localhost:9000");
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
@@ -100,6 +101,7 @@ function App() {
           <Route path="/PatientWallet" element={<PatientWallet />} />
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/PrescriptionList" element={<PrescriptionList />} />
+          <Route path="/prescriptions/:id" element={<PrescriptionsDetails />} />
           <Route path="/OutOfStock" element={<OutOfStock />} />
           <Route path="/orderPlaced" element={<OrderPlaced />} />
           <Route path="/creditOrderPlaced" element={<CreditOrderPlaced />} />
