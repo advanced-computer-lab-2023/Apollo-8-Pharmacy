@@ -185,7 +185,7 @@ and much more to discover... 😊🚀
 here are some code examples for developers to have an overview about our implementation
 
 #### signup patient:
-```
+```javascript
 const createPatient = async (req, res) => {
   // Destructure required fields from request body
   const { username, name, email, password, /* ... other required fields */ } = req.body;
@@ -214,7 +214,7 @@ const createPatient = async (req, res) => {
 ```
 
 #### login Patient:
-```
+```javascript
 const loginPatient = async (req, res) => {
   try {
     // get the username and password from the request body
@@ -245,7 +245,7 @@ const loginPatient = async (req, res) => {
 ```
 
 #### view patient's cart:
-```
+```javascript
 const viewCart = async (req, res) => {
   try {
     // Find patient by user ID and populate medicine details in the cart
@@ -266,7 +266,7 @@ const viewCart = async (req, res) => {
 
 ```
 #### Add a medicine as a pharmacist:
-```
+```javascript
 const addMedicine = async (req, res) => {
   try {
     const { medicineName, price, ingredients, /* ... other required fields */ } = req.body;
