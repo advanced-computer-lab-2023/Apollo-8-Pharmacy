@@ -960,7 +960,8 @@ http://localhost:5173/
 ## Testing with Postman
 Before testing the API using Postman, make sure **Postman Installed**. Download and install [Postman](https://www.postman.com/downloads/).
 
-Use these test cases to test your code using Postman:
+These are some of the test cases used to test the code using Postman:
+
 
 #### Add to Cart (POST)
 
@@ -1113,7 +1114,7 @@ Use these test cases to test your code using Postman:
 }
 ```
 
-**Note:** These are some test cases, not all of them.
+**Note:** Ensure that the user is authenticated before running any of these test by including the JWT token in the request header.
 
 ## How to Use?
 
