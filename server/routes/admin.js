@@ -14,6 +14,9 @@ router.post("/compare",forget.compare)
 //handled internally 
 router.post("/chanePass",changePass.changePass)
 //no need
+
+router.get("/sales/:month?",Middle.requireAuthAdmin,controllers.getAdminSalesReport);
+
 router.post("/adminLogin",Auth.loginAdmin)
 router.get("/getType",Middle.getType)
 //check no need azonn
@@ -23,6 +26,4 @@ router.post("/createUser", controllers.createUser);
 router.get("/getUsers",Middle.requireAuthAdmin ,controllers.getUsers);
 router.post("/addAdministrator",Middle.requireAuthAdmin, controllers.addAdministrator);
 router.delete("/removeUser",Middle.requireAuthAdmin, controllers.removeUser);
-router.get("/sales/:month?",Middle.requireAuthAdmin,controllers.getAdminSalesReport);
-
 export default router;

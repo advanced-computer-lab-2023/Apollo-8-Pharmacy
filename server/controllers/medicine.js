@@ -1,7 +1,7 @@
 import MedicineModel from '../models/medicine.js';
 import PrescriptionModel from '../models/prescription.js';
 import PatientModel from '../models/patient.js';
-
+import OrderModel from '../models/order.js';
 // add a new medicine with all the details 
 const addMedicine = async (req, res) => {
   try {
@@ -82,28 +82,67 @@ const filterMedicine = async (req, res) => {
     res.status(400).send(error.message);
   }
 }
-
-// this returns name , quantity and sales of all medicines (for pharmacist only) 
 const medicineDetails = async (req, res) => {
   try {
+  
     const medicines = await MedicineModel.find();
+
+   
+    const nonCancelledOrders = await OrderModel.find({ status: { $ne: 'Cancelled' } });
+
     const selectedData = medicines.map((item) => {
+      
+      const totalSales = nonCancelledOrders.reduce((acc, order) => {
+        const orderItem = order.items.find((orderItem) => orderItem.medicine.equals(item._id));
+        return acc + (orderItem ? orderItem.quantity * item.price : 0);
+      }, 0);
+
+      
       return {
         medicineName: item.medicineName,
         quantity: item.quantity,
-        sales: item.sales
+        sales: item.sales,
+        totalSales,
       };
     });
 
-    //console.log(selectedData);
-
+    
     res.status(200).json(selectedData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-  catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-}
+};
 
+const addMedicineAdmin = async (req, res) => {
+  try {
+  
+    const medicines = await MedicineModel.find();
+
+   
+    const nonCancelledOrders = await OrderModel.find({ status: { $ne: 'Cancelled' } });
+
+    const selectedData = medicines.map((item) => {
+      
+      const totalSales = nonCancelledOrders.reduce((acc, order) => {
+        const orderItem = order.items.find((orderItem) => orderItem.medicine.equals(item._id));
+        return acc + (orderItem ? orderItem.quantity * item.price : 0);
+      }, 0);
+
+      
+      return {
+        medicineName: item.medicineName,
+        quantity: item.quantity,
+        sales: item.sales,
+        totalSales,
+      };
+    });
+
+    
+    res.status(200).json(selectedData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 //get the total price for a list of medicines in a prescription (from the clinic)
 const medicinePrice = async (req, res) => {
   try {
@@ -297,6 +336,6 @@ export default {
   listMedicines,
   updateArchiveStatus,
   addPrescriptionMed,
-  medicinePrice
-
+  medicinePrice,
+  addMedicineAdmin
 }

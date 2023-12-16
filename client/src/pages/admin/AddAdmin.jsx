@@ -5,25 +5,51 @@ import "../../App.css";
 import { useNavigate } from "react-router-dom";
 import ResponsiveAppBar from "../../components/TopBarAdmin";
 import BottomBar from "../../components/BottomBar";
-
+import { Alert } from "@mui/material";
 function AddAdmin() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const isFormValid = username && password;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:9000/admin/addAdministrator", {
+    try {
+      const response = await axios.post("http://localhost:9000/admin/addAdministrator", {
         username,
         password,
-      })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => console.log(err));
+        type: "Admin",
+      });
+
+      console.log(response); // Corrected variable name from 'result' to 'response'
+
+      setShowAlert(true);
+      setAlertSeverity("success");
+      setAlertMessage("Administrator Added Successfully");
+
+      setTimeout(() => {
+        setShowAlert(false);
+        setAlertMessage("");
+      }, 9000);
+    } catch (error) {
+      setShowAlert(true);
+console.log("error.response.data.error",error.response.data.error)
+if (error.response && error.response.data.error.toLowerCase().trim() === "username is already taken ,please choose a different username") {
+  setAlertSeverity("error");
+  setAlertMessage("Username is already taken, please choose a different username");
+ 
+}
+
+      setTimeout(() => {
+        setShowAlert(false);
+        setAlertSeverity("");
+        setAlertMessage("");
+      }, 9000);
+    }
   };
+
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -54,6 +80,27 @@ function AddAdmin() {
             Add Administrator
           </h1>
         </div>
+        {showAlert && (
+          <Alert
+            style={{
+              marginTop: "2%",
+              fontSize: "18px",
+              backgroundColor: alertSeverity === "success" ? "RGB(50, 205, 50)" : "red",
+              width: "70%",
+              marginLeft: "15%",
+              textAlign: "center",
+            }}
+            variant="filled"
+            onClose={() => {
+              setShowAlert(false);
+              setAlertSeverity("");
+              setAlertMessage("");
+            }}
+            dismissible
+          >
+            {alertMessage}
+          </Alert>
+        )}
         <div
           className="card m-3 col-12"
           style={{ width: "80%", left: "8%", borderRadius: "20px" }}
@@ -85,7 +132,7 @@ function AddAdmin() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn btn-success w-100">
+            <button type="submit" className="btn btn-primary" disabled={!isFormValid}>
               Add
             </button>
           </form>
