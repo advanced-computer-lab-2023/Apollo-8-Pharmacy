@@ -60,9 +60,10 @@ const updateMedicine = async (req, res) => {
     description,
     ingredients,
     price,
+    quantity,
   } = req.body;
   try {
-    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description, ingredients, price } }, { new: true });
+    const medicine = await MedicineModel.findByIdAndUpdate(req.params.id, { $set: { description, ingredients, price, quantity } }, { new: true });
     res.status(200).json(medicine);
   } catch (err) {
     res.status(400).json({ error: err.message });

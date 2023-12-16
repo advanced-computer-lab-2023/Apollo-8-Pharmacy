@@ -52,7 +52,6 @@ function AddMedicine() {
         clearForm();
       })
       .catch((err) => {
-
         setMessage("Failed to add medicine. Please try again.");
 
         console.log(err);
@@ -92,7 +91,7 @@ function AddMedicine() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "30%",
@@ -119,15 +118,14 @@ function AddMedicine() {
           className="card m-3 col-12"
           style={{ width: "80%", borderRadius: "50px", left: "9%" }}
         >
-
           <div className="card-body" style={{}}>
             {message && (
-
               <div
-                className={`alert ${message.includes("successfully")
-                  ? "alert-success"
-                  : "alert-danger"
-                  }`}
+                className={`alert ${
+                  message.includes("successfully")
+                    ? "alert-success"
+                    : "alert-danger"
+                }`}
               >
                 {message}
               </div>
@@ -257,7 +255,7 @@ function AddMedicine() {
               <button
                 onClick={handleButtonClick}
                 style={{
-                  backgroundColor: "rgb(0,140,990)",
+                  backgroundColor: "rgb(65, 105, 225)",
                   width: "10%",
                   borderRadius: "20px",
                 }}
@@ -270,15 +268,15 @@ function AddMedicine() {
           </div>
         </div>
 
-        <button className="btn btn-primary rounded-2"
+        <button
+          className="btn btn-primary rounded-2"
           style={{
-            position: 'fixed',
-            bottom: '5%',
-            right: '5%',
-            width: '5%',
-            height: '40px',
+            position: "fixed",
+            bottom: "5%",
+            right: "5%",
+            width: "5%",
+            height: "40px",
           }}
-
           onClick={handleHome}
         >
           Back

@@ -47,51 +47,57 @@ function orderDetails() {
       >
         <ResponsiveAppBar />
 
-        <div>
+        <div style={{ maxWidth: "80%", marginLeft: "10%", marginTop: "5%" }}>
           <Card>
             {order && (
               <div>
                 <p>Status: {order.status}</p>
                 <p>Payment Method: {order.paymentMethod}</p>
-                <p>Medicines List:</p>
+                <p>Delivery Address: {order.deliveryAddress}</p>
+              </div>
+            )}
+            {order &&
+              order.items.map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    height: "50px",
+                    backgroundColor: "#e2e3e5", // Set the background color to green
+                    color: "black", // Set the text color to white
+                    display: "flex",
+                    justifyContent: "space-between",
+                    margin: "10px",
+                  }}
+                  className="alert d-flex align-items-center"
+                  role="alert"
+                >
+                  <div>{item.medicine.medicineName}</div>
+                  <div>price: {item.medicine.price}</div>
+                  <div>quantity: {item.quantity}</div>
+                </div>
+              ))}
+            {order && (
+              <div
+                style={{
+                  fontSize: "25px",
+                  fontWeight: "500",
+                  margin: "10px",
+                }}
+              >
+                <p>Total: {order.total}</p>
               </div>
             )}
           </Card>
         </div>
-
-        <div>
-          <Card>
-            {order && (
-              <div>
-                <p>{order.status}</p>
-                <p>{order.paymentMethod}</p>
-                <p>Medicines:</p>
-              </div>
-            ) &&
-              order.items.map((item, index) => (
-                <div>
-                  <p>name: {item.medicine.medicineName}</p>
-                  <p>price: {item.medicine.price}</p>
-                  <p>quantity: {item.quantity}</p>
-                </div>
-              ))}
-          </Card>
-        </div>
-
-        <Stack
-          spacing={2}
-          style={{ marginLeft: "50%", marginTop: "2%", marginBottom: "-2%" }}
-        ></Stack>
-
-        <button className="btn btn-primary rounded-2"
+        <button
+          className="btn btn-primary rounded-2"
           style={{
-            position: 'fixed',
-            bottom: '5%',
-            right: '5%',
-            width: '5%',
-            height: '40px',
+            position: "fixed",
+            bottom: "5%",
+            right: "5%",
+            width: "5%",
+            height: "40px",
           }}
-
           onClick={handleHome}
         >
           Back

@@ -25,8 +25,6 @@ import ListMedicinepharm from "./pages/pharmacist/MedicinePharm";
 import HomePagePharm from "./pages/pharmacist/HomePagePharm";
 import HomePageAdmin from "./pages/admin/HomePageAdmin";
 import AddressForm from "./pages/patient/AddressForm";
-import PaymentForm from "./pages/patient/PaymentForm";
-import Review from "./pages/patient/Review";
 import Checkout from "./pages/patient/Checkout";
 import Pharmacistlogin from "./pages/auth/PharmacistLogin";
 import Adminlogin from "./pages/auth/AdminLogin";
@@ -46,6 +44,9 @@ import ChatPhamacist from "./pages/pharmacist/Chat";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import OrderPlaced from "./pages/patient/orderPlaced";
+import CreditOrderPlaced from "./pages/patient/CreditOrderPlaced";
+import PharmEditMedicine from "./pages/pharmacist/PharmEditMedicine";
 const socket = io.connect("http://localhost:9000");
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
@@ -93,8 +94,6 @@ function App() {
           <Route path="/myorders/:id" element={<OrderDetails />} />
           <Route path="/listMedicine" element={<ListMedicine />} />
           <Route path="/AddressForm" element={<AddressForm />} />
-          <Route path="/PaymentForm" element={<PaymentForm />} />
-          <Route path="/Review" element={<Review />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/Chat" element={<Chat />} />
           <Route path="/ForgetPassword" element={<Forget />} />
@@ -103,6 +102,8 @@ function App() {
           <Route path="/ForgetPassword" element={<Forget />} />
           <Route path="/PrescriptionList" element={<PrescriptionList />} />
           <Route path="/OutOfStock" element={<OutOfStock />} />
+          <Route path="/orderPlaced" element={<OrderPlaced />} />
+          <Route path="/creditOrderPlaced" element={<CreditOrderPlaced />} />
         </Routes>
       </div>
     );
@@ -110,7 +111,7 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/medicinesList/:id" element={<EditMedicine />} />
+          <Route path="/medicinesList/:id" element={<PharmEditMedicine />} />
           <Route path="/addMedicine" element={<AddMedicine />} />
 
           <Route path="/medicineSales" element={<MedicineSales />} />

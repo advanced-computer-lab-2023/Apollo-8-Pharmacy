@@ -11,7 +11,6 @@ import BottomBar from "../../components/BottomBar";
 function MedecineOutOfStock() {
   const [data, setData] = useState([]);
 
-
   useEffect(() => {
     const apiUrl = `http://localhost:9000/patient/outofstock`;
     axios
@@ -23,7 +22,6 @@ function MedecineOutOfStock() {
       .catch((error) => {
         console.error("Error fetching :", error);
       });
-
   }, []);
 
   return (
@@ -38,7 +36,7 @@ function MedecineOutOfStock() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "40%",
@@ -65,7 +63,6 @@ function MedecineOutOfStock() {
           className="card m-3 col-12"
           style={{ width: "80%", borderRadius: "50px", left: "9%" }}
         >
-
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -77,9 +74,7 @@ function MedecineOutOfStock() {
               {data.map((item, index) => (
                 <tr key={index}>
                   <td>{item.medicineWithZeroQuantity}</td>
-                  <td>
-                    {item.medicinesWithSameIngredient.join(", ")}
-                  </td>
+                  <td>{item.medicinesWithSameIngredient.join(", ")}</td>
                 </tr>
               ))}
             </tbody>

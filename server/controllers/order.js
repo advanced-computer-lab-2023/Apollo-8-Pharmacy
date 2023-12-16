@@ -48,73 +48,73 @@ const addOrder = async (req, res) => {
       if (cartItem.medicine) {
         const medicine = await MedicineModel.findById(cartItem.medicine);
         console.log("medicine quantity before: " + medicine.quantity);
-    
+
         // Update the quantity of the medicine in the database
         medicine.quantity -= cartItem.quantity;
 
-        if(medicine.quantity===0){
+        if (medicine.quantity === 0) {
           console.log("yahyaa");
-          const message=`this message is to inform you that ${medicine.medicineName} is out of stock `;
+          const message = `this message is to inform you that ${medicine.medicineName} is out of stock `;
 
           const notifi = {
-            data: message,  
-            img:medicine.image,
+            data: message,
+            img: medicine.image,
             state: "Unread",
-            time:new Date(),
+            time: new Date(),
           }
-          const updateNotfi= await PharmacistModel.updateMany({}, { $push: { notifications: notifi} })
+          const updateNotfi = await PharmacistModel.updateMany({}, { $push: { notifications: notifi } })
           const result = await PharmacistModel.find({}, 'email');
-    
+
           // Extract emails from the result
           const emails = result.map(instance => instance.email);
-          
-          
+
+
           //maill
 
 
-            let config={
-              service : "gmail",
-              auth :{
-                  user:process.env.mail,
-                  pass:process.env.appPss
+          let config = {
+            service: "gmail",
+            auth: {
+              user: process.env.mail,
+              pass: process.env.appPss
 
-              },
-              tls: {
-                  rejectUnauthorized: false
-              },
+            },
+            tls: {
+              rejectUnauthorized: false
+            },
           }
 
-          let transporter=mailer.createTransport(config);
+          let transporter = mailer.createTransport(config);
 
           let messagee = {
-              from: process.env.mail, // sender address
-              to:emails , // list of receivers
-              subject: "Hello ✔", // Subject line
-              text: message // plain text body
-              //html: "<b>your verification code is 5555</b>", // html body
-            }
+            from: process.env.mail, // sender address
+            to: emails, // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: message // plain text body
+            //html: "<b>your verification code is 5555</b>", // html body
+          }
 
-            transporter.sendMail(messagee).then((info) => {
-              console.log(info);
+          transporter.sendMail(messagee).then((info) => {
+            console.log(info);
           }).catch(error => {
             console.log(error)
           })
 
 
         }
-    
+
         try {
           await medicine.save();
           console.log("medicine quantity after: " + medicine.quantity);
         } catch (error) {
           console.error('Error saving medicine:', error);
         }
-    
+
         total += medicine.price * cartItem.quantity;
       }
     }
 
-    
+
     const order = new OrderModel({
       patient: patientId,
       deliveryAddress,
@@ -232,25 +232,24 @@ const cancelOrder = async (req, res) => {
     if (order.status !== 'Pending') {
       return res.status(400).json({ error: 'Cannot cancel order. Status is not Pending.' });
     }
-// Iterate through order items and increment the quantity in the MedicineModel
-     for (const orderItem of order.items) {
+    // Iterate through order items and increment the quantity in the MedicineModel
+    for (const orderItem of order.items) {
       const medicine = await MedicineModel.findById(orderItem.medicine);
       console.log("medicine quantity before: " + medicine.quantity);
-  
+
       // Update the quantity of the medicine in the database
       medicine.quantity += orderItem.quantity;
-  
+
       try {
         await medicine.save();
         console.log("medicine quantity after: " + medicine.quantity);
       } catch (error) {
         console.error('Error saving medicine:', error);
       }
-    order.status = 'Cancelled';
-    await order.save();
-
+      order.status = 'Cancelled';
+      await order.save();
+    }
     res.status(200).json({ message: 'Order cancelled successfully' });
-     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -261,5 +260,5 @@ export default {
   viewOrderDetails,
   cancelOrder,
   getOrders,
-  
+
 }

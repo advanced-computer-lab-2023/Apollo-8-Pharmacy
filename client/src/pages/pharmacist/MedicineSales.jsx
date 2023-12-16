@@ -18,7 +18,6 @@ function MedicineSales() {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-
   /*useEffect(() => {
     const apiUrl = "http://localhost:9000/medicine/medicineDetails";
     axios
@@ -77,7 +76,7 @@ function MedicineSales() {
         <ResponsiveAppBar />
         <div
           style={{
-            backgroundColor: "rgb(0,140,990)",
+            backgroundColor: "rgb(65, 105, 225)",
             borderRadius: "50px",
             margin: "10px",
             width: "30%",
@@ -106,7 +105,6 @@ function MedicineSales() {
         >
           <Form>
             <InputGroup className="my-3" style={{ width: "80%" }}>
-
               <Form.Control
                 style={{ color: "black", backgroundColor: "white" }}
                 sx={{
@@ -119,12 +117,10 @@ function MedicineSales() {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search contacts"
               />
-
             </InputGroup>
           </Form>
           <Form>
             <InputGroup className="my-3" style={{ width: "80%" }}>
-
               <Form.Control
                 style={{ color: "black", backgroundColor: "white" }}
                 sx={{
@@ -140,12 +136,10 @@ function MedicineSales() {
                 }}
                 placeholder="Search by month"
               />
-
             </InputGroup>
           </Form>
           <Form>
             <InputGroup className="my-3" style={{ width: "80%" }}>
-
               <Form.Control
                 type="date"
                 style={{ color: "black", backgroundColor: "white" }}
@@ -186,15 +180,15 @@ function MedicineSales() {
             </tbody>
           </Table>
         </div>
-        <button className="btn btn-primary rounded-2"
+        <button
+          className="btn btn-primary rounded-2"
           style={{
-            position: 'fixed',
-            bottom: '5%',
-            right: '5%',
-            width: '5%',
-            height: '40px',
+            position: "fixed",
+            bottom: "5%",
+            right: "5%",
+            width: "5%",
+            height: "40px",
           }}
-
           onClick={handleHome}
         >
           Back

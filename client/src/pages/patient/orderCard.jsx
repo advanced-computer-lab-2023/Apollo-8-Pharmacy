@@ -26,17 +26,10 @@ function order(props) {
         console.error("order or its ID is undefined.");
         return;
       }
-
       const response = await axios.put(`http://localhost:9000/order/cancel`, {
         orderId: props.orderId,
       });
-
-      if (response.data) {
-        // Update state to remove the item from the cartItems array
-        props.setOrderItems((prevItems) =>
-          prevItems.filter((item) => item._id !== props.orderId)
-        );
-      }
+      window.location.reload(true);
     } catch (error) {
       console.error("Error decrementing medicine:", error);
     }
