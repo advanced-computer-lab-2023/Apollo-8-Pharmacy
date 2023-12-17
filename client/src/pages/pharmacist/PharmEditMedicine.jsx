@@ -5,13 +5,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AppBar } from "@mui/material";
 import ResponsiveAppBar from "../../components/TopBarPharm";
-
+import { useNavigate } from "react-router-dom";
 function PharmEditMedicine() {
   const [description, setDescription] = useState();
   const [ingredients, setIngredients] = useState();
   const [price, setPrice] = useState();
   const [quantity, setQuantity] = useState();
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const handleSubmit = (e) => {
@@ -29,7 +29,9 @@ function PharmEditMedicine() {
       })
       .catch((err) => console.log(err));
   };
-
+  const handleHome = () => {
+    navigate("/medicinesListPharmacist");
+  };
   return (
     <div className="d-flex justify-content-center align-itelms-center vh-100 bg-light">
       <AppBar
@@ -103,10 +105,23 @@ function PharmEditMedicine() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-success">
+              <button type="submit"  className="btn btn-primary rounded-2">
                 Update
               </button>
             </form>
+            <button
+            className="btn btn-primary rounded-2"
+            style={{
+              position: "fixed",
+              bottom: "5%",
+              right: "5%",
+              width: "5%",
+              height: "40px",
+            }}
+            onClick={handleHome}
+          >
+            Back
+          </button>
           </div>
         </div>
       </AppBar>

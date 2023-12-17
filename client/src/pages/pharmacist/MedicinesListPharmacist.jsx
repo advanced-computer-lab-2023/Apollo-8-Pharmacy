@@ -63,12 +63,12 @@ function MedicinesListPharmacist() {
           archivedStatus: "Archived",
         }
       );
-      navigate("/MedicinesListPharmacist");
+      // navigate("/MedicinesListPharmacist");
 
       if (response.data) {
-        // props.setMedicine((prevItems) =>
-        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
-        // );
+        let index = data.findIndex(item => item._id == response.data._id);
+        data[index] = response.data;
+        setData([...data]);
       }
     } catch (error) {
       console.error("Error Archive ", error);
@@ -91,9 +91,9 @@ function MedicinesListPharmacist() {
       );
 
       if (response.data) {
-        // props.setMedicine((prevItems) =>
-        //   prevItems.filter((item) => item.medicine._id !== props.medicineId)
-        // );
+        let index = data.findIndex(item => item._id == response.data._id);
+        data[index] = response.data;
+        setData([...data]);
       }
     } catch (error) {
       console.error("Error Archive ", error);
@@ -183,22 +183,21 @@ function MedicinesListPharmacist() {
                     </td>
                     <td>
                       <button
-                        style={{ margin: "5%" }}
-                        className="btn btn-success"
+                        style={{ margin: "5%" }} className="btn btn-primary rounded-2"
                         onClick={() => handleEdit(item._id)}
                       >
                         Edit
                       </button>
                       <button
                         style={{ margin: "5%" }}
-                        className="btn btn-success"
+                        className="btn btn-primary rounded-2"
                         onClick={() => handleArchiveB(item._id)}
                       >
                         Archive
                       </button>
                       <button
                         style={{ margin: "5%" }}
-                        className="btn btn-success"
+                        className="btn btn-primary rounded-2"
                         onClick={() => handbleUnarchiveB(item._id)}
                       >
                         Unarchive
