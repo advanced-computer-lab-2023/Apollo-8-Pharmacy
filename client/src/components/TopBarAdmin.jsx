@@ -159,18 +159,6 @@ function ResponsiveAppBar() {
               Add Admin{" "}
             </Button>
             <Button
-              onClick={Change}
-              sx={{
-                color: "white",
-                display: "block",
-                fontSize: "13px",
-                fontWeight: 500,
-              }}
-            >
-              {" "}
-              Change Password{" "}
-            </Button>
-            <Button
               onClick={handleSalesReport}
               sx={{
                 color: "white",
