@@ -161,7 +161,7 @@ function MedicineSales() {
                     .filter((item) => {
                       return search.toLowerCase() === ""
                         ? item
-                        : item.medicineName.toLowerCase().includes(search);
+                        : item.medicineName.toLowerCase().includes(search.toLowerCase());
                     })
                     .map((item, index) => (
                       <tr key={index}>
