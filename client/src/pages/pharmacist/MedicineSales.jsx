@@ -92,7 +92,9 @@ function MedicineSales() {
         });
     }
   }, [selectedDate]);
-
+  const handleHome = () => {
+    navigate("/HomePagePharm");
+  };
   return (
     <div style={{ marginRight: "-5%", marginLeft: "-5%" }}>
       <AppBar
@@ -199,7 +201,7 @@ function MedicineSales() {
                 .filter((item) => {
                   return search.toLowerCase() === ""
                     ? item
-                    : item.medicineName.toLowerCase().includes(search);
+                    : item.medicineName.toLowerCase().includes(search.toLowerCase());
                 })
                 .map((item, index) => (
                   <tr key={index}>

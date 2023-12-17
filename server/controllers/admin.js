@@ -118,6 +118,7 @@ console.log("admin._id", admin._id);
 
       return {
         medicineName: medicine.medicineName,
+        quantity:medicine.quantity,
         totalSales,
       };
     });
@@ -128,7 +129,40 @@ console.log("admin._id", admin._id);
     res.status(400).send(error.message);
   }
 }
+
+const medicineDetails = async (req, res) => {
+  try {
+  
+    const medicines = await MedicineModel.find();
+
+   
+    const nonCancelledOrders = await OrderModel.find({ status: { $ne: 'Cancelled' } });
+
+    const selectedData = medicines.map((item) => {
+      
+      const totalSales = nonCancelledOrders.reduce((acc, order) => {
+        const orderItem = order.items.find((orderItem) => orderItem.medicine.equals(item._id));
+        return acc + (orderItem ? orderItem.quantity * item.price : 0);
+      }, 0);
+
+      
+      return {
+        medicineName: item.medicineName,
+        quantity: item.quantity,
+        sales: item.sales,
+        totalSales,
+      };
+    });
+
+    
+    res.status(200).json(selectedData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 export default {
   createUser, getUsers,
-  addAdministrator, removeUser,getAdminSalesReport
+  addAdministrator, removeUser,getAdminSalesReport,
+  medicineDetails
 }

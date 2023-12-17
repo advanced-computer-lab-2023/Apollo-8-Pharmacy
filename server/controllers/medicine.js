@@ -187,7 +187,8 @@ const listMedicines = async (req, res) => {
         medicinalUse: item.medicinalUse,
         quantity: item.quantity,
         image: item.image,
-        requiresPrescription: item.requiresPrescription
+        requiresPrescription: item.requiresPrescription,
+        archiveStatus: item.archiveStatus
       };
     });
 

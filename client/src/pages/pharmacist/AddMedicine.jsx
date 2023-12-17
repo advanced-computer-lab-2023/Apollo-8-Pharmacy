@@ -24,7 +24,7 @@ function AddMedicine() {
   const [medicinalUse, setMedicinalUse] = useState();
   const [image, setImage] = useState();
   const [message, setMessage] = useState("");
-
+  const isFormValid = medicineName && price && quantity && ingredients && description &&medicineStatus &&medicinalUse && image;
   // to handle the addition of medicine in the DB
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -162,6 +162,7 @@ function AddMedicine() {
                     placeholder="Enter price in L.E."
                     autoComplete="off"
                     name="price"
+                    min="0"
                     className="form-control rounded-0"
                     onChange={(e) => setPrice(e.target.value)}
                   />
@@ -175,6 +176,7 @@ function AddMedicine() {
                     placeholder="Enter quantity"
                     autoComplete="off"
                     name="quantity"
+                    min="0"
                     className="form-control rounded-0"
                     onChange={(e) => setQuantity(e.target.value)}
                   />
@@ -274,7 +276,8 @@ function AddMedicine() {
                   borderRadius: "20px",
                 }}
                 type="submit"
-                className="btn btn-success"
+                class="btn btn-primary"
+                disabled={!isFormValid}
               >
                 Add
               </button>
