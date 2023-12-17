@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AppBar } from "@mui/material";
+import { Alert } from "@mui/material";
 import ResponsiveAppBar from "../../components/TopBarPharm";
 import { useNavigate } from "react-router-dom";
 function PharmEditMedicine() {
@@ -11,11 +12,15 @@ function PharmEditMedicine() {
   const [ingredients, setIngredients] = useState();
   const [price, setPrice] = useState();
   const [quantity, setQuantity] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const isFormValid = description && ingredients && ingredients && quantity ;
   const handleSubmit = (e) => {
     e.preventDefault();
+    try{
     const apiUrl = `http://localhost:9000/medicine/${id}`;
     axios
       .put(apiUrl, {
@@ -24,11 +29,28 @@ function PharmEditMedicine() {
         price,
         quantity,
       })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => console.log(err));
-  };
+      setShowAlert(true);
+          setAlertSeverity("success");
+          setAlertMessage("Medicine updated Successfully");
+          setTimeout(() => {
+            setShowAlert(false);
+            setAlertMessage("");
+          }, 9000);
+        } catch (error) {
+          setShowAlert(true);
+          
+        
+          
+                setTimeout(() => {
+                  setShowAlert(false);
+                  setAlertSeverity("");
+                  setAlertMessage("");
+                }, 9000);
+              }
+            
+            };
+          
+  
   const handleHome = () => {
     navigate("/medicinesListPharmacist");
   };
@@ -47,6 +69,27 @@ function PharmEditMedicine() {
           <div className="card-header">
             <h2>Edit Medicine</h2>
           </div>
+          {showAlert && (
+         <Alert
+         style={{
+           marginTop: "2%",
+           fontSize: "18px",
+           backgroundColor:alertSeverity === "success" ? "RGB(50, 205, 50)" : "red",
+           width: "70%",
+           marginLeft: "15%",
+           textAlign: "center",
+         }}
+         variant="filled"
+         onClose={() => {
+            setShowAlert(false);
+            setAlertSeverity("");
+            setAlertMessage("");
+         }}
+            dismissible
+          >
+         {alertMessage}
+          </Alert>
+        )}
           <div className="card-body">
             <form action="" onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -86,13 +129,14 @@ function PharmEditMedicine() {
                   placeholder="Enter price"
                   autoComplete="off"
                   name="price"
+                  min="0"
                   className="form-control rounded-0"
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
 
               <div className="mb-3">
-                <label htmlFor="price">
+                <label htmlFor="quantity">
                   <strong>quantity</strong>
                 </label>
                 <input
@@ -101,11 +145,13 @@ function PharmEditMedicine() {
                   autoComplete="off"
                   name="price"
                   className="form-control rounded-0"
+                  min="0"
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
 
-              <button type="submit"  className="btn btn-primary rounded-2">
+              <button type="submit"  className="btn btn-primary rounded-2"     disabled={!isFormValid}>
+            
                 Update
               </button>
             </form>
