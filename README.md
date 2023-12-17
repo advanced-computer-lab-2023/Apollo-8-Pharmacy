@@ -80,33 +80,36 @@ Please ensure your code adheres to these guidelines before submitting a pull req
 Screenshot of the Main page, which serves as the registration portal. It includes sign-up options for pharmacists and patients, and sign-in options for administrators, pharmacists, and patients.
 
 ![Main Registeration page](./ReadmeImages/ph1.png)
-![Main Registeration page](./ReadmeImages/ph2.png)
 
 ### pharmacist Homepage 
 
 This is the main interface for pharmacists after signing in, providing access to all pharmacist-specific features and functionalities.
 
-![homePage pharmacist](./ReadmeImages/ph4.png)
+![homePage pharmacist](./ReadmeImages/pharmacistHome.png)
 
 ### Admin Homepage
 
 This is the main interface for Admin after signing in, providing access to all Admin-specific features and functionalities.
 
-![homePage Admin](./ReadmeImages/ph10.png)
+![homePage Admin](./ReadmeImages/admin.png)
 
 ### patient Homepage
 
 This is the main interface for patient after signing in, providing access to all patient-specific features and functionalities.
 
-![homePage patint](./ReadmeImages/ph11.png)
+![homePage patint](./ReadmeImages/patientHome.png)
 
 ### Medicine list
 
 Patients can view all the Medicines uploaded by the Pharmacists
 
 ![medicine List](./ReadmeImages/ph5.png)
-![medicine List](./ReadmeImages/ph6.png)
 
+### Patient's cart
+
+Responsive shopping cart, customizable by the patient according to their evolving needs.
+
+![patient cart](./ReadmeImages/cart.png)
 
 ## Tech/Framework used 🧰
 
